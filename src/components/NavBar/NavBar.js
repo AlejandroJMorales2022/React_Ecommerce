@@ -15,7 +15,7 @@ function NavBar() {
                 
                     <Container className='container-fluid navbarContenedor'>   
                         <div className='imgLogo'>
-                            <img src={logoLepen} height={30} alt="logo Lepen" />
+                            <img src={logoLepen} height={40} alt="logo Lepen" />
                         </div>     
                         <div className="cartContainer d-flex justfy-content-center">
                             <CartWidget/>

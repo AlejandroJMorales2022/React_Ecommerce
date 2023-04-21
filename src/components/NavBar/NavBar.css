@@ -12,7 +12,6 @@
    
 }
 .nav-link:hover{
-    font-size: 1.1rem;
     color: tomato !important;
 }
 .navbar-brand{
@@ -21,7 +20,7 @@
 }
 .navbarContainer{
     width: 95% !important;
-    height: 55px;
+    height: 80px;
     background-color: #1f2124 !important;
     color: #b8a68c;
     border-radius: 10px !important;;
@@ -92,6 +91,10 @@ color:#b8a68c;
         top: 100%;
         left: -40px;
         margin-top: var(--bs-dropdown-spacer);
+    }
+    .cartContainer{
+        position: relative;
+        left: 20px;
     }
 }
 @media(max-width: 576px){
