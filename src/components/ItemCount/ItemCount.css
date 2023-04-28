@@ -1,0 +1,12 @@
+.Counter{
+    width: 250px;
+    border: 1px solid  #1f2124;;
+}
+.btn_control, .btn_add{
+    width: 70px;
+    background-color: #1f2124;
+    color: #b8a68c;
+}
+.btn_add{
+    width: 200px;
+}

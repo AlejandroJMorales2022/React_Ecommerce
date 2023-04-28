@@ -1,7 +1,11 @@
 import cart from './assets/carrito.png'
 import './CartWidget.css';
 
-const CartWidget = () => {
+
+const CartWidget = (onAddQty) => {
+
+
+
     return(
         <>
             <div className='d-flex justify-content-center align-items-center'>
@@ -9,7 +13,7 @@ const CartWidget = () => {
                     <img className='imgCart' src={cart} alt="cart-widget"/>
                 </div>
                 <div className='qty'>
-                    5
+                    0
                 </div>
             </div>
         </>

@@ -18,6 +18,8 @@ html{
 .imgPreserntacion{
     width: 300px;
 }
+
+
 @media(max-width: 576px){
     .greeting_text1{
         margin-top: 5px;
