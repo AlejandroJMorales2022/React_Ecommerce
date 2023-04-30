@@ -7,7 +7,7 @@ import './NavBar.css';
 import logoLepen from './assets/images/lepen_blanco.png';
 import CartWidget from '../CartWidget/CartWidget';
 
-function NavBar(qty) {
+function NavBar() {
   return (
     
             <div className='container-fluid d-flex justify-content-center'>          
@@ -18,7 +18,8 @@ function NavBar(qty) {
                             <img src={logoLepen} height={40} alt="logo Lepen" />
                         </div>     
                         <div className="cartContainer d-flex justfy-content-center">
-                            <CartWidget qty={qty} />
+                            <CartWidget 
+                             />
                         </div>
                     
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
-import { getProducts } from '../../asymcMock';
+import { getProducts } from '../../asyncMock';
 
-const ItemListContainer = ({greeting1, greeting2, imgPresentacion}) => {
+const ItemListContainer = ({greeting1, imgPresentacion}) => {
     
     const [products, setProducts] = useState([])
 
     useEffect(()=>{
         getProducts()
             .then(response => {
-                console.log(response)
                 setProducts(response)
             })
             .catch(error=>{
@@ -19,15 +18,20 @@ const ItemListContainer = ({greeting1, greeting2, imgPresentacion}) => {
     },[]);
     
     return (
-        <div className="container-fluid d-flex flex-column justify-content-center align-items-center">
-            <h1 className='greeting_text1'>{greeting1}</h1>
-            <div>
-                <img src={imgPresentacion} className='imgPreserntacion' alt='Imagen de Presentacion' />
+        <>
+            <div className="container-fluid d-flex justify-content-center align-items-center">
+                <div>
+                    <h1 className='greeting_text1'>{greeting1}</h1>
+                </div>
+                
+                <div>
+                    <img src={imgPresentacion} className='imgPreserntacion img-fluid' alt='Imagen de Presentacion' />
+                </div>
             </div>
-            <h4 className='greeting_text2'>{greeting2}</h4>
-        
-            <ItemList products={products} />  
-        </div>
+            <div className='container-fluid'>
+                <ItemList products={products} />  
+            </div>
+        </>
     )
 }
 

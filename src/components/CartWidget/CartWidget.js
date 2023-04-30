@@ -2,7 +2,7 @@ import cart from './assets/carrito.png'
 import './CartWidget.css';
 
 
-const CartWidget = (onAddQty) => {
+const CartWidget = () => {
 
 
 
@@ -13,7 +13,7 @@ const CartWidget = (onAddQty) => {
                     <img className='imgCart' src={cart} alt="cart-widget"/>
                 </div>
                 <div className='qty'>
-                    0
+                    6
                 </div>
             </div>
         </>
