@@ -119,6 +119,7 @@ export const getProducts = ()=>{
     return new Promise((resolve) => {
         setTimeout(()=>{
             resolve(products)
+            console.log(products)
         },1000)
     })
     
@@ -128,6 +129,7 @@ export const getProductsById = (productId)=>{
     return new Promise((resolve) => {
         setTimeout(()=>{
             resolve(products.find(prod => prod.id === productId))
+            console.log('por aca '+(products.find(prod => prod.id === productId)).name)
         },1000)
     })
 }

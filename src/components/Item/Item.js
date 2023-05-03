@@ -20,17 +20,17 @@ const Item = ({id, name, img, price, stock}) =>{
                     Stock Didsponible: {stock}
                 </p>
             </section>
-            <footer className='ItemFooter row d-flex justify-content-end align-items-center pb-2'>
+            <footer className='ItemFooter row d-flex justify-content-center align-items-center pb-2'>
                 <div className='BtnContainer col-6'>
                     <button className='Option btnVerDetalle btn btn-secondary'>Ver Detalle</button>
                 </div>
-                <div className='itemCount_Container col-6'>
+                {/* <div className='itemCount_Container col-6'>
                     <ItemCount
                     stock={10} 
                     initial={1}
                     onAdd={(quantity)=>{ console.log('Cantidad Agregada ', quantity)}}
                     />
-                </div>
+                </div> */}
             </footer>
         </article>
 

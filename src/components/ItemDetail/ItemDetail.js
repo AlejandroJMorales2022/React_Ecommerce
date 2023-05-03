@@ -2,11 +2,9 @@ import ItemCount from "../ItemCount/ItemCount"
 
 
 
-const ItemDetail = (id, name, price,category, img, stock, description)=>{
+const ItemDetail = (id,name,price,category,img,stock,description)=>{
     return(
-        <>
             <article className='CardItemDetail card col-11 col-md-5 col-lg-3 m-1'>
-
                 <picture>
                     <img src={img} alt={name} className='ItemImg' />
                 </picture>
@@ -31,8 +29,6 @@ const ItemDetail = (id, name, price,category, img, stock, description)=>{
                     </div>
                 </footer>
             </article>
-        </>
-     
 
     )
 }

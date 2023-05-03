@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 
 const ItemCount = ({stock, initial, onAdd, MostrarAlert}) =>  {
-    console.log("hola "+onAdd)
+    
     const [quantity, setQuantity]= useState(initial)
 
     const increment = () => {

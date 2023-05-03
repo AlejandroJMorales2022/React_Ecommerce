@@ -11,6 +11,7 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
         getProducts()
             .then(response => {
                 setProducts(response)
+                console.log('ITEMlistContainer '+response)
             })
             .catch(error=>{
                 console.error(error)

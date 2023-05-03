@@ -5,12 +5,14 @@ import ItemDetail from "../ItemDetail/ItemDetail";
 
 const ItemDetailContainer = () => {
     
-    const [product, setProduct] = useState({id:1,name:'pepe'})
+    const [product, setProduct] = useState(null)
 
     useEffect(()=>{
-        getProductsById('1')
+        getProductsById(1)
             .then(response => {
                 setProduct(response)
+                
+                console.log('RESPUESTA '+ response)
             })
             .catch(error=>{
                 console.error(+error)
