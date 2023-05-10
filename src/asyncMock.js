@@ -142,12 +142,201 @@ const products = [
     },
     {
         id:16,
-        name:'Caño',
+        name:'Fogonero Circular 80cm',
+        price:216890,
+        category: 'Gourmet',
+        img:'/assets/images/fogoneros/fogonero_circular_80cm.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:17,
+        name:'Fogonero Parrillero Premium',
+        price:216890,
+        category: 'Gourmet',
+        img:'/assets/images/fogoneros/fogonero_parrillero_premium.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:18,
+        name:'Good Meat',
+        price:216890,
+        category: 'Gourmet',
+        img:'/assets/images/fogoneros/good_meat.jpg',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:19,
+        name:'Good Meat con Plancha',
+        price:216890,
+        category: 'Gourmet',
+        img:'/assets/images/fogoneros/good_meat_con_plancha.jpg',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:20,
+        name:'Wordl Champions',
+        price:216890,
+        category: 'Gourmet',
+        img:'/assets/images/fogoneros/wordl_champions.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:21,
+        name:'Round 7000 con Horno',
+        price:216890,
+        category: 'Calefaccion',
+        img:'/assets/images/con_horno/round7000h.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:22,
+        name:'Premium 12000 con Horno',
+        price:216890,
+        category: 'Calefaccion',
+        img:'/assets/images/con_horno/premium12000h.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:23,
+        name:'Premium 17000 con Horno',
+        price:216890,
+        category: 'Calefaccion',
+        img:'/assets/images/con_horno/premium17000h.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:24,
+        name:'Premium 27000 con Horno',
+        price:216890,
+        category: 'Calefaccion',
+        img:'/assets/images/con_horno/premium27000h.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:25,
+        name:'Cassette Nro4 con Horno',
+        price:216890,
+        category: 'Calefaccion',
+        img:'/assets/images/con_horno/cassette_n4h.png',
+        stock:10,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:26,
+        name:'Kit Encamisado Acero Inoxidable',
         price:216890,
         category: 'Accesorios',
-        img:'/assets/images/accesorios/canio_acero_inoxidable.png',
+        img:'/assets/images/accesorios/kit_encamisado_acero.png',
+        stock:30,
+        description: 'Kit Encamisado para techo con Tapacielo de Acero Inoxidable. - Caño Galvanizado 8", Reduccion de 8" a 6" Tapacielo de Acero Inoxidable 6" - '
+    },
+    {
+        id:27,
+        name:'Kit Acero Inoxidable 6" (de pared)',
+        price:30750,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/kit-acero-inox.png',
+        stock:30,
+        description: 'Kit Acero Inoxidable de 6" para pared - Incluye: Tres Caños, Dos Curvas, Un Sombrero pintado'
+    },
+    {
+        id:28,
+        name:'Kit Enlozado 6" (de pared)',
+        price:29030,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/kit_enlozado.png',
+        stock:30,
+        description: 'Kit Enlozado de 6" para pared - Incluye: Tres Caños Enlozados, Dos Curvas Enlozadas, Un Sombrero pintado'
+    },
+    {
+        id:29,
+        name:'Kit Galvanizado 6" (de pared)',
+        price:18770,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/kit_galvanizado.png',
+        stock:30,
+        description: 'Kit Galvanizado de 6" para pared - Incluye: Tres Caños, Dos Curvas, Un Sombrero pintado'
+    },
+    {
+        id:30,
+        name:'Caño Enlozado Doble 6"',
+        price:216890,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/canio_enlozado_doble.png',
         stock:14,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'Caño de Enlozado 6 pulgadas - Calibre 25 - Un metro de largo'
+    },
+    {
+        id:31,
+        name:'Caño Galvanizado 6"',
+        price:216890,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/canio-galvanizado.png',
+        stock:14,
+        description: 'Caño Galvanizado 6 pulgadas - Calibre 25 - Un metro de largo'
+    },
+    {
+        id:32,
+        name:'Curva Acero Inoxidable 6"',
+        price:2930,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/curva_acero_inoxidable.png',
+        stock:14,
+        description: 'Curva de Acero Inoxidable de 6" - Calibre 25 - Dimensiones 30 x 15 x 20cm'
+    },
+    {
+        id:33,
+        name:'Curva Enlozada 6"',
+        price:2930,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/curva_enlozada.png',
+        stock:14,
+        description: 'Curva Enlozada de 6" - Calibre 25 - Dimensiones 30 x 15 x 20cm'
+    },
+    {
+        id:34,
+        name:'Curva Galvanizada 6"',
+        price:1490,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/curva_galvanizada.png',
+        stock:14,
+        description: 'Curva EGalvanizada de 6" - Calibre 25 - Dimensiones 30 x 15 x 20cm'
+    },
+    {
+        id:35,
+        name:'Sombrero Acero Inoxidable 6"',
+        price:6280,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/sombrero_acero.png',
+        stock:14,
+        description: 'Sombrero de Acero Inoxidable de 6" - Dimensiones 30 x 30 x 30cm'
+    },
+    {
+        id:36,
+        name:'Sombrero Enlozado 6"',
+        price:6280,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/sombrero_enlozado.png',
+        stock:14,
+        description: 'Sombrero Enlozado de 6" - Dimensiones 30 x 30 x 30cm'
+    },
+    {
+        id:37,
+        name:'Sombrero Galvanizado 6"',
+        price:6280,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/sombrero_galvanizado.png',
+        stock:14,
+        description: 'Sombrero Galvanizado de 6" - Dimensiones 30 x 30 x 30cm'
     }
 ]
 
