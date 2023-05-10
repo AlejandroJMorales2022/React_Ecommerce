@@ -5,6 +5,7 @@ import NavBar from './components/NavBar/NavBar';
 import imgPresentacion from'./components/ItemListContainer/assets/images/cassete-n2.webp';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import {BrowserRouter, Route,Routes} from "react-router-dom"
+import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
 
 
 
@@ -24,17 +25,17 @@ function App() {
           </>
           
           }/>
-        <Route path='/components/ItemDetailContainer' element={
+        <Route path='/components/CategoriesContainer/:category' element={
           <>
           <NavBar/>
-          <ItemDetailContainer/>
+          <CategoriesContainer/>
           </>
           }/>
-          <Route path='/components/ItemDetailContainer/:idProducts' 
+          <Route path='/components/ItemDetailContainer/:idProduct' 
             element={
             <>
               <NavBar/>
-              <ItemDetailContainer id={7} />
+              <ItemDetailContainer />
             </>
             }/>
 {/*         <div className="App">

@@ -5,22 +5,22 @@ import { useParams } from "react-router-dom";
 
 
 
-const ItemDetailContainer = () => {
+const CategoriesContainer = () => {
     
     const [product, setProduct] = useState(null)
-    const { idProduct } = useParams()
+    const { category } = useParams()
 
     
 
     useEffect(()=>{
-        getProductsById(parseInt(idProduct))
+        getProductsById(parseInt(category))
             .then(response => {
                 setProduct(response)
             })
             .catch(error=>{
                 console.error(+error)
             })
-    },[idProduct]);
+    },[category]);
     
     return (
             <div className="ItemDetailContainer container-fluid d-flex justify-content-center align-items-center">
@@ -29,4 +29,4 @@ const ItemDetailContainer = () => {
     )
 }
 
-export default ItemDetailContainer
+export default CategoriesContainer

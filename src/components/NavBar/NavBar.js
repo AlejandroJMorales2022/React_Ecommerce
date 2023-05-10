@@ -30,7 +30,7 @@ function NavBar() {
                             <NavLink to={'/'} className='nav-link'>Home</NavLink> 
                             <NavDropdown title="Productos" id="basic-nav-dropdown">
                                 <NavLink to={'/components/ItemDetailContainer'} className='nav-link dropdown-item'>Calefacción</NavLink>
-                                <NavLink to={'/components/ItemDetailContainer'} className='nav-link dropdown-item'>Gourmet</NavLink>
+                                <NavLink to={`/components/CategoriesContainer/${"Gourmet"}`} className='nav-link dropdown-item'>Gourmet</NavLink>
                                 <NavDropdown.Divider />
                                 <NavLink to={''} className='nav-link dropdown-item'>Accesorios</NavLink>
                             </NavDropdown>
