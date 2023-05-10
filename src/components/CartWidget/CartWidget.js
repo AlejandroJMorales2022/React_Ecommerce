@@ -12,7 +12,7 @@ const CartWidget = () => {
                 <div>
                     <img className='imgCart' src={cart} alt="cart-widget"/>
                 </div>
-                <div className='qty'>
+                <div className='qty text-center'>
                     6
                 </div>
             </div>

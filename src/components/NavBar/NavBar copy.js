@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import logoLepen from './assets/images/lepen_blanco.png';
 import CartWidget from '../CartWidget/CartWidget';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 function NavBar() {
@@ -17,7 +17,7 @@ function NavBar() {
                 
                     <Container className='container-fluid navbarContenedor'>   
                         <div className='imgLogo'>
-                            <Link to={'/'}><img src={logoLepen} height={40} alt="logo Lepen" /></Link>
+                            <img src={logoLepen} height={40} alt="logo Lepen" />
                         </div>     
                         <div className="cartContainer d-flex justfy-content-center">
                             <CartWidget 
@@ -27,15 +27,25 @@ function NavBar() {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse  id="basic-navbar-nav">
                         <Nav className="ulContenedor"> 
-                            <NavLink to={'/'} className='nav-link'>Home</NavLink> 
+                            <NavLink to={'/'}>Home</NavLink>
                             <NavDropdown title="Productos" id="basic-nav-dropdown">
-                                <NavLink to={'/components/ItemDetailContainer'} className='nav-link dropdown-item'>Calefacción</NavLink>
-                                <NavLink to={'/components/ItemDetailContainer'} className='nav-link dropdown-item'>Gourmet</NavLink>
+                                <NavDropdown title="Calefaccion" id="basic-nav-dropdown1">
+                                  <div className='dropdownCalefaccion'> 
+                                    <NavDropdown.Item  href="#action/4.1">Premium Clasicos</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/4.2">Con Horno</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/4.3">Cassettes Insertables</NavDropdown.Item>
+                                  </div>
+                                </NavDropdown>
+                                <NavDropdown title="Gourmet" id="basic-nav-dropdown2">
+                                    <NavDropdown.Item href="#action/5.1">Parrillas</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/5.2">Fogoneros</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/5.3">Hornos a Leña</NavDropdown.Item>
+                                </NavDropdown>
                                 <NavDropdown.Divider />
-                                <NavLink to={''} className='nav-link dropdown-item'>Accesorios</NavLink>
+                                <NavDropdown.Item href="#action/3.3">Accesorios</NavDropdown.Item>
                             </NavDropdown>
-                            <NavLink to={''} className='nav-link'>Ventajas</NavLink>
-                            <NavLink to={''} className='nav-link'>Contacto</NavLink>
+                            <Nav.Link href="#link1">Ventajas</Nav.Link>
+                            <Nav.Link href="#link2">Contacto</Nav.Link>
                         </Nav>
                         </Navbar.Collapse>
                     </Container>

@@ -3,12 +3,15 @@ import { getProductsById } from "../../asyncMock";
 import ItemDetail from "../ItemDetail/ItemDetail";
 
 
-const ItemDetailContainer = () => {
+
+const ItemDetailContainer = ({id}) => {
     
     const [product, setProduct] = useState(null)
 
+    
+
     useEffect(()=>{
-        getProductsById(1)
+        getProductsById(id)
             .then(response => {
                 setProduct(response)
                 
@@ -17,7 +20,7 @@ const ItemDetailContainer = () => {
             .catch(error=>{
                 console.error(+error)
             })
-    },[]);
+    },[id]);
     
     return (
             <div className="ItemDetailContainer container-fluid d-flex justify-content-center align-items-center">
