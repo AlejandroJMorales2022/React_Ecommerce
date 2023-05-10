@@ -11,7 +11,6 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
         getProducts()
             .then(response => {
                 setProducts(response)
-                console.log('ITEMlistContainer '+response)
             })
             .catch(error=>{
                 console.error(error)
@@ -20,11 +19,10 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
     
     return (
         <>
-            <div className="container-fluid d-flex justify-content-center align-items-center">
-                <div>
+            <div className="container-fluid d-flex justify-content-center align-items-center ">
+                <div className='title text-center'>
                     <h1 className='greeting_text1'>{greeting1}</h1>
                 </div>
-                
                 <div>
                     <img src={imgPresentacion} className='imgPreserntacion img-fluid' alt='Imagen de Presentacion' />
                 </div>

@@ -41,15 +41,14 @@
 .dropdown-menu{
     background-color: #1f2124;
 }
-.dropdown-item, .dropdown-toggle{
+.dropdown-item{
 color:#b8a68c;
+padding: 4;
 }
 .dropdown-item:hover{
     color: tomato !important;
 }
-.dropdown-item{
-    padding: 4;
-}
+
 .NavDropdown {
     color: tomato !important;
 }
@@ -68,11 +67,11 @@ color:#b8a68c;
 }
 
 
-.dropdown-menu{
-    --bs-dropdown-link-hover-bg: #b8a68c !important;
+ .dropdown-menu{
+    --bs-dropdown-link-hover-bg: ;
     --bs-dropdown-link-active-bg:  background-color:red;
     text-align: left;
-}
+} 
 
 @media(min-width: 768px){
     #basic-navbar-nav{

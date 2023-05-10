@@ -5,7 +5,7 @@ const products = [
         id:1,
         name:'Salamandra Round 7000kcal',
         price:47490,
-        category: 'Calefaccion',
+        category: 'pipo',
         img:'/assets/images/premium/round7000.png',
         stock:9,
         description: 'salamandra de alto rendimiento de 7kcal para calefaccionar hasta 50m2. Doble cámara y doble combustión.'
@@ -139,6 +139,15 @@ const products = [
         img:'/assets/images/parrillas/parrilla_fast_food.png',
         stock:14,
         description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+    },
+    {
+        id:16,
+        name:'Caño',
+        price:216890,
+        category: 'Accesorios',
+        img:'/assets/images/accesorios/canio_acero_inoxidable.png',
+        stock:14,
+        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
     }
 ]
 
@@ -159,4 +168,16 @@ export const getProductsById = (productId)=>{
             
         },1000)
     })
+    
+}
+
+export const getProductsByCategory = (category)=>{
+    return new Promise((resolve) => {
+        setTimeout(()=>{
+           
+            resolve(products.filter(prod => prod.category === category))
+            
+        },1000)
+    })
+    
 }

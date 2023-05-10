@@ -5,7 +5,7 @@ import NavBar from './components/NavBar/NavBar';
 import imgPresentacion from'./components/ItemListContainer/assets/images/cassete-n2.webp';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import {BrowserRouter, Route,Routes} from "react-router-dom"
-import CategoriesContainer from './components/CategoriesContainer/CategoriesContainer';
+import CategoryListContainer from './components/Categories/CategoryListContainer';
 
 
 
@@ -19,30 +19,25 @@ function App() {
           <>
           <NavBar/>
           <ItemListContainer 
-          greeting1 ={'Lepen - Calefactores a Leña de Alto Rendimiento'}
+          greeting1 ={'Calefactores a Leña de Alto Rendimiento'}
           imgPresentacion={imgPresentacion}
           />
           </>
           
           }/>
-        <Route path='/components/CategoriesContainer/:category' element={
+        <Route path='/category/:category' element={
           <>
           <NavBar/>
-          <CategoriesContainer/>
+          <CategoryListContainer/>
           </>
           }/>
-          <Route path='/components/ItemDetailContainer/:idProduct' 
+          <Route path='/item/:idProduct' 
             element={
             <>
               <NavBar/>
               <ItemDetailContainer />
             </>
             }/>
-{/*         <div className="App">
-        
-        
-          
-      </div> */}
       </Routes>
       
     </BrowserRouter>

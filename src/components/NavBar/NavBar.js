@@ -29,10 +29,11 @@ function NavBar() {
                         <Nav className="ulContenedor"> 
                             <NavLink to={'/'} className='nav-link'>Home</NavLink> 
                             <NavDropdown title="Productos" id="basic-nav-dropdown">
-                                <NavLink to={'/components/ItemDetailContainer'} className='nav-link dropdown-item'>Calefacción</NavLink>
-                                <NavLink to={`/components/CategoriesContainer/${"Gourmet"}`} className='nav-link dropdown-item'>Gourmet</NavLink>
+                                <NavLink to={`/category/${"Calefaccion"}`} className='nav-link dropdown-item'>Calefacción</NavLink>
                                 <NavDropdown.Divider />
-                                <NavLink to={''} className='nav-link dropdown-item'>Accesorios</NavLink>
+                                <NavLink to={`/category/${"Gourmet"}`} className='nav-link dropdown-item'>Gourmet</NavLink>
+                                <NavDropdown.Divider />
+                                <NavLink to={`/category/${"Accesorios"}`} className='nav-link dropdown-item'>Accesorios</NavLink>
                             </NavDropdown>
                             <NavLink to={''} className='nav-link'>Ventajas</NavLink>
                             <NavLink to={''} className='nav-link'>Contacto</NavLink>
