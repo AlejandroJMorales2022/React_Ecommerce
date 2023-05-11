@@ -3,7 +3,7 @@ import "./ItemDetail.css"
 
 const ItemDetail = (product)=>{
     return(
-            <article className='CardItemDetail card col-11 col-md-5 col-lg-3 m-1 text-center mt-4 pt-4'>
+            <article className='CardItemDetail card col-11 col-md-6 m-1 text-center mt-4 pt-4'>
                 <header className='Hader pt-2'>
                     <h2 className='ItemHeader'>
                         {product.name}

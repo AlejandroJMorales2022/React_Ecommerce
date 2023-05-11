@@ -19,7 +19,25 @@ html{
     border-radius: 60%;
 }
 
-@media(max-width: 766px){
+@media(min-width: 992px){
+    .greeting_text1{
+        margin-top: 5px;
+        padding: 5px 5px 5px 50px;
+        font-size: 2rem;
+    }
+  
+}
+
+/* @media(min-width: 768px){
+    .greeting_text1{
+        margin-top: 5px;
+        padding: 5px;
+        font-size: 1.5rem;
+    }
+  
+} */
+
+@media(max-width: 767px){
     .greeting_text1{
         margin-top: 5px;
         padding: 5px;

@@ -246,7 +246,7 @@ const products = [
         category: 'Calefaccion',
         img:'/assets/images/con_horno/round7000h.png',
         stock:10,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'salamandra de alto rendimiento de 7000 kcal para calefaccionar hasta 50m2. Vitroceramico resistente hasta 900°. 63cm de alto - 42.5cm de ancho - 46.5cm de Profundidad. Boca 21cm x 25.5cm. DE REGALO!!! Atizador y manija desmontable.'
     },
     {
         id:28,
@@ -255,7 +255,7 @@ const products = [
         category: 'Calefaccion',
         img:'/assets/images/con_horno/premium12000h.png',
         stock:10,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'salamandra de alto rendimiento de 12000 kcal para calefaccionar hasta 90m2. Vitroceramico resistente hasta 900°. 80cm de alto - 51.5cm de ancho - 41.5cm de Profundidad. Caja de fuego en chapa de 6mm de espesor. DE REGALO!!! Atizador y manija desmontable.'
     },
     {
         id:29,
@@ -264,7 +264,7 @@ const products = [
         category: 'Calefaccion',
         img:'/assets/images/con_horno/premium17000h.png',
         stock:10,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'salamandra de alto rendimiento de 17000 kcal para calefaccionar hasta 50m2. Vitroceramico resistente hasta 900°. 63cm de alto - 42.5cm de ancho - 46.5cm de Profundidad. Espesores de Chapa de 5 y 6mm. DE REGALO!!! Atizador y manija desmontable.'
     },
     {
         id:30,
@@ -273,7 +273,7 @@ const products = [
         category: 'Calefaccion',
         img:'/assets/images/con_horno/premium27000h.png',
         stock:10,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'salamandra de alto rendimiento de 27000 kcal para calefaccionar hasta 130m2. Vitroceramico resistente hasta 900°. 94cm de alto - 58cm de ancho - 55cm de Profundidad. Chapa de espesores de 5 y 7mm. DE REGALO!!! Atizador y manija desmontable.'
     },
     {
         id:31,
@@ -282,7 +282,7 @@ const products = [
         category: 'Calefaccion',
         img:'/assets/images/con_horno/cassette_n4h.png',
         stock:10,
-        description: 'salamandra de alto rendimiento de 39kcla para calefaccionar hasta 180m2'
+        description: 'Salamandra Cassette Insertable de alto rendimiento de 27000 kcal para calefaccionar hasta 140m2. Vitroceramico resistente hasta 900°. 74cm de alto - 94cm de ancho - 53cm de Profundidad. Boca 21cm x 25.5cm. DE REGALO!!! Atizador y manija desmontable.'
     },
     {
         id:32,
