@@ -1,6 +1,11 @@
 html{
     color:  #1f2124;
 }
+
+.title{
+    width: 90%;
+}
+
 .greeting_text1{
     padding: 10px;
     font-size: 1.5rem;
@@ -9,25 +14,33 @@ html{
 }
 
 .imgPreserntacion{
+    margin: 10px;
     width: 160px;
-    border-radius: 50%;
+    border-radius: 60%;
 }
 
+@media(max-width: 766px){
+    .greeting_text1{
+        margin-top: 5px;
+        padding: 5px;
+        font-size: 1.2rem;
+
+    }
+    .imgPreserntacion{
+        width: 200px;
+    }
+
+}
 
 @media(max-width: 576px){
     .greeting_text1{
         margin-top: 5px;
         padding: 5px;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
 
     }
-    .greeting_text2{
-        margin-top: 5px;
-        padding: 5px;
-        font-size: 0.9rem;
-    }
     .imgPreserntacion{
-        width: 250px;
+        width: 150px;
     }
 
 }
