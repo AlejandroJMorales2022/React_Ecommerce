@@ -2,13 +2,12 @@ import { useContext } from 'react';
 import cart from './assets/carrito.png'
 import './CartWidget.css';
 import { CartContext } from '../../context/CartContext';
-import { useCartContext } from '../hooks/Cart/useCart';
+
 
 
 const CartWidget = ({countItems}) => {
 
-    /* const {countItemsCart} = useContext(CartContext)  */
-    const {countItemsCart} = useCartContext()
+    const {countItemsCart} = useContext(CartContext)
 
 
     return(
