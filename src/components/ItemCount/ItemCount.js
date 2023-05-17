@@ -3,12 +3,12 @@ import './ItemCount.css';
 import { useState } from 'react';
 
 
-const ItemCount = ({stock, initial, onAdd, MostrarAlert}) =>  {
+const ItemCount = ({stock, initial, onAdd}) =>  {
     
     const [quantity, setQuantity]= useState(initial)
 
     const increment = () => {
-        if (quantity < stock){
+        if (quantity < stock && quantity <= stock){
             setQuantity(quantity + 1)
         }
     }
@@ -18,9 +18,7 @@ const ItemCount = ({stock, initial, onAdd, MostrarAlert}) =>  {
         }
 
     }
- /*    const MostrarAlert=(pipo)=>{
-        alert(pipo)
-    } */
+
     return(
         <div className='Counter container-fluid rounded'>
             <div className='Controls row d-flex justify-content-center align-items-center'>

@@ -1,7 +1,21 @@
+import { useContext, useState } from "react"
 import ItemCount from "../ItemCount/ItemCount"
 import "./ItemDetail.css"
+import { Link } from "react-router-dom"
+import { CartContext } from "../../context/CartContext"
+import { useCartContext } from "../hooks/Cart/useCart"
 
 const ItemDetail = (product)=>{
+
+    const [quantityAdded, setQuantityAdded] = useState(0)
+    const {addItem} = useCartContext()
+
+    const handleOnAdd = (quantity) => {
+            setQuantityAdded(quantity)
+            const item = {id:product.id, name:product.name,price:product.price}
+            addItem(item, quantity)
+    }
+
     return(
             <article className='CardItemDetail card col-11 col-md-6 m-1 text-center mt-4 pt-4'>
                 <header className='Hader pt-2'>
@@ -17,7 +31,7 @@ const ItemDetail = (product)=>{
                         <b>Categoría:</b> {product.category}
                     </p>
                     <p className='info text-start p-2'>
-                    <b>Descripción:</b> {product.description}
+                    <b>Descripción:</b> {product.description} <b>Stock Disponible: </b> {product.stock} unidades
                     </p>
                     <p className='info'>
                     <b>Precio</b>: ${product.price}
@@ -25,11 +39,19 @@ const ItemDetail = (product)=>{
                 </section>
                 <footer className='ItemFooter d-flex justify-content-center align-items-center pb-2'>
                     <div className='itemCount_Container'>
-                        <ItemCount
-                        stock={10} 
-                        initial={1}
-                        onAdd={(quantity)=>{ console.log('Cantidad Agregada ', quantity)}}
-                        />
+                        {
+                            quantityAdded > 0 ? (
+                                <>
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <Link to='/cart' className="Option btnPurchase rounded m-4 btn">Terminar Compra</Link>
+                                    <Link to='/' className="Option btnContPurchase rounded m-4 btn">Seguir Comprando</Link>
+                                </div>
+                                
+                                </> 
+                                ) : (<ItemCount stock={product.stock} initial={1} onAdd={handleOnAdd}
+                        />)
+                        }
+                        
                     </div>
                 </footer>
             </article>

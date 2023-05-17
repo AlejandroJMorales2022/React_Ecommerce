@@ -1,9 +1,14 @@
+import { useContext } from 'react';
 import cart from './assets/carrito.png'
 import './CartWidget.css';
+import { CartContext } from '../../context/CartContext';
+import { useCartContext } from '../hooks/Cart/useCart';
 
 
-const CartWidget = () => {
+const CartWidget = ({countItems}) => {
 
+    /* const {countItemsCart} = useContext(CartContext)  */
+    const {countItemsCart} = useCartContext()
 
 
     return(
@@ -13,7 +18,7 @@ const CartWidget = () => {
                     <img className='imgCart' src={cart} alt="cart-widget"/>
                 </div>
                 <div className='qty text-center'>
-                    6
+                    {countItemsCart}
                 </div>
             </div>
         </>

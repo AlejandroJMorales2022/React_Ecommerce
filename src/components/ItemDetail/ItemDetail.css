@@ -1,3 +1,16 @@
 .CardItemDetail{
     background-color: rgb(240, 238, 238) !important;
 }
+.btnPurchase, .btnContPurchase{
+    background-color: #38393b;
+    color: white;
+    font-size: 0.8rem;
+    width: 150px;
+    margin: 10px !important;
+    padding: 8px;
+    text-decoration: none;
+}
+.btnPurchase:hover, .btnContPurchase:hover{
+    background-color: #808183;
+    color: white;
+}
