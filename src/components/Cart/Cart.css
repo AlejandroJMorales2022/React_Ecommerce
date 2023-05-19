@@ -1,0 +1,22 @@
+.cartListHeader{
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+.cartRowHeader{
+    background-color: rgb(151, 147, 147);
+    border-radius: 5px;
+    padding: 5px 0px 5px 0px;
+    margin-bottom: 10px;
+}
+.totalPrice{
+    background-color: rgb(151, 147, 147);
+    border-radius: 5px;
+    
+}
+.cartRowItem{
+    font-size: 0.8rem;
+}
+.cartDeleteIcon:hover{
+    cursor: pointer;
+}

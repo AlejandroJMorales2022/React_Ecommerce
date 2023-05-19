@@ -12,7 +12,7 @@ const ItemDetail = (product)=>{
 
     const handleOnAdd = (quantity)=> {
         setQuantityAdded(quantity)
-        const item = { id: product.id, name: product.name, price: product.price }
+        const item = { id: product.id, name: product.name, price: product.price, img: product.img}
         addItem(item, quantity)
     }
 

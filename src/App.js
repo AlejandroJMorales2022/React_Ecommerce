@@ -22,13 +22,12 @@ function App() {
         <Routes>
           <Route path='/' element={          
             <ItemListContainer 
-            greeting1 ={'Calefactores a Leña de Alto Rendimiento'}
-            imgPresentacion={imgPresentacion}/>     
+              greeting1 ={'Calefactores a Leña de Alto Rendimiento'}
+              imgPresentacion={imgPresentacion}/>     
             }/>
           <Route path='/category/:category' element={ <CategoryListContainer/> }/>
-            <Route path='/item/:idProduct' 
-              element={ <ItemDetailContainer /> }/>
-            <Route path='/cart' element={ <Cart /> }/>
+          <Route path='/item/:idProduct' element={ <ItemDetailContainer /> }/>
+          <Route path='/cart' element={ <Cart /> }/>
         </Routes>
       </CartProvider>
     </BrowserRouter>
