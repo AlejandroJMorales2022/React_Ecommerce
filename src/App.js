@@ -7,6 +7,7 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import {BrowserRouter, Route,Routes} from "react-router-dom"
 import CategoryListContainer from './components/Categories/CategoryListContainer';
 import { CartProvider } from './context/CartContext';
+import { Cart } from './components/Cart/Cart';
 
 
 
@@ -27,11 +28,7 @@ function App() {
           <Route path='/category/:category' element={ <CategoryListContainer/> }/>
             <Route path='/item/:idProduct' 
               element={ <ItemDetailContainer /> }/>
-              <Route path='/cart' element={                
-                  <div className='d-flex justify-content-center pt-4'>
-                    <p>Cart...</p>
-                  </div>
-              }/>
+            <Route path='/cart' element={ <Cart /> }/>
         </Routes>
       </CartProvider>
     </BrowserRouter>

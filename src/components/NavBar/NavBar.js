@@ -11,6 +11,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 function NavBar() {
 
+
   return (
     
             <div className='container-fluid d-flex justify-content-center'>          
@@ -21,7 +22,8 @@ function NavBar() {
                             <Link to={'/'}><img src={logoLepen} height={40} alt="logo Lepen" /></Link>
                         </div>     
                         <div className="cartContainer d-flex justfy-content-center">
-                            <CartWidget />
+                        <Link to='/cart' className="Option btnPurchase rounded m-4 btn"><CartWidget /></Link>
+                            
                         </div>
                     
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
