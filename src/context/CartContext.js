@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 const CartContext=createContext({
-    /* cart:[] */
+   
 })
 
 

@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import { getProducts } from '../../asyncMock';
+import { useFirebase } from '../../hooks/useFirebase/useFirebase';
+import { ProductsContext } from '../../context/ProdContext';
 
 const ItemListContainer = ({greeting1, imgPresentacion}) => {
     
-    const [products, setProducts] = useState([])
+   const {products, getProducts} = useFirebase();
+   
 
-    useEffect(()=>{
-        getProducts()
-            .then(response => {
-                setProducts(response)
-            })
-            .catch(error=>{
-                console.error(error)
-            })
-    },[]);
+   useEffect(()=>{
+        getProducts('todos')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]); 
     
     return (
         <>

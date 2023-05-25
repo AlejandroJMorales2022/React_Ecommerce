@@ -8,6 +8,8 @@ import {BrowserRouter, Route,Routes} from "react-router-dom"
 import CategoryListContainer from './components/Categories/CategoryListContainer';
 import { CartProvider } from './context/CartContext';
 import { Cart } from './components/Cart/Cart';
+import { ProductsProvider } from './context/ProdContext';
+import './firebase/firebaseConfig'
 
 
 
@@ -17,6 +19,7 @@ function App() {
   return (
     
     <BrowserRouter>
+      <ProductsProvider>
       <CartProvider>
         <NavBar/>
         <Routes>
@@ -30,6 +33,7 @@ function App() {
           <Route path='/cart' element={ <Cart /> }/>
         </Routes>
       </CartProvider>
+      </ProductsProvider>
     </BrowserRouter>
   );
 }

@@ -19,12 +19,20 @@ const Cart = ()=>{
 
             {cart.length>0 ? (<> <div className="container-fluid">
                 <div className="row d-flex justify-content-center align-items-center cartRowHeader">
-                    <div className="col-8 cartListHeader">PRODUCTO</div><div className="col-2 cartListHeader p-0 m-0 text-end">PRECIO</div><div className="col-1 cartListHeader p-0 m-0 text-center">CANT</div><div className="col-1"></div>
+                    <div className="col-8 cartListHeader">Producto</div>
+                    <div className="col-1 cartListHeader p-0 m-0 text-end">Precio</div>
+                    <div className="col-1 cartListHeader p-0 m-0 text-center">Cant</div>
+                    <div className="col-1 cartListHeader p-0 m-0 text-end">subTotal</div>
+                    <div className="col-1"></div>
                 </div>
                 { cart.map(item => (
-                    <div  className="row cartRowItem d-flex justify-content-evenly align-items-center pt-2">
+                    <div  key={item.id} className="row cartRowItem d-flex justify-content-evenly align-items-center pt-2">
                         
-                        <div key={item.id} className="col-8"><img  src={`'${item.img}'`} alt={item.name}/>{item.name} </div><div className="col-2 p-0 m-0 text-end">{` $ ${parseFloat(item.price)*parseInt(item.quantity)}`}</div><div className="col-1 text-center">{item.quantity}</div><div className="col-1 text-end"><img onClick={()=>removeItem(item.id)} src={delete_icon} className="img-fluid cartDeleteIcon" alt="icono_borrar" style={{width:16}} data-toggle="tooltip" title="Eliminar roducto"/></div>
+                        <div className="col-8"><img  src={item.img} alt={item.name} style={{width:50}} />{item.name} </div>
+                        <div className="col-1 p-0 m-0 text-end">{` $ ${item.price}`}</div>
+                        <div className="col-1 text-center">{item.quantity}</div>
+                        <div className="col-1 p-0 m-0 text-end">{` $ ${parseFloat(item.price)*parseInt(item.quantity)}`}</div>
+                        <div className="col-1 text-end"><img onClick={()=>removeItem(item.id)} src={delete_icon} className="img-fluid cartDeleteIcon" alt="icono_borrar" style={{width:16}} data-toggle="tooltip" title="Eliminar roducto"/></div>
                     </div>
                 ))} 
                 </div>

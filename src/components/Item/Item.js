@@ -1,10 +1,20 @@
 import { Link } from 'react-router-dom';
 import './Item.css';
+import { useFirebase } from '../../hooks/useFirebase/useFirebase';
+import { useContext, useEffect } from 'react';
+import { ProductsContext } from '../../context/ProdContext';
 
 
 
 const Item = ({id, name, img, price, stock}) =>{
 
+    const {urlImage, getUrl}= useFirebase()
+
+    useEffect(()=>{
+        getUrl(img)
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     },[])
+    
 
     return (
         <article className='CardItem card col-11 col-sm-5 col-lg-3 m-1 text-center'>
@@ -14,7 +24,7 @@ const Item = ({id, name, img, price, stock}) =>{
                 </h2>
             </header>
             <picture>
-                <img src={img} alt={name} className='ItemImg rounded' />
+                <img src={urlImage} alt={name} className='ItemImg rounded' />
             </picture>
             <section>
                 <p className='Info p-0 m-0'>
