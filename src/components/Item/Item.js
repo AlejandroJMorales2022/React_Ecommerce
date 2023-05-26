@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom';
 import './Item.css';
 import { useFirebase } from '../../hooks/useFirebase/useFirebase';
-import { useContext, useEffect } from 'react';
-import { ProductsContext } from '../../context/ProdContext';
+import { useEffect } from 'react';
 
 
 
 const Item = ({id, name, img, price, stock}) =>{
 
-    const {urlImage, getUrl}= useFirebase()
+    const {urlImage, getUrl}= useFirebase();
 
     useEffect(()=>{
-        getUrl(img)
+        getUrl(img);
      // eslint-disable-next-line react-hooks/exhaustive-deps
      },[])
     

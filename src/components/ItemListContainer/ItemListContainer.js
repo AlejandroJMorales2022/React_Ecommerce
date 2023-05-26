@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
-import { getProducts } from '../../asyncMock_noseusa';
 import { useFirebase } from '../../hooks/useFirebase/useFirebase';
-import { ProductsContext } from '../../context/ProdContext';
 
 const ItemListContainer = ({greeting1, imgPresentacion}) => {
     
@@ -12,6 +10,7 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
 
    useEffect(()=>{
         getProducts('todos')
+        console.log(products)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]); 
     

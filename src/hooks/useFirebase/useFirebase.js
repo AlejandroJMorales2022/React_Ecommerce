@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 
@@ -7,100 +7,54 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 const useFirebase = ()=>{
 
-    const [urlImage, setUrlImage] =useState('un carajo');
+    const [urlImage, setUrlImage] =useState('');
     const [products, setProducts] = useState([])
     const [productPorId, setProductPorId] = useState({})
     const [urlImg, setUrlImg] = useState('')
-    const [imagen,setImagen] =useState('')
     const [productsByCategory, setProductsByCategory] =useState([])
     
     
-    const getProducts = (condicion) =>{
-       if(condicion==='todos'){
+    const getProducts = () =>{
         const db=getFirestore();
         const collectioRef = collection(db,"products");
         getDocs(collectioRef).then((querySnapshot) => {
-            const productsColllection=querySnapshot.docs.map((doc)=>doc.data())
-            setProducts(productsColllection);
-            
-        })
-       }
-    }
-    //Traer Productor por Categoria
-    const getProductsByCategory = (category)=>{
+            const productsColllection=querySnapshot.docs.map((doc)=>({...doc.data(), id: doc.id}));
+            setProducts(productsColllection);   
+        });
+    };
+
+    //Traer Productos por Categoria
+    const getProductsByCategory = async (category)=>{
         const db=getFirestore();
         const q = query(collection(db,"products"),where("category","==", category));
         
-        getDocs(q).then((snapshot)=>{
+         const snapshot = await getDocs(q);
             if(snapshot.size===0){
-                console.log('Consulta sin resultados')
+                console.log('Consulta sin resultados');
                 setProductsByCategory([]);
             }else{
-                    /* console.log(snapshot.docs.length) */
-                    const productos = snapshot.docs.map((doc) => doc.data())                    
+                    const productos = snapshot.docs.map((doc) => ({...doc.data(), id:doc.id}));                    
                     setProductsByCategory(productos);
-                    /* console.log("datos por categoria "+ productos) */
                     
-                } 
-            
-            });
-            
-    }
+                }; 
+    };
 
-    //Traer de la Table de Productos el que coincida con el Id
-    const getProductPorId = (id)=>{
-   
+
+    //Traer de la collection Products el que coincida con el Id del Item seleccionado
+    const getProductPorId = async (id)=>{
+        
         const db=getFirestore();
-        const q = query(collection(db,"products"),where("id","==", id));
-        
-        getDocs(q).then((snapshot)=>{
-            if(snapshot.size===0){
-                console.log('Consulta sin resultados')
-            }else{
-                    snapshot.docs.forEach((doc) => {
-                    
-                    console.log("IMAGEN "+doc.data().img);
-                    const imagen=doc.data().img;
-                    getUrl(imagen)
-                    setUrlImg(doc.data().img);
-                    setProductPorId({...doc.data(), url:urlImg});
-                    /* console.log("ref a la URL de la imagen "+doc.data().img) */
-                    
-                    /* const storage = getStorage();
-
-                    const starsRef = ref(storage, doc.data().img);
-
-                    // Get the download URL
-                    getDownloadURL(starsRef)
-                    .then((url) => {
-                        // Insert url into an <img> tag to "download"
-                        if(url.length>0){
-                            setImagen(url)
-                            console.log(url)
-                        }
-                        setUrlImage(url)
-                        
-                    }) */
-                    
-                   /*  const storage=getStorage();
-                    getDownloadURL(ref(storage,(doc.data().img).toString()))
-                        .then((url)=>{
-                         setUrlImage(url)}) */
-                            
-                })  
-                
-                
-               /*  setProductPorId(snapshot.docs.map((doc)=>({id: doc.id, ...doc.data()}))); */
-                
-                /* console.log("Cantidad de Documentos Encontrados "+snapshot.docs.length);
-                console.log("DATA  "+ {productPorId}.price); */
-            
-            } 
-            
-        });
-        
+        const qref = doc(db,'products',id); 
+        const result= await getDoc(qref);
+           if(result) {
+            (setProductPorId({...result.data(), id:id}));
+            setUrlImg(result.data().img);
+           } else{
+            console.log("Error: No se encontro el producto seleccionado");
+           }
     }
     
+    //Traer url de la imagen del producto
     const getUrl = async (img) =>{
         const storage=getStorage();
          await getDownloadURL(ref(storage,img))
@@ -109,8 +63,6 @@ const useFirebase = ()=>{
         })
     }
 
-
-
-    return( {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg, imagen,getProductsByCategory, productsByCategory} )
+    return( {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg,getProductsByCategory, productsByCategory} )
 }
 export {useFirebase}

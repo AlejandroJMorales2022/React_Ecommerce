@@ -8,7 +8,6 @@ import { useFirebase } from "../../hooks/useFirebase/useFirebase"
 
 const ItemDetail = (product)=>{
 
-    const imgMia='https://firebasestorage.googleapis.com/v0/b/ecommerce-coder-ea8b3.appspot.com/o/img_products%2Fcalefaccion%2Fround7000.png?alt=media&token=629bfbbd-5e9d-4d5a-b257-04938ed0a769'
 
     const [quantityAdded, setQuantityAdded] = useState(0)
     const {addItem} = useContext(CartContext)
