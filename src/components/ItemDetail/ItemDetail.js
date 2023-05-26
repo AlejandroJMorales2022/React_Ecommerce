@@ -1,15 +1,24 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ItemCount from "../ItemCount/ItemCount"
 import "./ItemDetail.css"
 import { Link } from "react-router-dom"
 import { CartContext } from "../../context/CartContext"
+import { useFirebase } from "../../hooks/useFirebase/useFirebase"
 
 
 const ItemDetail = (product)=>{
 
+    const imgMia='https://firebasestorage.googleapis.com/v0/b/ecommerce-coder-ea8b3.appspot.com/o/img_products%2Fcalefaccion%2Fround7000.png?alt=media&token=629bfbbd-5e9d-4d5a-b257-04938ed0a769'
+
     const [quantityAdded, setQuantityAdded] = useState(0)
     const {addItem} = useContext(CartContext)
-
+    const {urlImage, getUrl, imagen} = useFirebase()
+    
+    /* useEffect(()=>{
+        getUrl(product.img)
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     },[]) 
+ */
     const handleOnAdd = (quantity)=> {
         setQuantityAdded(quantity)
         const item = { id: product.id, name: product.name, price: product.price, img: product.img}

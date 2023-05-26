@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProductsById } from "../../asyncMock";
+import { getProductsById } from "../../asyncMock_noseusa";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
 import { useFirebase } from "../../hooks/useFirebase/useFirebase";
