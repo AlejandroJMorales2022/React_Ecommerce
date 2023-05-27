@@ -10,7 +10,7 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
 
    useEffect(()=>{
         getProducts('todos')
-        console.log(products)
+        /* console.log(products) */
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]); 
     

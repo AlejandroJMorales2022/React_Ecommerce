@@ -4,6 +4,7 @@ import "./ItemDetail.css"
 import { Link } from "react-router-dom"
 import { CartContext } from "../../context/CartContext"
 import { useFirebase } from "../../hooks/useFirebase/useFirebase"
+import { FormClient } from "../Forms/FormClient"
 
 
 const ItemDetail = (product)=>{
@@ -62,6 +63,7 @@ const ItemDetail = (product)=>{
                         
                     </div>
                 </footer>
+                
             </article>
 
     )

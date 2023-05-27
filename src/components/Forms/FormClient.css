@@ -1,0 +1,21 @@
+.titulo{
+    background-color: rgb(151, 147, 147);
+    border-radius: 5px;
+    padding: 5px 0px 5px 0px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: rgb(41, 40, 40);
+}
+input{
+    box-shadow: inset;
+    background-color: rgb(239, 245, 243);
+    font-size: 0.9rem;
+}
+.msgOrder{
+    color:tomato;
+    background-color: rgb(248, 235, 235);
+    border-radius: 5px;
+}
+label{
+    font-size: 0.8rem;
+}

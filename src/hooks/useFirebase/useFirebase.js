@@ -63,6 +63,12 @@ const useFirebase = ()=>{
         })
     }
 
-    return( {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg,getProductsByCategory, productsByCategory} )
+    const SetOrderDocument= (order) => {
+        console.log("detalle de Orden Generada " + order);
+
+    }
+
+
+    return( {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg,getProductsByCategory, productsByCategory, SetOrderDocument} )
 }
 export {useFirebase}

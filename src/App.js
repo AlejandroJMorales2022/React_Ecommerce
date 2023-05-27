@@ -10,6 +10,7 @@ import { CartProvider } from './context/CartContext';
 import { Cart } from './components/Cart/Cart';
 import { ProductsProvider } from './context/ProdContext';
 import './firebase/firebaseConfig'
+import { FormClient } from './components/Forms/FormClient';
 
 
 

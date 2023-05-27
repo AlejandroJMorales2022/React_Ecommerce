@@ -3,6 +3,7 @@ import { CartContext } from "../../context/CartContext"
 import { Link } from "react-router-dom"
 import delete_icon from '../assets/img/icons/delete.png'
 import './Cart.css'
+import { FormClient } from "../Forms/FormClient"
 
 
 
@@ -15,6 +16,7 @@ const Cart = ()=>{
     
     
     return(
+        <>
         <div className="container mt-4 pt-2 card">
 
             {cart.length>0 ? (<> <div className="container-fluid">
@@ -38,13 +40,17 @@ const Cart = ()=>{
                 </div>
                 <div className=" col-12 d-flex justify-content-end mr-2 pt-4">
                     <p className="totalPrice p-2"><b>Precio Total:</b>{` $${totalPrice} `}</p>
-                </div></>) :(<div className="col-10 text-center p-4">
-                            <p>No hay productos en el Carrito de Compras, por el momento...</p>
+                </div></>) :(<div className="col-12 text-center p-4">
+                            
                             <Link to='/' className="Option btnPurchase rounded m-4 btn">Continuar Comprando</Link>
                           </div>)}
                 
 
         </div>
+        <div className="FormClientContainer container mt-5 mb-5 pt-2 card">
+                   {cart.length>0 ? (<FormClient />) : (<p>No agregaste productos a tu Orden, por el momento...</p>) }  
+        </div>
+        </>
         )
 }
 export {Cart}
