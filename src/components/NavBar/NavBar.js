@@ -7,9 +7,17 @@ import './NavBar.css';
 import logoLepen from './assets/images/lepen_blanco.png';
 import CartWidget from '../CartWidget/CartWidget';
 import { Link, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useFirebase } from '../../hooks/useFirebase/useFirebase';
 
 
 function NavBar() {
+
+    const {getCategories, categories}= useFirebase();
+
+    useEffect(()=>{
+        getCategories();
+    },[])
 
 
   return (
@@ -31,11 +39,10 @@ function NavBar() {
                         <Nav className="ulContenedor"> 
                             <NavLink to={'/'} className='nav-link'>Home</NavLink> 
                             <NavDropdown title="Productos" id="basic-nav-dropdown">
-                                <NavLink to={`/category/${"Calefaccion"}`} className='nav-link dropdown-item'>Calefacción</NavLink>
-                                <NavDropdown.Divider />
-                                <NavLink to={`/category/${"Gourmet"}`} className='nav-link dropdown-item'>Gourmet</NavLink>
-                                <NavDropdown.Divider />
-                                <NavLink to={`/category/${"Accesorios"}`} className='nav-link dropdown-item'>Accesorios</NavLink>
+                               {/*  Traer Categorias y Mapearlas para conformar el menu */}
+                               {categories.map(cat=>(
+                                     <NavLink key={cat.key} to={`/category/${cat.name}`} className='nav-link dropdown-item'>{cat.name}</NavLink>
+                               ))}
                             </NavDropdown>
                             <NavLink to={''} className='nav-link'>Ventajas</NavLink>
                             <NavLink to={''} className='nav-link'>Contacto</NavLink>
