@@ -6,22 +6,17 @@ import { CartContext } from '../../context/CartContext';
 const FormClient = ()=>{
 
     const {setOrderDocument} = useFirebase();
-    const {cart} = useContext(CartContext)
+    
+    const {cart} = useContext(CartContext);
+    const [itemsCart, setItemsCart] = useState([]);
     const [order, setOrder] = useState({
-
             order_number:'',
             date:'',
             name:'',
             phone:'',
             email:'',
             total:'',
-            items:{
-                idprod:'',
-                name:'',
-                img:'',
-                price:'',
-                quantity:''
-            }
+            items:[{}]
     })
 
     const [email,setEmail]=useState({
@@ -53,29 +48,40 @@ const FormClient = ()=>{
         console.log("generar Orden de Pedido");
         
 
-        const itemsCart = cart.map(item => ({
+        const items = cart.map(item => ({
                 idprod:item.id,
                 name:item.name,
                 img:item.img,
                 price:item.price,
                 quantity:item.quantity,
-                total: (parseFloat(item.price) * parseInt(item.quantity))              
-        }) )
+                total: (parseFloat(item.price) * parseInt(item.quantity))            
+    }) )
+        console.log(items.length)
+        console.log(items)
+        console.log(items[0].name)
+        setItemsCart(items)
         
         let totalOrder =0;
 
-         itemsCart.forEach(element => {
+         items.forEach(element => {
           totalOrder += element.total
         }); 
-        alert(totalOrder)
-
-        setOrder(prev => ({...prev,
+        console.log(totalOrder)
+        
+        
+        setTimeout(()=>{
+          setOrder(prev => ({...prev,
         email : email.email1,
-        items : itemsCart,
+        items : cart,
         total: totalOrder
         }));
         console.log(order);
+        console.log(itemsCart)  
         setOrderDocument(order);
+    
+    },1000)
+        
+         
     
     }
 

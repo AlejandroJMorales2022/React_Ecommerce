@@ -63,12 +63,15 @@ const useFirebase = ()=>{
         })
     }
 
-    const SetOrderDocument= (order) => {
-        console.log("detalle de Orden Generada " + order);
-
+    const setOrderDocument= (order) => {
+        console.log("detalle de Orden Generada "+order.name+"  " + order.phone+ "  " +order.items[0].name);
+        console.log(order.items.length)
+        for (let i=0; i<=order.items.length-1; i++){
+            console.log(order.items[i].name + " " + order.items[i].price)
+        }
     }
 
 
-    return( {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg,getProductsByCategory, productsByCategory, SetOrderDocument} )
+    return {urlImage, getUrl, products, getProducts, productPorId, getProductPorId, urlImg,getProductsByCategory, productsByCategory, setOrderDocument}
 }
 export {useFirebase}
