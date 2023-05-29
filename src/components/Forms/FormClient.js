@@ -2,15 +2,18 @@ import { useContext, useEffect, useState } from 'react';
 import './FormClient.css'
 import { useFirebase } from '../../hooks/useFirebase/useFirebase';
 import { CartContext } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const FormClient = () => {
 
-    const { setOrderDocument, lastOrder, getLastOrder } = useFirebase();
+    const { setOrderDocument, lastOrder, getLastOrder, orderId, setOrderId } = useFirebase();
+    const navigate = useNavigate();
 
     const { cart } = useContext(CartContext);
     const [itemsCart, setItemsCart] = useState([]);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
+    const [orderGenerated, setOrderGenerated] = useState(false);
 
     const [order, setOrder] = useState({
         order_number: '',
@@ -33,10 +36,10 @@ const FormClient = () => {
     const [errorEmail, setErrorEmail] = useState(false);
     const [totalOrder, setTotalOrder] = useState(0);
 
+    
     const handleEmail = () => {
 
         const value = email.email1;
-
         // eslint-disable-next-line no-useless-escape
         if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(value)) {
             setErrorEmail(false);
@@ -45,12 +48,12 @@ const FormClient = () => {
         } else {
             setErrorEmail(true);
         }
-
     }
+
+
+
     const handleOnclick = (e) => {
         e.preventDefault();
-        console.log("generar Orden de Pedido");
-
 
         const items = cart.map(item => ({
             idprod: item.id,
@@ -68,7 +71,6 @@ const FormClient = () => {
         });
 
         setTotalOrder(total);
-
         getLastOrder();
     }
 
@@ -90,7 +92,6 @@ const FormClient = () => {
     useEffect(() => {
         order.total > 0 &&
             setOrderDocument(order);
-        console.log(order);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [order])
 
@@ -98,6 +99,14 @@ const FormClient = () => {
         handleEmail();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email])
+
+    useEffect(() => {
+        /* alert(orderId) */
+        if (orderId !== 0 && orderId !== '') {
+            console.log("viajando "+orderId);
+            navigate('/order');
+        }
+    }, [orderId])
 
 
 

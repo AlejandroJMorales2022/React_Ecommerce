@@ -13,8 +13,10 @@ const useFirebase = () => {
     const [urlImg, setUrlImg] = useState('');
     const [productsByCategory, setProductsByCategory] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [lastOrder, setLastOrder] = useState(0);
-    const [orderId, setOrderId] = useState('');
+    const [lastOrder, setLastOrder] = useState(0); //numero de la ultima orden generada
+    const [orderId, setOrderId] = useState(''); //id autogernerado en el insert
+    const [orderDoc, setOrderDoc] = useState({}); //documento de orden de pedido
+
 
 
     const getProducts = () => {
@@ -111,11 +113,39 @@ const useFirebase = () => {
         })
     }
 
+    const  getOrderDocument = async (order_number) =>{
+        console.log("Orden recibida: " + order_number)
+        const db = getFirestore();
+        const q = query(collection(db, "orders"), where("order_number", "==", order_number));
+
+        const snapshot = await getDocs(q);
+        if (snapshot.size === 0) {
+            console.log('Consulta sin resultados');
+            setOrderDoc({});
+        } else {
+            const orders = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setOrderDoc(orders);
+
+        };
+       /*  const db = getFirestore();
+        
+        const qref = doc((db, 'orders'), where("order_number", "==", order_number))
+        const result = await getDoc(qref);
+        if (result) {
+           
+
+            (setOrderDoc({ ...result.data(), id: result.id }));
+        } else {
+            console.log("Error: No se encontro el producto seleccionado");
+        } */
+    }
+
     return {
         urlImage, getUrl, products, getProducts, productPorId,
         getProductPorId, urlImg, getProductsByCategory,
         productsByCategory, setOrderDocument,
-        categories, getCategories, lastOrder, getLastOrder, orderId, setOrderId
+        categories, getCategories, lastOrder, getLastOrder, orderId,
+        setOrderId, orderDoc, getOrderDocument
     }
 }
 export { useFirebase }

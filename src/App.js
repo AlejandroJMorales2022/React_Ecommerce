@@ -10,7 +10,7 @@ import { CartProvider } from './context/CartContext';
 import { Cart } from './components/Cart/Cart';
 import { ProductsProvider } from './context/ProdContext';
 import './firebase/firebaseConfig'
-import { FormClient } from './components/Forms/FormClient';
+import { Order } from './components/Order/Order';
 
 
 
@@ -32,6 +32,7 @@ function App() {
           <Route path='/category/:category' element={ <CategoryListContainer/> }/>
           <Route path='/item/:idProduct' element={ <ItemDetailContainer /> }/>
           <Route path='/cart' element={ <Cart /> }/>
+          <Route path='/order' element={ <Order /> }/>
         </Routes>
       </CartProvider>
       </ProductsProvider>
