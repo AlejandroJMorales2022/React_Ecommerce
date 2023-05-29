@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
@@ -124,9 +124,12 @@ const useFirebase = () => {
             setOrderDoc({});
         } else {
             const orders = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setOrderDoc(orders);
+            orders.length===1 &&
+            setOrderDoc(orders[0]);
+            
 
         };
+
        /*  const db = getFirestore();
         
         const qref = doc((db, 'orders'), where("order_number", "==", order_number))
@@ -139,6 +142,7 @@ const useFirebase = () => {
             console.log("Error: No se encontro el producto seleccionado");
         } */
     }
+
 
     return {
         urlImage, getUrl, products, getProducts, productPorId,

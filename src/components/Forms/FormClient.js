@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 const FormClient = () => {
 
-    const { setOrderDocument, lastOrder, getLastOrder, orderId, setOrderId } = useFirebase();
+    const { setOrderDocument, lastOrder, getLastOrder, orderId } = useFirebase();
     const navigate = useNavigate();
 
-    const { cart } = useContext(CartContext);
+    const { cart, clearCart } = useContext(CartContext);
     const [itemsCart, setItemsCart] = useState([]);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [orderGenerated, setOrderGenerated] = useState(false);
+
 
     const [order, setOrder] = useState({
         order_number: '',
@@ -63,7 +63,7 @@ const FormClient = () => {
             quantity: item.quantity,
             total: (parseFloat(item.price) * parseInt(item.quantity))
         }));
-        setItemsCart(items);
+       /*  setItemsCart(items); */
 
         let total = 0;
         items.forEach(element => {
@@ -101,10 +101,10 @@ const FormClient = () => {
     }, [email])
 
     useEffect(() => {
-        /* alert(orderId) */
         if (orderId !== 0 && orderId !== '') {
-            console.log("viajando "+orderId);
             navigate('/order');
+            clearCart();
+
         }
     }, [orderId])
 
