@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
@@ -16,16 +16,32 @@ const useFirebase = () => {
     const [lastOrder, setLastOrder] = useState(0); //numero de la ultima orden generada
     const [orderId, setOrderId] = useState(''); //id autogernerado en el insert
     const [orderDoc, setOrderDoc] = useState({}); //documento de orden de pedido
+    const [errorPromise, setErrorPromise] = useState('')
 
 
 
-    const getProducts = () => {
+    /* const getProducts = async () => {
         const db = getFirestore();
         const collectioRef = collection(db, "products");
-        getDocs(collectioRef).then((querySnapshot) => {
+        await getDocs(collectioRef).then((querySnapshot) => {
             const productsColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             setProducts(productsColllection);
         });
+    }; */
+    const getProducts = () => {
+
+        const db = getFirestore();
+        const collectioRef = collection(db, "products");
+        getDocs(collectioRef)
+            .then((querySnapshot) => {
+                if (querySnapshot.size > 0) {
+                    const productsColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                    setProducts(productsColllection);
+                    setErrorPromise('');
+                } else {
+                    setErrorPromise('No se han encontrado Productos en la base de datos...');
+                }
+            })
     };
 
     //Traer Productos por Categoria
@@ -35,11 +51,12 @@ const useFirebase = () => {
 
         const snapshot = await getDocs(q);
         if (snapshot.size === 0) {
-            console.log('Consulta sin resultados');
+            setErrorPromise('No se encontraron Productos para la Categoría seleccionada...')
             setProductsByCategory([]);
         } else {
             const productos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             setProductsByCategory(productos);
+            setErrorPromise('');
 
         };
     };
@@ -51,11 +68,12 @@ const useFirebase = () => {
         const db = getFirestore();
         const qref = doc(db, 'products', id);
         const result = await getDoc(qref);
-        if (result) {
+        if (result.size === 0) {
+            setErrorPromise("No se encontro el Producto seleccionado...");
+        } else {
             (setProductPorId({ ...result.data(), id: id }));
             setUrlImg(result.data().img);
-        } else {
-            console.log("Error: No se encontro el producto seleccionado");
+            setErrorPromise('');
         }
     }
 
@@ -64,8 +82,14 @@ const useFirebase = () => {
         const db = getFirestore();
         const collectioRef = collection(db, "categories");
         getDocs(collectioRef).then((querySnapshot) => {
-            const categoriesColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setCategories(categoriesColllection);
+            if (querySnapshot.size > 0) {
+                const categoriesColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                setCategories(categoriesColllection);
+                setErrorPromise('');
+            } else {
+                setErrorPromise('No se encontraron Categorías en la base de datos...')
+            }
+
         });
 
     }
@@ -75,72 +99,70 @@ const useFirebase = () => {
         const storage = getStorage();
         await getDownloadURL(ref(storage, img))
             .then((url) => {
-                setUrlImage(url)
+                if (url) {
+                    setUrlImage(url);
+                    setErrorPromise('');
+                } else {
+                    setErrorPromise('No se encontro la URL de la Imagen solicitada...')
+                }
+
             })
     }
 
     const setOrderDocument = async (order) => {
-        /* console.log("detalle de Orden Generada " + order.buyer.name + "  " + order.buyer.phone + "  " + order.buyer.email);
-        console.log("Items Comprados " + order.items.length)
-        console.log("Detalle de Compra")
-        for (let i = 0; i <= order.items.length - 1; i++) {
-            console.log(order.items[i].name + " " + order.items[i].price)
-        } */
 
         if (order.items.length > 0 && order.total > 0) {
             const db = getFirestore();
             const ordersColllection = collection(db, 'orders');
             await addDoc(ordersColllection, order)
                 .then(({ id }) => {
-                    setOrderId(id)
-                    console.log("el id de la nueva orden es " + id)
+                    if (id) {
+                        setOrderId(id);
+                        setErrorPromise('');
+                    } else {
+                        setErrorPromise('No se pudo Guardar la orden de Pedido en la base de datos...')
+                    }
+
                 })
         }
-        
+
     }
 
     const getLastOrder = () => {
-        let a=0;
+        let a = 0;
         //Traer orders collection, ordenar y buscar la ultima para devolver el order number
         const db = getFirestore();
         const collectioRef = collection(db, "orders");
         getDocs(collectioRef).then((querySnapshot) => {
-            const ordersColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-           ordersColllection.forEach(order=>{
-                if( order.order_number > a){ a=order.order_number }
-           })  
-           setLastOrder(a)   
+            if (querySnapshot.size > 0) {
+                const ordersColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                ordersColllection.forEach(order => {
+                    if (order.order_number > a) { a = order.order_number }
+                })
+                setLastOrder(a);
+                setErrorPromise('');
+            } else {
+                setErrorPromise('No se encontraron Ordenes de Pedido...');
+            }
+
         })
     }
 
-    const  getOrderDocument = async (order_number) =>{
-        console.log("Orden recibida: " + order_number)
+    const getOrderDocument = async (order_number) => {
         const db = getFirestore();
         const q = query(collection(db, "orders"), where("order_number", "==", order_number));
 
         const snapshot = await getDocs(q);
         if (snapshot.size === 0) {
-            console.log('Consulta sin resultados');
+            setErrorPromise('No se encontró la Orden de Pedido...');
             setOrderDoc({});
         } else {
             const orders = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            orders.length===1 &&
-            setOrderDoc(orders[0]);
-            
-
+            orders.length === 1 &&
+                setOrderDoc(orders[0]);
+            setErrorPromise('');
         };
 
-       /*  const db = getFirestore();
-        
-        const qref = doc((db, 'orders'), where("order_number", "==", order_number))
-        const result = await getDoc(qref);
-        if (result) {
-           
-
-            (setOrderDoc({ ...result.data(), id: result.id }));
-        } else {
-            console.log("Error: No se encontro el producto seleccionado");
-        } */
     }
 
 
@@ -149,7 +171,7 @@ const useFirebase = () => {
         getProductPorId, urlImg, getProductsByCategory,
         productsByCategory, setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument
+        setOrderId, orderDoc, getOrderDocument, errorPromise
     }
 }
 export { useFirebase }

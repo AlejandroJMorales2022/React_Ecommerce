@@ -13,8 +13,7 @@ const Cart = ()=>{
 
     const {cart, totalPrice, removeItem} = useContext(CartContext)
     
-    
-    
+     
     return(
         <>
         <div className="container mt-4 pt-2 card">
@@ -47,8 +46,8 @@ const Cart = ()=>{
                 
 
         </div>
-        <div className="FormClientContainer container mt-5 mb-5 pt-2 card">
-                   {cart.length>0 ? (<FormClient />) : (<p>No agregaste productos a tu Orden, por el momento...</p>) }  
+        <div className="FormClientContainer container mt-5 mb-5 pt-2 card text-center">
+                   {cart.length>0 ? (<FormClient />) : (<p style={{color:'tomato'}}>No agregaste productos a tu Orden, por el momento...</p>) }  
         </div>
         </>
         )

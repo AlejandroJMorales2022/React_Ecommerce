@@ -5,7 +5,7 @@ import { useFirebase } from '../../hooks/useFirebase/useFirebase';
 
 const ItemListContainer = ({greeting1, imgPresentacion}) => {
     
-   const {products, getProducts} = useFirebase();
+   const {products, getProducts,errorPromise} = useFirebase();
    
 
    useEffect(()=>{
@@ -15,7 +15,7 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
     },[]); 
     
     return (
-        <>
+        <>          
             <div className="container-fluid">
                 <section className='row d-flex justify-content-center align-items-center'>
                     <div className='title text-center col-sm-12 col-md-8'>
@@ -27,8 +27,9 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
                 </section> 
                 
             </div>
-            <div className='container-fluid'>
-                <ItemList products={products} />  
+            <div className='container-fluid text-center'>
+            {errorPromise !== '' ? ((<p style={{color:'tomato'}}>{errorPromise}</p> )) : ( <ItemList products={products} />  )}
+               
             </div>
         </>
     )

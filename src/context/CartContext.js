@@ -14,7 +14,6 @@ const CartProvider = ({children}) =>{
     const [totalPrice, setTotalPrice] = useState(0); 
     const [orderGenerated, setOrderGenerated]= useState({})
 
-    console.log(cart);
 
     const addItem = (item, quantity) =>{
         if (!isInCart(item.id)){
@@ -39,6 +38,7 @@ const CartProvider = ({children}) =>{
 
     useEffect(()=>{
             countItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[cart]);
 
     const countItems = () =>{
