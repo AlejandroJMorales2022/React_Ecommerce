@@ -30,10 +30,8 @@ function NavBar() {
                             <Link to={'/'}><img src={logoLepen} height={40} alt="logo Lepen" /></Link>
                         </div>     
                         <div className="cartContainer d-flex justfy-content-center">
-                        <Link to='/cart' className="Option btnPurchase rounded m-4 btn"><CartWidget /></Link>
-                            
+                        <Link to='/cart' className="Option btnPurchase rounded m-0 p-0"><CartWidget /></Link>
                         </div>
-                    
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse  id="basic-navbar-nav">
                         <Nav className="ulContenedor"> 

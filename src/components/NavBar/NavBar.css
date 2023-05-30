@@ -72,7 +72,9 @@ padding: 4;
     --bs-dropdown-link-active-bg:  background-color:red;
     text-align: left;
 } 
-
+.btnPurchase, .btnPurchase:hover{
+    background-color: #1f2124 !important;
+}
 @media(min-width: 768px){
     #basic-navbar-nav{
         display: flex !important;

@@ -9,6 +9,7 @@ const Order = () => {
     const { lastOrder, getLastOrder, orderDoc, getOrderDocument } = useFirebase();
     const [totalPrice, setTotalPrice] =useState(0);
 
+
     useEffect(() => {
         getLastOrder();
     }, [])
@@ -28,8 +29,10 @@ const Order = () => {
 
     return (
         <div className=" container card cardOrder mt-3 mb-3 text-center p-0">
-            
-                <h4 className="container-fluid text-center mb-3 orderTitle">{`Orden de Pedido nro. ${orderDoc?.order_number}`} </h4>
+                {orderDoc?.order_number &&
+                    <h4 className="container-fluid text-center mb-3 orderTitle">{`Orden de Pedido nro. ${orderDoc?.order_number}`} </h4>
+                }
+                
                 <div className="container p-0  d-flex flex-column align-items-center pt-3 pb-5">
                     <div className="clientCard">
                         <div className="pb-3">
@@ -59,13 +62,13 @@ const Order = () => {
                         {(orderDoc?.items) && (orderDoc.items.map(item => (
                             <tr key={item.id}>
                                 <td className="tdProducto"><img  src={item.img} alt={item.name} style={{width:50}} />{item.name}</td>
-                                <td>{item.quantity}</td>
-                                <td>{`${parseFloat(item.price)}`}</td>
-                                <td>{` $ ${parseFloat(item.price)*parseInt(item.quantity)}`}</td>
+                                <td >{item.quantity}</td>
+                                <td >{`${parseFloat(item.price)}`}</td>
+                                <td >{` $ ${parseFloat(item.price)*parseInt(item.quantity)}`}</td>
                             </tr>
                         )))} 
                         <tr>
-                           <td></td><td></td><td></td><td className="totalPrice text-center">{`Total $${totalPrice}`}</td> 
+                           <td></td><td></td><td></td><td className="totalPrice text-center">{`TOTAL  $${totalPrice}`}</td> 
                         </tr>
                         
                     

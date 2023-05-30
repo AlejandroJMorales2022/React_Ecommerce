@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './FormClient.css'
 import { useFirebase } from '../../hooks/useFirebase/useFirebase';
-import { CartContext } from '../../context/CartContext';
+import { useCartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const FormClient = () => {
@@ -9,11 +9,14 @@ const FormClient = () => {
     const { setOrderDocument, lastOrder, getLastOrder, orderId } = useFirebase();
     const navigate = useNavigate();
 
-    const { cart, clearCart } = useContext(CartContext);
-    const [itemsCart, setItemsCart] = useState([]);
+    const { cart, clearCart } = useCartContext();
+/*     const [itemsCart, setItemsCart] = useState([]); */
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-
+    const [btnOrder, setBtnOrder] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [totalOrder, setTotalOrder] = useState(0);
+    const [errorFields, setErrorFields] = useState('')
 
     const [order, setOrder] = useState({
         order_number: '',
@@ -31,11 +34,6 @@ const FormClient = () => {
         email1: '',
         email2: ''
     })
-
-    const [btnOrder, setBtnOrder] = useState(false);
-    const [errorEmail, setErrorEmail] = useState(false);
-    const [totalOrder, setTotalOrder] = useState(0);
-
     
     const handleEmail = () => {
 
@@ -43,18 +41,28 @@ const FormClient = () => {
         // eslint-disable-next-line no-useless-escape
         if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(value)) {
             setErrorEmail(false);
-            /* console.log(email.email1+"  "+email.email2) */
             email.email1 === email.email2 ? setBtnOrder(true) : setBtnOrder(false);
         } else {
             setErrorEmail(true);
         }
     }
 
+    const validateFields = ()=>{
 
+        if(name.length===0 || name.length===''){
+            (setErrorFields('Por favor Ingrese su nombre'));
+        } else if (phone.length===0 || phone.length===''){
+            (setErrorFields('Por favor Ingrese su número de teléfono'));
+        } else {
+            (setErrorFields(''));
+        };
+         
+        /* (errorFields==='') ? return (false) : return( true) */
+    }
 
     const handleOnclick = (e) => {
         e.preventDefault();
-
+        validateFields()
         const items = cart.map(item => ({
             idprod: item.id,
             name: item.name,
@@ -69,9 +77,8 @@ const FormClient = () => {
         items.forEach(element => {
             total += element.total;
         });
-
         setTotalOrder(total);
-        getLastOrder();
+        getLastOrder(); 
     }
 
     useEffect(() => {
@@ -101,9 +108,12 @@ const FormClient = () => {
     }, [email])
 
     useEffect(() => {
-        if (orderId !== 0 && orderId !== '') {
+        if (orderId !== 0 && orderId !== '' && errorFields === '') {
             navigate('/order');
-            clearCart();
+            setTimeout(() => {  
+                clearCart();
+            }, 1000);
+            
 
         }
     }, [orderId])
@@ -183,7 +193,9 @@ const FormClient = () => {
                         : (<></>)}
                 </div>
                 <div>
-                    <p className='msgOrder'>Su Código de Orden de Pedido es 000-001</p>
+                    {errorFields !== '' && (
+                    <p className='msgOrder'>{errorFields}</p>
+                    )}
                 </div>
             </form>
         </div>
