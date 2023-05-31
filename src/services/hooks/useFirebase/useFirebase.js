@@ -57,7 +57,7 @@ const useFirebase = () => {
     //Traer Productos por Nombre segun la Barra de busqueda
     const getProductsFromSearchBar = async (searchText) => {
         const db = getFirestore();
-        const q = query(collection(db, "products"), where("name", "in", searchText));
+        const q = query(collection(db, "products"), where("name", ">=", searchText));
 
         const snapshot = await getDocs(q);
         if (snapshot.size === 0) {
