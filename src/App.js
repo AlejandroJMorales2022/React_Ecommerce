@@ -1,16 +1,16 @@
 
 import './App.css';
-import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import NavBar from './components/NavBar/NavBar';
-import imgPresentacion from'./components/ItemListContainer/assets/images/cassete-n2.webp';
-import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
+import ItemListContainer from './pages/ItemListContainer/ItemListContainer';
+import NavBar from './components/commons/NavBar/NavBar';
+import imgPresentacion from'./pages/ItemListContainer/assets/images/cassete-n2.webp';
+import ItemDetailContainer from './pages/ItemDetailContainer/ItemDetailContainer';
 import {BrowserRouter, Route,Routes} from "react-router-dom"
-import CategoryListContainer from './components/Categories/CategoryListContainer';
+import CategoryListContainer from './pages/Categories/CategoryListContainer';
 import { CartProvider } from './context/CartContext';
-import { Cart } from './components/Cart/Cart';
-import { ProductsProvider } from './context/ProdContext';
-import './firebase/firebaseConfig'
-import { Order } from './components/Order/Order';
+import { Cart } from './pages/Cart/Cart';
+import './services/firebase/firebaseConfig'
+import { Order } from './pages/Order/Order';
+
 
 
 
@@ -20,7 +20,6 @@ function App() {
   return (
     
     <BrowserRouter>
-      <ProductsProvider>
       <CartProvider>
         <NavBar/>
         <Routes>
@@ -35,7 +34,6 @@ function App() {
           <Route path='/order' element={ <Order /> }/>
         </Routes>
       </CartProvider>
-      </ProductsProvider>
     </BrowserRouter>
   );
 }

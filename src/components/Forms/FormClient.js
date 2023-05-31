@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './FormClient.css'
-import { useFirebase } from '../../hooks/useFirebase/useFirebase';
+import { useFirebase } from '../../services/hooks/useFirebase/useFirebase';
 import { useCartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,8 +56,6 @@ const FormClient = () => {
         } else {
             (setErrorFields(''));
         };
-         
-        /* (errorFields==='') ? return (false) : return( true) */
     }
 
     const handleOnclick = (e) => {
@@ -71,7 +69,7 @@ const FormClient = () => {
             quantity: item.quantity,
             total: (parseFloat(item.price) * parseInt(item.quantity))
         }));
-       /*  setItemsCart(items); */
+    
 
         let total = 0;
         items.forEach(element => {
@@ -94,6 +92,7 @@ const FormClient = () => {
             items: cart,
             total: totalOrder
         }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastOrder])
 
     useEffect(() => {
@@ -116,6 +115,7 @@ const FormClient = () => {
             
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderId])
 
 
@@ -171,7 +171,7 @@ const FormClient = () => {
                     </div>
                     <div className="col-12 d-flex justify-content-center align-items-center mt-2">
                         <div className="col-3">
-                            <label className="rounded w-100 h-50 text-end mt-2 mb-4 pe-2" htmlFor="email2">Confirmar de E-mail</label>
+                            <label className="rounded w-100 h-50 text-end mt-2 mb-4 pe-2" htmlFor="email2">Confirmar E-mail</label>
                         </div>
                         <div className="col-9">
                             <input
