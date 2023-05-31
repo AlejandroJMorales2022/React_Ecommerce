@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
 
 
 
 
 const useFirebase = () => {
 
+    const {products, setProducts} = useProductsContext();
     const [urlImage, setUrlImage] = useState('');
-    const [products, setProducts] = useState([]);
+   /*  const [products, setProducts] = useState([]); */
     const [productPorId, setProductPorId] = useState({});
     const [urlImg, setUrlImg] = useState('');
     const [productsByCategory, setProductsByCategory] = useState([]);
@@ -47,6 +49,24 @@ const useFirebase = () => {
         } else {
             const productos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             setProductsByCategory(productos);
+            setErrorPromise('');
+
+        };
+    };
+
+    //Traer Productos por Nombre segun la Barra de busqueda
+    const getProductsFromSearchBar = async (searchText) => {
+        const db = getFirestore();
+        const q = query(collection(db, "products"), where("name", "in", searchText));
+
+        const snapshot = await getDocs(q);
+        if (snapshot.size === 0) {
+            setErrorPromise('No se encontraron Productos con el nombre solicitado')
+            setProductsByCategory([]);
+        } else {
+            const productos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            console.log ("Productirijillos: "+ products)
+            setProducts(productos);
             setErrorPromise('');
 
         };
@@ -162,7 +182,7 @@ const useFirebase = () => {
         getProductPorId, urlImg, getProductsByCategory,
         productsByCategory, setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument, errorPromise
+        setOrderId, orderDoc, getOrderDocument, errorPromise,getProductsFromSearchBar
     }
 }
 export { useFirebase }

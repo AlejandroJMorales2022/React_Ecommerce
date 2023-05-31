@@ -1,9 +1,10 @@
-import { useContext } from "react"
+
 import { CartContext } from "../../context/CartContext"
 import { Link } from "react-router-dom"
 import delete_icon from '../../assets/img/icons/delete.png'
 import './Cart.css'
-import { FormClient } from "../../components/forms/FormClient"
+import { useCartContext } from "../../hooks/useCartContext/useCartContext"
+import { FormClient } from "../../components/Forms/FormClient"
 
 
 
@@ -11,7 +12,7 @@ import { FormClient } from "../../components/forms/FormClient"
 
 const Cart = ()=>{
 
-    const {cart, totalPrice, removeItem} = useContext(CartContext)
+    const {cart, totalPrice, removeItem} = useCartContext(CartContext)
     
      
     return(

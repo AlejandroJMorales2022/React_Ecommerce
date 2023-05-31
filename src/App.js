@@ -10,6 +10,7 @@ import { CartProvider } from './context/CartContext';
 import { Cart } from './pages/Cart/Cart';
 import './services/firebase/firebaseConfig'
 import { Order } from './pages/Order/Order';
+import { ProductsProvider } from './context/ProductsContext';
 
 
 
@@ -20,6 +21,7 @@ function App() {
   return (
     
     <BrowserRouter>
+    <ProductsProvider>
       <CartProvider>
         <NavBar/>
         <Routes>
@@ -34,6 +36,7 @@ function App() {
           <Route path='/order' element={ <Order /> }/>
         </Routes>
       </CartProvider>
+      </ProductsProvider>
     </BrowserRouter>
   );
 }

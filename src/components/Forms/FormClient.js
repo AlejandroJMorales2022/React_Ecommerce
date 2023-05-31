@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './FormClient.css'
 import { useFirebase } from '../../services/hooks/useFirebase/useFirebase';
-import { useCartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { useCartContext } from '../../hooks/useCartContext/useCartContext';
 
 const FormClient = () => {
 

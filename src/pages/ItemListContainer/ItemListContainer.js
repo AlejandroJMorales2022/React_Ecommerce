@@ -2,20 +2,37 @@ import { useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../../components/containers/ItemList/ItemList';
 import { useFirebase } from '../../services/hooks/useFirebase/useFirebase';
+import { useProductsContext } from '../../hooks/useProductsContext/useProductsContext';
 
-const ItemListContainer = ({greeting1, imgPresentacion}) => {
-    
-   const {products, getProducts,errorPromise} = useFirebase();
-   
+const ItemListContainer = ({ greeting1, imgPresentacion }) => {
 
-   useEffect(()=>{
+    const { products, getProducts, errorPromise } = useFirebase();
+    const { setPageIndex } = useProductsContext();
+
+    useEffect(() => {
+
         getProducts()
-        /* console.log(products) */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]); 
+        setPageIndex('ItemListContainer')
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    /* useEffect(() => {
+        let a = true
+        if (a === true) {
+            getProducts()
+            setPageIndex('ItemListContainer')
+        }
+        return (() => a = false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [products]); */
+    /* 
+        useEffect(()=>{
     
+        },[page]) */
+
     return (
-        <>          
+        <>
             <div className="container-fluid">
                 <section className='row d-flex justify-content-center align-items-center'>
                     <div className='title text-center col-sm-12 col-md-8'>
@@ -24,12 +41,12 @@ const ItemListContainer = ({greeting1, imgPresentacion}) => {
                     <div className='col-sm-12 col-md-4 d-flex  justify-content-center align-items-center'>
                         <img src={imgPresentacion} className='imgPreserntacion img-fluid' alt='Imagen de Presentacion' />
                     </div>
-                </section> 
-                
+                </section>
+
             </div>
             <div className='container-fluid text-center'>
-            {errorPromise !== '' ? ((<p style={{color:'tomato'}}>{errorPromise}</p> )) : ( <ItemList products={products} />  )}
-               
+                {errorPromise !== '' ? ((<p style={{ color: 'tomato' }}>{errorPromise}</p>)) : (<ItemList products={products} />)}
+
             </div>
         </>
     )
