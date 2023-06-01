@@ -1,12 +1,21 @@
 .imgCart{
-    width: 38px;
-    border-radius: 19px;
-}
+    width: 34px;
+
+} 
 .qty{
-    width: 24px;
-    border-radius: 12px;
+    width: 28px;
+    border-radius: 6px;
     color:#1f2124;
     background-color:#b8a68c; 
     font-weight: bold;
     margin-left: -2px;
+}
+.cartWidgetContainer{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgb(199, 199, 198);   
+}
+.cartWidgetContainer:hover{
+    background-color: white;
 }

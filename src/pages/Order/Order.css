@@ -32,3 +32,6 @@ th,td{
     font-size: 0.9rem;
     font-weight: 500;
 }
+.mainContainer{
+    min-height: 100vh;
+}

@@ -18,7 +18,9 @@ html{
     width: 160px;
     border-radius: 60%;
 }
-
+.mainContainer{
+    min-height: 100vh;
+}
 @media(min-width: 992px){
     .greeting_text1{
         margin-top: 5px;

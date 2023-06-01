@@ -20,3 +20,6 @@
 .cartDeleteIcon:hover{
     cursor: pointer;
 }
+.mainItemsContainer{
+    min-height: 50vh;
+}

@@ -5,6 +5,8 @@ import delete_icon from '../../assets/img/icons/delete.png'
 import './Cart.css'
 import { useCartContext } from "../../hooks/useCartContext/useCartContext"
 import { FormClient } from "../../components/Forms/FormClient"
+import { useEffect } from "react"
+import { useProductsContext } from "../../hooks/useProductsContext/useProductsContext"
 
 
 
@@ -12,12 +14,17 @@ import { FormClient } from "../../components/Forms/FormClient"
 
 const Cart = ()=>{
 
-    const {cart, totalPrice, removeItem} = useCartContext(CartContext)
-    
-     
+    const {cart, totalPrice, removeItem} = useCartContext(CartContext);
+    const {setPageIndex} = useProductsContext();
+   
+    useEffect(()=>{
+        setPageIndex('Cart');
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     },[])
+
     return(
         <>
-        <div className="container mt-4 pt-2 card">
+        <div className="container mt-4 pt-2 card ">
 
             {cart.length>0 ? (<> <div className="container-fluid">
                 <div className="row d-flex justify-content-center align-items-center cartRowHeader">
@@ -40,7 +47,7 @@ const Cart = ()=>{
                 </div>
                 <div className=" col-12 d-flex justify-content-end mr-2 pt-4">
                     <p className="totalPrice p-2"><b>Precio Total:</b>{` $${totalPrice} `}</p>
-                </div></>) :(<div className="col-12 text-center p-4">
+                </div></>) :(<div className="col-12 text-center p-4 mainItemsContainer">
                             
                             <Link to='/' className="Option btnPurchase rounded m-4 btn">Continuar Comprando</Link>
                           </div>)}

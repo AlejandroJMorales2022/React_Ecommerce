@@ -16,7 +16,7 @@ import { useProductsContext } from '../../../hooks/useProductsContext/useProduct
 
 function NavBar() {
 
-    const { getCategories, categories } = useFirebase();
+    const { getCategories, categories, getProducts } = useFirebase();
     const [flagSearch, setFlagSearch] = useState(false);
     const {page}= useProductsContext();
 
@@ -31,18 +31,15 @@ function NavBar() {
         <>
             <div className='container-fluid d-flex justify-content-center'>
                 <Navbar className='navbarContainer' bg="light" expand="md">
-
                     <Container className='container-fluid navbarContenedor'>
                         <div className='imgLogo'>
-                            <Link to={'/'}><img src={logoLepen} height={40} alt="logo Lepen" /></Link>
+                            <Link to={'/'} onClick={()=>getProducts()}><img src={logoLepen} height={40} alt="logo Lepen" /></Link>
                         </div>
-                        <div className="cartContainer d-flex justfy-content-center">
-                            <Link to='/cart' className="Option btnPurchase rounded m-0 p-0"><CartWidget /></Link>
-                        </div>
+                        
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="ulContenedor">
-                                <NavLink to={'/'} className='nav-link'>Home</NavLink>
+                                <NavLink to={'/'} className='nav-link' onClick={()=>getProducts()} >Home</NavLink>
                                 <NavDropdown title="Productos" id="basic-nav-dropdown">
                                     {/*  Traer Categorias y Mapearlas para conformar el menu */}
                                     {categories.map(cat => (
@@ -53,11 +50,13 @@ function NavBar() {
                                 <NavLink to={''} className='nav-link'>Contacto</NavLink>
                             </Nav>
                         </Navbar.Collapse>
+                        <div className="cartContainer d-flex justfy-content-center text-center me-4">
+                            <Link to='/cart' className='linkCart'><CartWidget /></Link>
+                        </div>
                         <div className='imgSearch'>
                             {(page==='ItemListContainer') &&
-                                <div><img src={imgSearch} height={30} alt="icono de busqueda" onClick={()=>setFlagSearch(!flagSearch)} /></div>
-                            }
-                            
+                                <div className='imgSearchContainer d-flex justify-content-center align-items-center'><img src={imgSearch} height={25} alt="icono de busqueda" onClick={()=>setFlagSearch(!flagSearch)} /></div>
+                            }     
                         </div>
                     </Container>
                 </Navbar>

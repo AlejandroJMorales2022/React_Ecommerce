@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where,orderBy,limit } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
 
@@ -10,10 +10,8 @@ const useFirebase = () => {
 
     const {products, setProducts} = useProductsContext();
     const [urlImage, setUrlImage] = useState('');
-   /*  const [products, setProducts] = useState([]); */
     const [productPorId, setProductPorId] = useState({});
     const [urlImg, setUrlImg] = useState('');
-    const [productsByCategory, setProductsByCategory] = useState([]);
     const [categories, setCategories] = useState([]);
     const [lastOrder, setLastOrder] = useState(0); //numero de la ultima orden generada
     const [orderId, setOrderId] = useState(''); //id autogernerado en el insert
@@ -24,8 +22,9 @@ const useFirebase = () => {
     const getProducts = () => {
 
         const db = getFirestore();
-        const collectioRef = collection(db, "products");
-        getDocs(collectioRef)
+        const collectionRef = collection(db, "products");
+        const q = query(collectionRef, orderBy("name", "desc"), limit(20));
+        getDocs(q)
             .then((querySnapshot) => {
                 if (querySnapshot.size > 0) {
                     const productsColllection = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -40,32 +39,15 @@ const useFirebase = () => {
     //Traer Productos por Categoria
     const getProductsByCategory = async (category) => {
         const db = getFirestore();
-        const q = query(collection(db, "products"), where("category", "==", category));
-
+        /* const q = query(collection(db, "products"), where("category", "==", category)) */
+        const qref = query(collection(db, "products"));
+        const q = query(qref, where("category", "==", category), orderBy("name", "desc"));
         const snapshot = await getDocs(q);
         if (snapshot.size === 0) {
             setErrorPromise('No se encontraron Productos para la Categoría seleccionada...')
-            setProductsByCategory([]);
+            setProducts([]);
         } else {
             const productos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            setProductsByCategory(productos);
-            setErrorPromise('');
-
-        };
-    };
-
-    //Traer Productos por Nombre segun la Barra de busqueda
-    const getProductsFromSearchBar = async (searchText) => {
-        const db = getFirestore();
-        const q = query(collection(db, "products"), where("name", ">=", searchText));
-
-        const snapshot = await getDocs(q);
-        if (snapshot.size === 0) {
-            setErrorPromise('No se encontraron Productos con el nombre solicitado')
-            setProductsByCategory([]);
-        } else {
-            const productos = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            console.log ("Productirijillos: "+ products)
             setProducts(productos);
             setErrorPromise('');
 
@@ -178,11 +160,11 @@ const useFirebase = () => {
 
 
     return {
-        urlImage, getUrl, products, getProducts, productPorId,
+        urlImage, getUrl, products, setProducts, getProducts, productPorId,
         getProductPorId, urlImg, getProductsByCategory,
-        productsByCategory, setOrderDocument,
+        setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument, errorPromise,getProductsFromSearchBar
+        setOrderId, orderDoc, getOrderDocument, errorPromise
     }
 }
 export { useFirebase }

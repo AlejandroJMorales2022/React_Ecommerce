@@ -1,0 +1,16 @@
+.footer{
+    width: 95% !important;
+    min-height: 150px;
+    background-color: #1f2124 !important;
+    color: #b8a68c;
+    border-radius: 10px !important;;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+.imgInst, .imgFace{
+    width: 40px;
+    padding: 5px;
+}
+.imgLogoLepen{
+    height: 40px;
+}

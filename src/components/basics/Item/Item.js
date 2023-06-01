@@ -16,7 +16,7 @@ const Item = ({id, name, img, price, stock}) =>{
     
 
     return (
-        <article className='CardItem card col-11 col-sm-5 col-lg-3 m-1 text-center'>
+        <article className='CardItem card col-11 col-sm-5 col-md-4 col-lg-3 m-1 text-center'>
             <header className='Hader pt-2'>
                 <h2 className='ItemHeader'>
                     {name}

@@ -14,7 +14,7 @@ const CartWidget = () => {
     return(
         <>
             <div className='d-flex justify-content-center align-items-center'>
-                <div>
+                <div className='cartWidgetContainer d-flex justify-content-center align-items-center'>
                     <img className='imgCart' src={cart} alt="cart-widget"/>
                 </div>
                 <div className='qty text-center'>
