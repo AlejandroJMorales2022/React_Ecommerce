@@ -47,7 +47,7 @@ const ItemDetail = (product)=>{
                             quantityAdded > 0 ? (
                                 <>
                                 <div className="d-flex justify-content-center align-items-center">
-                                    <Link to='/cart' className="Option btnPurchase rounded m-4 btn">Terminar Compra</Link>
+                                    <Link to='/cart' className="Option btnPurchase rounded m-4 btn">ir al Carrito</Link>
                                     <Link to='/' className="Option btnContPurchase rounded m-4 btn">Seguir Comprando</Link>
                                 </div>
                                 

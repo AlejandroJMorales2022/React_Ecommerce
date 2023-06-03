@@ -59,4 +59,4 @@ const CartProvider = ({children}) =>{
         </CartContext.Provider>
     )
 }
-export {CartContext, CartProvider/* , useCartContext */}
+export {CartContext, CartProvider}

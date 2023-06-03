@@ -8,7 +8,7 @@ import { useProductsContext } from "../../../hooks/useProductsContext/useProduct
 
 const useFirebase = () => {
 
-    const {products, setProducts} = useProductsContext();
+    const {products, setProducts, errorPromise, setErrorPromise} = useProductsContext();
     const [urlImage, setUrlImage] = useState('');
     const [productPorId, setProductPorId] = useState({});
     const [urlImg, setUrlImg] = useState('');
@@ -16,7 +16,7 @@ const useFirebase = () => {
     const [lastOrder, setLastOrder] = useState(0); //numero de la ultima orden generada
     const [orderId, setOrderId] = useState(''); //id autogernerado en el insert
     const [orderDoc, setOrderDoc] = useState({}); //documento de orden de pedido
-    const [errorPromise, setErrorPromise] = useState('')
+    
 
 
     const getProducts = () => {
@@ -107,16 +107,18 @@ const useFirebase = () => {
         if (order.items.length > 0 && order.total > 0) {
             const db = getFirestore();
             const ordersColllection = collection(db, 'orders');
-            await addDoc(ordersColllection, order)
-                .then(({ id }) => {
-                    if (id) {
+            try{
+               const {id} = await addDoc(ordersColllection, order);
+                /* if (id) {
                         setOrderId(id);
                         setErrorPromise('');
-                    } else {
-                        setErrorPromise('No se pudo Guardar la orden de Pedido en la base de datos...')
-                    }
-
-                })
+                    } */
+                return {success: true, id}; 
+            }catch(err){
+                console.error('Error al guardar la Orden en la base de datos',err)
+                /* setErrorPromise('No se pudo Guardar la orden de Pedido en la base de datos...') */
+                return {success: false, error:err}
+            }
         }
 
     }
@@ -136,6 +138,7 @@ const useFirebase = () => {
                 setErrorPromise('');
             } else {
                 setErrorPromise('No se encontraron Ordenes de Pedido...');
+                setLastOrder(0);
             }
 
         })
@@ -164,7 +167,7 @@ const useFirebase = () => {
         getProductPorId, urlImg, getProductsByCategory,
         setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument, errorPromise
+        setOrderId, orderDoc, getOrderDocument, errorPromise, setErrorPromise
     }
 }
 export { useFirebase }

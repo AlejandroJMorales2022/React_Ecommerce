@@ -1,0 +1,18 @@
+.mainAuthContainer{
+    min-height: 60%;
+    max-width: 50%;
+}
+.link{
+    text-decoration: none;
+}
+.recover:hover{
+    color: rgb(19, 18, 18);
+    font-weight: 500;
+}
+
+@media(max-width: 768px){
+    .mainAuthContainer{
+        min-height: 60%;
+       max-width: 95%;
+    }
+}

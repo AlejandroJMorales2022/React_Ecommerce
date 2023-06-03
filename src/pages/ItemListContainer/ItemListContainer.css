@@ -20,6 +20,7 @@ html{
 }
 .mainContainer{
     min-height: 100vh;
+    max-width: 100vw !important;
 }
 @media(min-width: 992px){
     .greeting_text1{
@@ -27,17 +28,8 @@ html{
         padding: 5px 5px 5px 50px;
         font-size: 2rem;
     }
-  
 }
 
-/* @media(min-width: 768px){
-    .greeting_text1{
-        margin-top: 5px;
-        padding: 5px;
-        font-size: 1.5rem;
-    }
-  
-} */
 
 @media(max-width: 767px){
     .greeting_text1{

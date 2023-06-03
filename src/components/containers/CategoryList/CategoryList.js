@@ -3,8 +3,6 @@ import './CategoryList.css'
 
 const CategoryList = ({products, category}) =>{
 
-   /*  const {productsByCategory} = useFirebase(); */
- /* alert(products.length) */
     return (
         <>
         <div className="container-fluid d-flex justify-content-center">

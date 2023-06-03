@@ -17,9 +17,25 @@
 .cartRowItem{
     font-size: 0.8rem;
 }
+/* .cartDeleteIcon{
+    background-color: rgb(151, 147, 147);
+} */
 .cartDeleteIcon:hover{
     cursor: pointer;
 }
 .mainItemsContainer{
-    min-height: 50vh;
+    min-height: 45vh;
+}
+.btnClearCart, .btnConfirm{
+    background-color: rgb(151, 147, 147);
+    color: white;
+    font-size: 0.9rem;
+}
+.btnClearCart:hover, .btnConfirm:hover{
+    background-color: rgb(95, 93, 93);
+}
+.userContainer{
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin:25px
 }

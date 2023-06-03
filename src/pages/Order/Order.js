@@ -1,25 +1,38 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useFirebase } from "../../services/hooks/useFirebase/useFirebase"
 import './Order.css'
 import { Link } from "react-router-dom";
 import { useProductsContext } from "../../hooks/useProductsContext/useProductsContext";
+import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
+import { useFirebaseClient } from "../../services/hooks/useFirebase/useFirebaseClient";
+import { useClientContext } from "../../hooks/useClientContext/useClientContext";
+
 
 
 const Order = () => {
 
+
     const { lastOrder, getLastOrder, orderDoc, getOrderDocument } = useFirebase();
     const [totalPrice, setTotalPrice] = useState(0);
     const { setPageIndex } = useProductsContext();
+    const {emailAuth} = useAuthContext();
+    const {getClient} = useFirebaseClient();
+    const {client}= useClientContext
 
     useEffect(() => {
+        getClient('email',emailAuth)
         getLastOrder();
         setPageIndex('Order');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    useEffect(()=>{
+        console.log(client)
+    },[client])
+
     useEffect(() => {
         getOrderDocument(lastOrder)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastOrder]);
 
     useEffect(() => {

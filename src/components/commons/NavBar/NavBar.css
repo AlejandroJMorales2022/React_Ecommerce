@@ -62,17 +62,19 @@ padding: 4;
     position: relative;
     left:10px;
 }
-.imgSearchContainer{
-    width: 38px;
-    height: 38px;
+.imgSearchContainer, .imgUserContainer,.imgAccountContainer{
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: rgb(199, 199, 198);
     /* background-color:white; */
    
 }
-.imgSearchContainer:hover{
+.imgSearchContainer:hover, .imgUserContainer:hover, .imgAccount:hover{
     background-color: white;
     cursor: pointer;
+
+
 }
 .navbar-nav{
     background-color: #1f2124;

@@ -6,11 +6,11 @@ import { useCartContext } from '../../hooks/useCartContext/useCartContext';
 
 const FormClient = () => {
 
-    const { setOrderDocument, lastOrder, getLastOrder, orderId } = useFirebase();
+    const { setOrderDocument, lastOrder, getLastOrder, orderId, setOrderId, setErrorPromise } = useFirebase();
     const navigate = useNavigate();
 
     const { cart, clearCart } = useCartContext();
-/*     const [itemsCart, setItemsCart] = useState([]); */
+    /*     const [itemsCart, setItemsCart] = useState([]); */
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [btnOrder, setBtnOrder] = useState(false);
@@ -19,7 +19,7 @@ const FormClient = () => {
     const [errorFields, setErrorFields] = useState('')
 
     const [order, setOrder] = useState({
-        order_number: '',
+        order_number: 0,
         date: '',
         buyer: {
             name: '',
@@ -34,7 +34,7 @@ const FormClient = () => {
         email1: '',
         email2: ''
     })
-    
+
     const handleEmail = () => {
 
         const value = email.email1;
@@ -47,11 +47,11 @@ const FormClient = () => {
         }
     }
 
-    const validateFields = ()=>{
+    const validateFields = () => {
 
-        if(name.length===0 || name.length===''){
+        if (name.length === 0 || name.length === '') {
             (setErrorFields('Por favor Ingrese su nombre'));
-        } else if (phone.length===0 || phone.length===''){
+        } else if (phone.length === 0 || phone.length === '') {
             (setErrorFields('Por favor Ingrese su número de teléfono'));
         } else {
             (setErrorFields(''));
@@ -69,17 +69,31 @@ const FormClient = () => {
             quantity: item.quantity,
             total: (parseFloat(item.price) * parseInt(item.quantity))
         }));
-    
-
         let total = 0;
         items.forEach(element => {
             total += element.total;
         });
         setTotalOrder(total);
-        getLastOrder(); 
+        getLastOrder();
     }
 
+    const addOrder = async (order) => {
+        try {
+            const response = await setOrderDocument(order);
+            if (response.success === true) {
+                setOrderId(response.id);
+                setErrorPromise('');
+            }
+        } catch (err) {
+            console.error('No se pudo Guardar la Orden de Pedido en la base de datos...', err)
+            setErrorPromise('No se pudo Guardar la Orden de Pedido en la base de datos...')
+        }
+    }
+
+
+
     useEffect(() => {
+
         const fecha = new Date()
         setOrder(prev => ({
             ...prev, buyer: {
@@ -92,12 +106,15 @@ const FormClient = () => {
             items: cart,
             total: totalOrder
         }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastOrder])
 
     useEffect(() => {
-        order.total > 0 &&
-            setOrderDocument(order);
+        console.log(order.order_number)
+        console.log(order)
+        order.order_number > 0 &&
+            addOrder(order)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [order])
 
@@ -109,13 +126,11 @@ const FormClient = () => {
     useEffect(() => {
         if (orderId !== 0 && orderId !== '' && errorFields === '') {
             navigate('/order');
-            setTimeout(() => {  
+            setTimeout(() => {
                 clearCart();
             }, 1000);
-            
-
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderId])
 
 
@@ -194,7 +209,7 @@ const FormClient = () => {
                 </div>
                 <div>
                     {errorFields !== '' && (
-                    <p className='msgOrder'>{errorFields}</p>
+                        <p className='msgOrder'>{errorFields}</p>
                     )}
                 </div>
             </form>

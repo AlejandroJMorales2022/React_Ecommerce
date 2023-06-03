@@ -7,11 +7,15 @@ import './NavBar.css';
 import logoLepen from './assets/images/lepen_blanco.png';
 import imgSearch from '../../../assets/img/icons/search.png'
 import CartWidget from '../../basics/CartWidget/CartWidget';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useFirebase } from '../../../services/hooks/useFirebase/useFirebase';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { useProductsContext } from '../../../hooks/useProductsContext/useProductsContext';
+import imgUser from '../../../assets/img/icons/user.png';
+import imgAccount from '../../../assets/img/icons/account.png';
+import { useAuthContext } from '../../../hooks/useAuthContext/useAuthContext';
+
 
 
 function NavBar() {
@@ -19,12 +23,18 @@ function NavBar() {
     const { getCategories, categories, getProducts } = useFirebase();
     const [flagSearch, setFlagSearch] = useState(false);
     const {page}= useProductsContext();
+    const {logged} = useAuthContext();
+    const navigate = useNavigate()
 
+
+    const handleLogin = ()=>{
+        navigate('/login')
+    }
 
     useEffect(() => {
         getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
 
     return (
@@ -55,8 +65,12 @@ function NavBar() {
                         </div>
                         <div className='imgSearch'>
                             {(page==='ItemListContainer') &&
-                                <div className='imgSearchContainer d-flex justify-content-center align-items-center'><img src={imgSearch} height={25} alt="icono de busqueda" onClick={()=>setFlagSearch(!flagSearch)} /></div>
+                                <div className='imgSearchContainer d-flex justify-content-center align-items-center'><img src={imgSearch} height={20} title={'Buscar Producto'} alt="icono de busqueda" onClick={()=>setFlagSearch(!flagSearch)} /></div>
                             }     
+                        </div>
+                        <div className='imgLogin'>
+                            {!logged ? (<div onClick={handleLogin} className='imgUserContainer d-flex justify-content-center align-items-center p-1 m-1'><img src={imgUser} height={22} title={'Login'} alt="icono de Login de Usuario" /></div>)
+                            : (<div  onClick={handleLogin} className='imgAccountContainer d-flex justify-content-center align-items-center p-1 m-1'><img src={imgAccount} height={22} title={'Usuario Registrado'} alt="icono de Usuario Loggeado"  /></div>) }
                         </div>
                     </Container>
                 </Navbar>

@@ -29,7 +29,7 @@ const CategoryListContainer = () => {
     return (
         
              <div className="container-fluid text-center mainContainer">    
-                {errorPromise==='' ? <CategoryList  products={products} category={category} /> : <p style={{color:'tomato'}}>{errorPromise}</p>}         
+                {errorPromise==='' ? <CategoryList  products={products} category={category} /> : <div className="pt-5"><p  style={{color:'tomato'}}>{errorPromise}</p></div>}         
             </div>
             
     )
