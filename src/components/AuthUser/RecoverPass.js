@@ -1,13 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Alert from "./Alert"
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext"
+import { useAuxFunctions } from "../../hooks/useAuxFunctions/useAuxFunctions"
+import { useProductsContext } from "../../hooks/useProductsContext/useProductsContext"
 
 
 
 const RecoverPassword = () => {
 
-    const { resetPassword, error, setError } = useAuthContext()
+    const { resetPassword, error, setError } = useAuthContext();
+    const { setPageIndex } = useProductsContext();
+    const { validateEmailFormat } = useAuxFunctions();
 
     const [user, setUser] = useState({
         email: ''
@@ -18,31 +22,30 @@ const RecoverPassword = () => {
         setUser({ ...user, [name]: value })
     }
 
-    /*  const handleOnSubmit = async (e)=>{
-         e.preventDefault();
-         login(user.email,user.password);
-                     
-        try{
-             await login(user.email,user.password);
-                     navigate('/');
-         }
-         catch (error) {
-             console.error(error);
-         }
- 
-     }
-  */
     const handleRecoverPasword = (e) => {
         e.preventDefault()
-        if (user.email) {
-            resetPassword(user.email)
-        } else {
-            setError('por favor ingresa un correo válido')
+        const emailOk = validateEmailFormat(user.email);
+        if (emailOk) {
+            if (user.email) {
+                resetPassword(user.email)
+            } else {
+                setError('por favor ingresa un correo válido')
+            }
+        }else{
+            setError('Email Incorrecto...')
         }
+
     }
+
     const resetError = () => {
         setError('')
     }
+
+    useEffect(() => {
+        setPageIndex('recoverpass');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     return (
         <div className="container mainAuthContainer text-center mt-5 mb-5 card">

@@ -67,10 +67,10 @@ padding: 4;
     height: 30px;
     border-radius: 50%;
     background-color: rgb(199, 199, 198);
-    /* background-color:white; */
+
    
 }
-.imgSearchContainer:hover, .imgUserContainer:hover, .imgAccount:hover{
+.imgSearchContainer:hover, .imgUserContainer:hover, .imgAccountContainer:hover{
     background-color: white;
     cursor: pointer;
 

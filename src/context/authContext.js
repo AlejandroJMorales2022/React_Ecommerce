@@ -27,39 +27,55 @@ const AuthProvider = ({ children }) => {
         setError('');
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            setLogged(true)
-            navigate('/cart');
+            return (true);
         }
         catch (error) {
-            setError(error.message);
-            setLogged(false)
+            if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+                setError('Existe un Usuario Registrado con este Email');
+            } if (error.message === 'Firebase: Error (auth/missing-password).') {
+                setError('Error de Acceso: Password Incorrecto');
+            } else {
+                setError(error.message);
+            }
+            return (false);
         }
     }
     //funcion para Login de Usuarios en Firebase
     const login = async (email, password) => {
         setError('');
         try {
-          const resp=await signInWithEmailAndPassword(auth, email, password);
+            const resp = await signInWithEmailAndPassword(auth, email, password);
             setEmailAuth(resp.user.email)
             setLogged(true);
             navigate('/cart');
         } catch (error) {
             setLogged(false);
             setEmailAuth('');
-            setError(error.message);
+            if (error.message === 'Firebase: Error (auth/missing-password).') {
+                setError('Error de Acceso: Password Incorrecto');
+            } else if (error.message === 'Firebase: Error (auth/user-not-found).') {
+                setError('Error de Acceso: El Usuario No Existe')
+            } else {
+                setError(error.message)
+            }
+
         }
-        
+
     }
 
 
     //funcion para Resetear un password
     const resetPassword = async (email) => {
-        if (!email) setError('por favor ingresa correo electrónico válido')
+        if (!email) setError('por favor ingresa correo electrónico válido');
         try {
             await sendPasswordResetEmail(auth, email);
-            setError('Se ha enviado un link a tu correo para resetear tu clave de acceso...')
+            setError('Se ha enviado un link a tu correo para resetear tu clave de acceso...');
         } catch (error) {
-            setError(error.message);
+            if (error.message === 'Firebase: Error (auth/user-not-found).') {
+                setError('Error de Acceso: El Usuario No Existe');
+            } else {
+                setError(error.message);
+            }
         }
 
     }

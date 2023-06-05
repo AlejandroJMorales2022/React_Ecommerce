@@ -28,9 +28,11 @@ function NavBar() {
 
 
     const handleLogin = ()=>{
-        navigate('/login')
+        navigate('/login');
     }
-
+    const handleMyAccount =()=>{
+        navigate('/userAccount');
+    }
     useEffect(() => {
         getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +72,7 @@ function NavBar() {
                         </div>
                         <div className='imgLogin'>
                             {!logged ? (<div onClick={handleLogin} className='imgUserContainer d-flex justify-content-center align-items-center p-1 m-1'><img src={imgUser} height={22} title={'Login'} alt="icono de Login de Usuario" /></div>)
-                            : (<div  onClick={handleLogin} className='imgAccountContainer d-flex justify-content-center align-items-center p-1 m-1'><img src={imgAccount} height={22} title={'Usuario Registrado'} alt="icono de Usuario Loggeado"  /></div>) }
+                            : (<div  onClick={handleMyAccount} className='imgAccountContainer d-flex justify-content-center align-items-center p-1 m-1'><img src={imgAccount} height={22} title={'Mi Cuenta'} alt="icono de Usuario Loggeado"  /></div>) }
                         </div>
                     </Container>
                 </Navbar>

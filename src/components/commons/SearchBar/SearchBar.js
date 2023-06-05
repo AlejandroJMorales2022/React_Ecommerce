@@ -11,9 +11,6 @@ const SearchBar = () => {
     const [backup, setBackup] = useState(0)
 
     const handleOnChange = (e) => {
-        /* console.log(localProducts)
-        console.log(backupProducts) */
-        /* setLocalProducts(backupProducts); */
 
         //al escribir en inputSearch, traer productos filtrador por nombre
         let prodRes = [];
@@ -35,7 +32,6 @@ const SearchBar = () => {
         if (backup === 0) {
             if (products) {
                 setLocalProducts(products)
-                /* setBackupProducts(products) */
                 setBackup(1)
             }
 
@@ -50,7 +46,7 @@ const SearchBar = () => {
         <div>
             {page === 'ItemListContainer' &&
                 <form >
-                    <input className='inputSearch w-100 rounded mt-1 p-1 text-center' onChange={handleOnChange} type="text" name="search" id="search" placeholder='Buscar producto...' />
+                    <input className='inputSearch w-100 rounded mt-1 p-1 text-center' onChange={handleOnChange} type="text" name="search" id="search" placeholder='Buscar producto...' autoComplete="off" />
                 </form>
             }
 

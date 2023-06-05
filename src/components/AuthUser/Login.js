@@ -1,15 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Alert from "./Alert"
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext"
 import './Auth.css'
 import imgUser from '../../assets/img/icons/account.png'
+import { useAuxFunctions } from "../../hooks/useAuxFunctions/useAuxFunctions"
+import { useProductsContext } from "../../hooks/useProductsContext/useProductsContext"
 
 
 
 const Login = () => {
 
     const { login, error, setError } = useAuthContext()
+    const { setPageIndex } = useProductsContext();
+    const { validateEmailFormat } = useAuxFunctions();
 
     const [user, setUser] = useState({
         email: '',
@@ -23,7 +27,8 @@ const Login = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        await login(user.email, user.password);
+        const emailOk = validateEmailFormat(user.email);
+        emailOk ? await login(user.email, user.password) : (setError('Email Incorrecto...'));
     }
 
 
@@ -31,16 +36,21 @@ const Login = () => {
         setError('');
     }
 
+    useEffect(() => {
+        setPageIndex('login');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <>
             <div className="container mainAuthContainer text-center mt-5 mb-5 card">
                 <div className="pt-2">
                     {error && <Alert message={error} />}
                 </div>
-                
+
                 <div className="d-flex justify-content-center">
                     <img src={imgUser} height={30} alt="Login de Usuario" />
-                <h5 className="mt-2 mb-2 ms-2">Login</h5>
+                    <h5 className="mt-2 mb-2 ms-2">Login</h5>
                 </div>
                 <form className="bg-white shadow-md rounded mb-4" onSubmit={handleOnSubmit}>
                     <div className="mb-4 mt-3">
@@ -52,6 +62,7 @@ const Login = () => {
                             onChange={handleChenge}
                             placeholder="email@yourcompany.ltd"
                             className="shadow border rounded py-2 px-3 text-dark w-75"
+                            autoComplete="off"
                         />
                     </div>
                     <div className="mb-4">
@@ -63,6 +74,7 @@ const Login = () => {
                             onChange={handleChenge}
                             placeholder="******"
                             className="shadow border rounded py-2 px-3 text-dark "
+                            autoComplete="off"
                         />
                     </div>
                     <div className="mb-3">

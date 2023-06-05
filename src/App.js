@@ -18,6 +18,7 @@ import Register from './components/AuthUser/Register';
 import RecoverPassword from './components/AuthUser/RecoverPass';
 import { AuthProvider } from './context/authContext';
 import { ClientProvider } from './context/clientContext';
+import { UserAccount } from './pages/UserAccount/UserAccount';
 
 
 
@@ -47,6 +48,7 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/recoverPass' element={<RecoverPassword />} />
+                <Route path='/userAccount' element={<UserAccount />} />
               </Routes>
               <Footer />
             </CartProvider>
