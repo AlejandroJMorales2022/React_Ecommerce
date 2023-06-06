@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Alert from "./Alert"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext"
 import './Auth.css'
 import imgUser from '../../assets/img/icons/account.png'
@@ -12,8 +12,10 @@ import { useProductsContext } from "../../hooks/useProductsContext/useProductsCo
 const Login = () => {
 
     const { login, error, setError } = useAuthContext()
-    const { setPageIndex } = useProductsContext();
+    const { setPageIndex, page } = useProductsContext();
     const { validateEmailFormat } = useAuxFunctions();
+    const [previousPage, setPreviousPage] = useState();
+    const navigate =useNavigate();
 
     const [user, setUser] = useState({
         email: '',
@@ -28,7 +30,16 @@ const Login = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         const emailOk = validateEmailFormat(user.email);
-        emailOk ? await login(user.email, user.password) : (setError('Email Incorrecto...'));
+        if(emailOk){
+             if( await login(user.email, user.password)){
+                if(previousPage === 'Cart'){
+                    navigate('/cart');
+                } else {
+                    navigate('/');
+                }
+                
+             } 
+        }    
     }
 
 
@@ -37,6 +48,7 @@ const Login = () => {
     }
 
     useEffect(() => {
+        setPreviousPage(page)
         setPageIndex('login');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

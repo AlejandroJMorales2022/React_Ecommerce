@@ -1,51 +1,69 @@
-.navbar{
+.navbar {
     font-size: 1rem;
 }
-.nav-link{
+
+.nav-link {
     font-size: 1rem;
-    color:  #b8a68c !important;
+    color: #b8a68c !important;
     padding: 3px 6px 3px 6px;
-    margin-left: 10px;
+    margin-left: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-   
+
 }
-.nav-link:hover{
-    color: tomato !important;
-}
-.nav-link:focus{
-    color: #e69a30 !important
-}
-.nav-link:active{
+
+.nav-link:hover {
     color: tomato !important;
 }
 
-.navbarContainer{
+.nav-link:focus {
+    color: #e69a30 !important
+}
+
+.nav-link:active {
+    color: tomato !important;
+}
+
+.navbarContainer {
     width: 95% !important;
     height: 80px;
     background-color: #1f2124 !important;
     color: #b8a68c;
-    border-radius: 10px !important;;
-    
+    border-radius: 10px !important;
+    ;
+
 }
 
-#basic-navbar-nav{
+.navBarContainer {
+    background-color:transparent !important; 
+}
+
+#basic-navbar-nav {
     color: #b8a68c;
     border-radius: 10px !important;
+    background-color: transparent;
 }
-.navbar-toggler{
+
+.navbar-toggler {
     border: none;
-    background-color:#b8a68c;
+    background-color: #b8a68c;
 }
-.dropdown-menu{
+
+.ulContenedor {
+    z-index: 1;
+}
+
+.dropdown-menu {
     background-color: #1f2124;
 }
-.dropdown-item{
-color:#b8a68c;
-padding: 4;
+
+.dropdown-item {
+    color: #b8a68c;
+    padding: 4;
 }
-.dropdown-item:hover{
+
+.dropdown-item:hover {
     color: tomato !important;
 }
 
@@ -53,60 +71,76 @@ padding: 4;
     color: tomato !important;
 }
 
-.cartContainer{
+.cartContainer {
     /* position: relative;
     left: 50px; */
     margin-left: 20px;
 }
-.imgLogo{
+
+.imgLogo {
     position: relative;
-    left:10px;
+    left: 10px;
 }
-.imgSearchContainer, .imgUserContainer,.imgAccountContainer{
+
+.imgSearchContainer,
+.imgUserContainer,
+.imgAccountContainer,
+.imgLogoutContainer {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     background-color: rgb(199, 199, 198);
 
-   
+
 }
-.imgSearchContainer:hover, .imgUserContainer:hover, .imgAccountContainer:hover{
+
+.imgSearchContainer:hover,
+.imgUserContainer:hover,
+.imgAccountContainer:hover,
+.imgLogoutContainer:hover {
     background-color: white;
     cursor: pointer;
 
 
 }
-.navbar-nav{
+
+.navbar-nav {
     background-color: #1f2124;
     border-radius: 5px;
 }
 
 
- .dropdown-menu{
+.dropdown-menu {
     --bs-dropdown-link-hover-bg: ;
-    --bs-dropdown-link-active-bg:  background-color:red;
+    --bs-dropdown-link-active-bg: background-color:red;
     text-align: left;
-} 
-.btnPurchase, .btnPurchase:hover{
+}
+
+.btnPurchase,
+.btnPurchase:hover {
     background-color: #1f2124 !important;
 }
-.linkCart{
+
+.linkCart {
     text-decoration: none;
 }
-@media(min-width: 768px){
-    #basic-navbar-nav{
+
+@media(min-width: 768px) {
+    #basic-navbar-nav {
         display: flex !important;
         justify-content: center !important;
     }
-    
+
 }
-@media(max-width: 767px){
-    .ulContenedor{
+
+@media(max-width: 767px) {
+    .ulContenedor {
         width: 120px;
         position: relative;
-        right: -420px;
-        top: 0px;    
+        right: -190px;
+        top: 10px;
     }
+
     .dropdown-menu[data-bs-popper] {
         text-align: left;
         position: relative;
@@ -115,18 +149,55 @@ padding: 4;
         margin-top: var(--bs-dropdown-spacer);
         background-color: #323333;
     }
-    .cartContainer{
+
+    .cartContainer {
         position: relative;
         left: 20px;
     }
+    .iconsContainer {
+        display: flex;
+        justify-content:space-between !important;
+    }
+    .navbarContainer {
+        width: 100% !important;
+    }
+
 }
-@media(max-width: 576px){
-    .ulContenedor{
+
+@media(max-width: 575px) {
+    .ulContenedor {
         width: 120px;
         position: fixed;
-        right: 30px;
-        top: 70px;
+        right: 20px;
+        top: 65px;
         background-color: #1f2124;
     }
 
+    .navbarContainer {
+        width: 100% !important;
+        height: 105px;
+        padding-top: 5px !important;
+    }
+
+    .iconsContainer {
+        display: flex;
+        justify-content:space-between !important;
+        position: relative;
+        left: 20px;
+        top: -50px;
+    }
+    .cartContainer{
+        margin-left: 50px;
+    }
+    .imgSearchContainer{
+        position: relative;
+        left: 20px;
+    }
+    .colIcons{
+        margin-top: 5px;
+    }
+    .imgLogLepen{
+        height: 36px;
+    }
+   
 }

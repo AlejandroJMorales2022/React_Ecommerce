@@ -1,0 +1,35 @@
+.accountContainer {
+    min-height: 80vh;
+    width: 95%;
+}
+
+
+.menuBarContainer {
+    background-color: #e9ecef;
+}
+
+.navbarAccount{
+    position:absolute y z-index=1
+}
+
+.divOrderNumber{
+    background-color: rgb(248, 198, 198);
+}
+
+.imgViewDetailOrder:hover{
+    cursor: pointer;
+}
+
+@media(max-width: 767px) {
+    .leftContainer {
+        min-height: 5vh;
+    }
+
+}
+
+@media(max-width: 576px) {
+    .menuUlContainer {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+}

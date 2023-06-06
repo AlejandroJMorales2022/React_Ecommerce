@@ -10,7 +10,7 @@ const ItemList = ({products})=>{
     
     return(
         <>
-            <div className="listGroup row d-flex justify-content-center">
+            <div className="listGroup row d-flex justify-content-center align-items-center">
                 {products.map (prod => <Item key={prod.id} {...prod} />)}
             </div>
         </>

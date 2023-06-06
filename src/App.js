@@ -12,7 +12,6 @@ import './services/firebase/firebaseConfig'
 import { Order } from './pages/Order/Order';
 import { ProductsProvider } from './context/ProductsContext';
 import { Footer } from './components/commons/Footer/Footer';
-import { Client } from './pages/Client/Client';
 import Login from './components/AuthUser/Login';
 import Register from './components/AuthUser/Register';
 import RecoverPassword from './components/AuthUser/RecoverPass';
@@ -44,7 +43,6 @@ function App() {
                 <Route path='/item/:idProduct' element={<ItemDetailContainer />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/order' element={<Order />} />
-                <Route path='/client' element={<Client />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/recoverPass' element={<RecoverPassword />} />

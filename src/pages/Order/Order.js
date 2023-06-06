@@ -15,24 +15,21 @@ const Order = () => {
     const { lastOrder, getLastOrder, orderDoc, getOrderDocument } = useFirebase();
     const [totalPrice, setTotalPrice] = useState(0);
     const { setPageIndex } = useProductsContext();
-    const {emailAuth} = useAuthContext();
-    const {getClient} = useFirebaseClient();
-    const {client}= useClientContext
+    const { emailAuth } = useAuthContext();
+    const { getClient } = useFirebaseClient();
+    const { client } = useClientContext();
 
     useEffect(() => {
-        getClient('email',emailAuth)
+        getClient('email', emailAuth)
         getLastOrder();
         setPageIndex('Order');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(()=>{
-        console.log(client)
-    },[client])
 
     useEffect(() => {
         getOrderDocument(lastOrder)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastOrder]);
 
     useEffect(() => {
@@ -49,25 +46,22 @@ const Order = () => {
                 <div className=" container card cardOrder mt-3 text-center p-0 ">
                     {orderDoc?.order_number &&
                         <>
-                            <h4 className="container-fluid text-center mb-3 orderTitle">{`Orden de Pedido nro. ${orderDoc?.order_number}`} </h4>
+                            <h4 className="container-fluid text-center mb-3 orderTitle">{`Orden de Pedido nro. ${orderDoc?.order_number} `} <span className="IdOrder d-block">{`(Track: ${orderDoc?.id})`}</span></h4>
                             <div className="dateContainer pe-3 text-end">{`Fecha ${(orderDoc?.date.toDate().toLocaleDateString('ES'))}`}</div>
                         </>
                     }
 
                     <div className="container p-0  d-flex flex-column align-items-center pt-3 pb-5">
-                        <div className="clientCard">
-                            <div className="pb-3">
-                                <span className="cliSpan">Cliente</span><span className="cliDataSpan">{orderDoc?.buyer?.name}</span>
+
+                        <div className="clientCard row d-flex justify-content-center align-items-center p-1">
+                            <div className="col-12 ">
+                                <span className="cliSpan">Usuario</span><span className="cliDataSpan">{` ${orderDoc?.buyer?.name} `}</span>
                             </div>
-                            <div className="container row d-flex justify-content-evenly align-items-center">
-                                <div className="col-sm-6">
-                                    <span className="cliSpan">Teléfono</span><span className="cliDataSpan">{orderDoc?.buyer?.phone}</span>
-                                </div>
-                                <div className="col-sm-6">
-                                    <span className="cliSpan">E-mail</span><span className="cliDataSpan">{orderDoc?.buyer?.email}</span>
-                                </div>
+                            <div className="col-12 ">
+                                <span>{`${orderDoc?.buyer?.email}`}</span>
                             </div>
                         </div>
+
 
                     </div>
                     <div>
@@ -92,14 +86,40 @@ const Order = () => {
                                 <tr>
                                     <td></td><td></td><td></td><td className="totalPrice text-center">{`TOTAL  $${totalPrice}`}</td>
                                 </tr>
-
-
-
                             </tbody>
                         </table>
+                        <div className="container text-start p-0">
+                            <div className="dataClientContainer row d-flex justify-content-center card m-3">
+                                <div className="col-12 text-center pt-2 pb-3">
+                                    <span className="cliSpan">Datos del Cliente</span>
+                                </div>
+                                <div className="ps-5 ms-5"><span className="cliSpan">Domicilio</span></div>
+                                <div className="domicilio pb-1">
+                                    <div className="pb-1 ">
+                                        <span className="cliSpan">Calle</span><span className="cliDataSpan">{`${client?.residence?.street} `}</span><span className="cliSpan">Número</span><span>{`${client?.residence?.number}`}</span>
+                                    </div>
+                                    <div className="pb-2 ">
+                                        <span className="cliSpan">Ciudad</span><span className="cliDataSpan">{`${client?.residence?.city} `}</span><span className="cliSpan">Provincia</span><span>{`${client?.residence?.state}`}</span>
+                                    </div>
+                                </div>
+
+                                <div className="pb-2 ">
+                                    <span className="cliSpan">Teléfono</span><span className="cliDataSpan">{client?.phone}</span>
+                                </div>
+                                <div className="pb-2 ">
+                                    <span className="cliSpan">E-mail</span><span className="cliDataSpan">{client?.email}</span>
+                                </div>
+                                {client?.obs &&
+                                    <div className="pb-2 ">
+                                        <span className="cliSpan">Observaciones</span><span className="cliDataSpan">{client?.obs}</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
                     </div>
                     <div className="pt-5">
-                        <Link to='/'><button className="btn btn-secondary w-100">Cerrar Orden</button></Link>
+                        <Link to='/'><button className="btn btn-secondary w-75">Cerrar Orden</button></Link>
                     </div>
                 </div>
             </div>

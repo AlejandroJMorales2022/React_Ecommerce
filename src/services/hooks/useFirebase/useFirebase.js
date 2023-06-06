@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where,orderBy,limit } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where, orderBy, limit } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
 
@@ -8,7 +8,7 @@ import { useProductsContext } from "../../../hooks/useProductsContext/useProduct
 
 const useFirebase = () => {
 
-    const {products, setProducts, errorPromise, setErrorPromise} = useProductsContext();
+    const { products, setProducts, errorPromise, setErrorPromise } = useProductsContext();
     const [urlImage, setUrlImage] = useState('');
     const [productPorId, setProductPorId] = useState({});
     const [urlImg, setUrlImg] = useState('');
@@ -16,7 +16,8 @@ const useFirebase = () => {
     const [lastOrder, setLastOrder] = useState(0); //numero de la ultima orden generada
     const [orderId, setOrderId] = useState(''); //id autogernerado en el insert
     const [orderDoc, setOrderDoc] = useState({}); //documento de orden de pedido
-    
+    const [ordersUser, setOrdersUser] = useState([]);
+
 
 
     const getProducts = () => {
@@ -107,17 +108,17 @@ const useFirebase = () => {
         if (order.items.length > 0 && order.total > 0) {
             const db = getFirestore();
             const ordersColllection = collection(db, 'orders');
-            try{
-               const {id} = await addDoc(ordersColllection, order);
+            try {
+                const { id } = await addDoc(ordersColllection, order);
                 /* if (id) {
                         setOrderId(id);
                         setErrorPromise('');
                     } */
-                return {success: true, id}; 
-            }catch(err){
-                console.error('Error al guardar la Orden en la base de datos',err)
+                return { success: true, id };
+            } catch (err) {
+                console.error('Error al guardar la Orden en la base de datos', err)
                 /* setErrorPromise('No se pudo Guardar la orden de Pedido en la base de datos...') */
-                return {success: false, error:err}
+                return { success: false, error: err }
             }
         }
 
@@ -161,13 +162,27 @@ const useFirebase = () => {
 
     }
 
+    const getOrdersUser = async (user) => {
+        const db = getFirestore();
+        const q = query(collection(db, "orders"), where("buyer.email", "==", user), orderBy("date", "desc"), orderBy("order_number","desc"));
+
+        const snapshot = await getDocs(q);
+        if (snapshot.size === 0) {
+            setErrorPromise('No se encontraron compras para este Usuario...');
+            setOrdersUser([]);
+        } else {
+            const orders = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            setOrdersUser(orders);
+            setErrorPromise('');
+        };
+    }
 
     return {
         urlImage, getUrl, products, setProducts, getProducts, productPorId,
         getProductPorId, urlImg, getProductsByCategory,
         setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument, errorPromise, setErrorPromise
+        setOrderId, orderDoc, getOrderDocument, errorPromise, setErrorPromise, ordersUser, getOrdersUser
     }
 }
 export { useFirebase }

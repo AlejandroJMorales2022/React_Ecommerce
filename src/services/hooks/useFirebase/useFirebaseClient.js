@@ -32,7 +32,7 @@ const useFirebaseClient = () => {
         
                 
         };  
-    }
+    } 
 
     const addClient = async (client) => {
 
@@ -40,15 +40,12 @@ const useFirebaseClient = () => {
             const db = getFirestore();
             const ordersColllection = collection(db, 'clients');
             try{
-               const {id} = await addDoc(ordersColllection, client);
-                /* if (id) {
-                        setOrderId(id);
-                        setErrorPromise('');
-                    } */
+               await addDoc(ordersColllection, client);
+
                 return (true); 
             }catch(err){
-                console.error('Error al guardar la Los Datos del Cliente',err)
-                /* setErrorPromise('No se pudo Guardar la orden de Pedido en la base de datos...') */
+                console.error('Error al guardar la Los Datos del Cliente',err);
+                setErrorPromise('No se pudieron Guardar los datos del Clinte..');
                 return (false)
             }
         }

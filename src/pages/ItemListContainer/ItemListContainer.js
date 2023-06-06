@@ -31,7 +31,7 @@ const ItemListContainer = ({ greeting1, imgPresentacion }) => {
                 </section>
 
             </div>
-            <div className='container-fluid text-center mainContainer'>
+            <div className='container-fluid text-center mainContainer d-flex justify-content-center'>
                 {errorPromise !== '' ? ((<p style={{ color: 'tomato' }}>{errorPromise}</p>)) : (<ItemList products={products} />)}
 
             </div>

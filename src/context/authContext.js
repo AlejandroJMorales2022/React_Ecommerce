@@ -7,7 +7,6 @@ import {
     signOut
 } from 'firebase/auth'
 import { auth } from '../services/firebase/firebaseConfig'
-import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -19,7 +18,6 @@ const AuthProvider = ({ children }) => {
     const [emailAuth, setEmailAuth] = useState('')
 
 
-    const navigate = useNavigate();
     const [error, setError] = useState('');
 
     //Funcion para Registro de Usuario en Firebase    
@@ -47,7 +45,7 @@ const AuthProvider = ({ children }) => {
             const resp = await signInWithEmailAndPassword(auth, email, password);
             setEmailAuth(resp.user.email)
             setLogged(true);
-            navigate('/cart');
+            return (true)
         } catch (error) {
             setLogged(false);
             setEmailAuth('');
@@ -55,7 +53,9 @@ const AuthProvider = ({ children }) => {
                 setError('Error de Acceso: Password Incorrecto');
             } else if (error.message === 'Firebase: Error (auth/user-not-found).') {
                 setError('Error de Acceso: El Usuario No Existe')
-            } else {
+            } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
+                setError('Error de Acceso: Password Incorrecto')
+            }else {
                 setError(error.message)
             }
 
@@ -90,15 +90,19 @@ const AuthProvider = ({ children }) => {
     const logOut = async () => {
         try {
             await signOut(auth);
+            setLogged(false);
+            setEmailAuth('');
+            return (true);
         } catch (error) {
             console.log(error);
+            return(false);
         }
 
     }
 
     return (
 
-        <AuthContext.Provider value={{ signUp, login, logOut, resetPassword, error, setError, user, loading, logged, setLogged, emailAuth }}>
+        <AuthContext.Provider value={{ signUp, login, logOut, resetPassword, error, setError, user, loading, logged, setLogged, emailAuth, setEmailAuth, auth }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Alert from "./Alert"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext"
 import './Auth.css'
 import imgUser from '../../assets/img/icons/add-user.png'
@@ -13,9 +13,11 @@ import { useProductsContext } from "../../hooks/useProductsContext/useProductsCo
 const Register = () => {
 
     const { signUp, error, setError, login } = useAuthContext();
-    const {setPageIndex} = useProductsContext();
+    const {setPageIndex, page} = useProductsContext();
+    const navigate = useNavigate();
     const { validateEmailFormat } = useAuxFunctions();
     const { addClient } = useFirebaseClient();
+    const [previousPage, setPreviousPage] = useState();
     const [newClient, setNewClient] = useState({
         email: '',
         name: '',
@@ -58,7 +60,6 @@ const Register = () => {
         if (emailOk) {
             const formOk = validateForm();
             if (formOk) {
-
                 const resp = await signUp(user.email, user.password);
                 if (resp === true) {
                     //Cargar datos del Cliente en Client
@@ -66,7 +67,15 @@ const Register = () => {
                     if (cliOk) {
                         //Hacer Login con los datos del nuevousuario registrado
                         setError('')
-                        login(user.email, user.password)
+                        if( await login(user.email, user.password)){
+                            if(previousPage === 'Cart'){
+                                navigate('/cart');
+                            } else {
+                                navigate('/');
+                            }
+                            
+                         } 
+                        
                     } else {
                         //si registro el usuario y no pudo generar el cliente
                         setError('No se pudo registrar el Cliente, reintentando...')
@@ -107,9 +116,11 @@ const Register = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [residence])
     useEffect(() => {
+        setPreviousPage(page)
         setPageIndex('register');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
 
     return (
         <>

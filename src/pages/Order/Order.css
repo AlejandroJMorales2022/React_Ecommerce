@@ -9,7 +9,6 @@ th,td{
 }
 .orderTitle{
     background-color: rgb(248, 198, 198);
-    border-radius: 5px;
     font-size: 18px;
     padding: 2px;
 }
@@ -34,4 +33,10 @@ th,td{
 }
 .mainContainer{
     min-height: 100vh;
+}
+.IdOrder{
+    font-size: 0.9rem;
+}
+.dataClientContainer{
+    background-color: #e9ecef ;
 }
