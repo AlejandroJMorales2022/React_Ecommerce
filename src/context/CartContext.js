@@ -39,9 +39,7 @@ const CartProvider = ({children}) =>{
     }
 
     const loadLocalStorage=(user)=>{
-        console.log(user)
          const cartLocal = JSON.parse(localStorage.getItem('Cart_Lepen_'+user)) || [];
-        console.log(cartLocal)
         if (cartLocal.length>0){
           setCart(cartLocal);
         }else{

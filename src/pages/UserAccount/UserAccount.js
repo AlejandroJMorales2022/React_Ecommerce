@@ -10,6 +10,7 @@ import viewDetailImg from '../../assets/img/icons/list-search.png'
 import cartImg from '../../assets/img/icons/carrito.png'
 import { useEffect } from 'react';
 import { FormUserProfile } from '../../components/Forms/FormUserProfile/FormUserProfile';
+import { ItemOrder } from '../../components/basics/ItemOrder/ItemOrder';
 
 const UserAccount = () => {
 
@@ -113,30 +114,9 @@ const UserAccount = () => {
                                         <button className='btn btn-secondary'>Volver a Comprar <img src={cartImg} className="img-fluid m-1" alt="icono Carrito de compras" style={{ width: 26 }} data-toggle="tooltip" title="Cargar en el Carrito" /> </button>
                                     </div>
                                 </div>
-                                <table className="table table-striped ">
-                                    <thead>
-                                        <tr>
-                                            <th>PRODUCTO</th>
-                                            <th>CANT</th>
-                                            <th>PRECIO</th>
-                                            <th>TOTAL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {(orderDoc?.items) && (orderDoc.items.map(item => (
-                                            <tr key={item.id}>
-                                                <td className="tdProducto"><img src={item.img} alt={item.name} style={{ width: 50 }} />{item.name}</td>
-                                                <td >{item.quantity}</td>
-                                                <td >{`${parseFloat(item.price)}`}</td>
-                                                <td >{` $ ${parseFloat(item.price) * parseInt(item.quantity)}`}</td>
-                                            </tr>
-                                        )))}
-                                        <tr>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div>
+                                    < ItemOrder orderDoc={orderDoc} totalPrice='' />
+                                </div>
                             </div>
 
 

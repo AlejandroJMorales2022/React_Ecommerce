@@ -6,6 +6,7 @@ import { useProductsContext } from "../../hooks/useProductsContext/useProductsCo
 import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 import { useFirebaseClient } from "../../services/hooks/useFirebase/useFirebaseClient";
 import { useClientContext } from "../../hooks/useClientContext/useClientContext";
+import { ItemOrder } from "../../components/basics/ItemOrder/ItemOrder";
 
 
 
@@ -64,8 +65,9 @@ const Order = () => {
 
 
                     </div>
-                    <div>
-                        <table className="table table-striped">
+                    <div className="OrderDetailContainer">
+                        <ItemOrder orderDoc={orderDoc} totalPrice={totalPrice}/>
+                       {/*  <table className="table table-striped">
                             <thead>
                                 <tr>
                                     <th>PRODUCTO</th>
@@ -87,7 +89,7 @@ const Order = () => {
                                     <td></td><td></td><td></td><td className="totalPrice text-center">{`TOTAL  $${totalPrice}`}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> */}
                         <div className="container text-start p-0">
                             <div className="dataClientContainer row d-flex justify-content-center card m-3">
                                 <div className="col-12 text-center pt-2 pb-3">

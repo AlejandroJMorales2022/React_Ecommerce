@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useCartContext } from "../useCartContext/useCartContext";
 import { useFirebase } from "../../services/hooks/useFirebase/useFirebase";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../useAuthContext/useAuthContext";
 import { useClientContext } from "../useClientContext/useClientContext";
 
 

@@ -12,12 +12,12 @@ import { useCartContext } from "../../hooks/useCartContext/useCartContext"
 
 const Login = () => {
 
-    const { login, error, setError } = useAuthContext()
+    const { login, error, setError } = useAuthContext();
     const { setPageIndex, page } = useProductsContext();
-    const { validateEmailFormat } = useAuxFunctions();
+    const { validateEmailFormat, validatePassword } = useAuxFunctions();
     const [previousPage, setPreviousPage] = useState();
-    const { loadLocalStorage, cart} = useCartContext();
-    const navigate =useNavigate();
+    const { loadLocalStorage, cart } = useCartContext();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         email: '',
@@ -31,19 +31,20 @@ const Login = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const emailOk = validateEmailFormat(user.email);
-        if(emailOk){
-             if( await login(user.email, user.password)){
-                /* si el cart tiene items y no se logueo, NO traer el LS y reemplazarlo con el Nuevo Cart */ 
-                cart.length===0 && loadLocalStorage(user.email);
-                if(previousPage === 'Cart'){
-                    navigate('/cart');
-                } else {
-                    navigate('/');
+        if (validateEmailFormat(user.email)) {
+            if (validatePassword(user.password)) {
+                if (await login(user.email, user.password)) {
+
+                    cart.length === 0 && loadLocalStorage(user.email);/* si el cart ya tiene items y no se loggeo, NO traer el LS y dejar el conteido del Nuevo Cart, si no, cargar el carrito desde el Local Storage */
+                    if (previousPage === 'Cart') { //si se loggeo desde el carrito
+                        navigate('/cart');//vuelve al carrito
+                    } else { // si no,
+                        navigate('/');// vuelve al home
+                    }
                 }
-                
-             } 
-        }    
+            }
+
+        }
     }
 
 

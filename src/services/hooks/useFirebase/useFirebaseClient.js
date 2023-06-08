@@ -31,7 +31,7 @@ const useFirebaseClient = () => {
                     setClient(client[0]);
                 setErrorPromise('');
             } catch (err) {
-                setErrorPromise('El cliente no existe...');
+                setErrorPromise('El Usuario no existe...');
             }
 
 
@@ -45,11 +45,11 @@ const useFirebaseClient = () => {
             const ordersColllection = collection(db, 'clients');
             try {
                 await addDoc(ordersColllection, client);
-
+                setErrorPromise('');
                 return (true);
             } catch (err) {
                 console.error('Error al guardar la Los Datos del Cliente', err);
-                setErrorPromise('No se pudieron Guardar los datos del Clinte..');
+                setErrorPromise('No se pudieron Guardar los datos del Usuario..');
                 return (false)
             }
         }
@@ -61,12 +61,13 @@ const useFirebaseClient = () => {
         try {
             const querySnapshot = await getDocs(q);
             const cliente = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            const  theClient = doc(db, 'clients', cliente[0].id)
-            updateDoc(theClient, {...client, img:client.img});
+            const theClient = doc(db, 'clients', cliente[0].id)
+            updateDoc(theClient, { ...client, img: client.img });
+            setErrorPromise('');
             return (true);
 
         } catch (err) {
-            console.log('Error en el GetDocument ' + err);
+            setErrorPromise('Error: No se pudo actualizar la información del usuario...');
             return (false);
         }
 
@@ -95,16 +96,22 @@ const useFirebaseClient = () => {
             (error) => {
                 return (false);
             },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadedURL) => {
+            async () => {
+                try {
+                    const downloadedURL = await getDownloadURL(uploadTask.snapshot.ref)
                     setImgProfile(downloadedURL);
+                    setErrorPromise('');
                     return (true);
-                });
+                } catch (err) {
+                    setErrorPromise('Error: No se pudo obtener la Imagen...');
+                    console.log(err.message);
+                }
+
             }
         );
     };
 
-    return { getClient, client, setClient, addClient, updateClient, imgProfile, setImgProfile, uploadProfileImage, progressUpload}
+    return { getClient, client, setClient, addClient, updateClient, imgProfile, setImgProfile, uploadProfileImage, progressUpload }
 
 }
 export { useFirebaseClient }
