@@ -6,6 +6,7 @@ import './Auth.css'
 import imgUser from '../../assets/img/icons/account.png'
 import { useAuxFunctions } from "../../hooks/useAuxFunctions/useAuxFunctions"
 import { useProductsContext } from "../../hooks/useProductsContext/useProductsContext"
+import { useCartContext } from "../../hooks/useCartContext/useCartContext"
 
 
 
@@ -15,6 +16,7 @@ const Login = () => {
     const { setPageIndex, page } = useProductsContext();
     const { validateEmailFormat } = useAuxFunctions();
     const [previousPage, setPreviousPage] = useState();
+    const { loadLocalStorage, cart} = useCartContext();
     const navigate =useNavigate();
 
     const [user, setUser] = useState({
@@ -32,6 +34,8 @@ const Login = () => {
         const emailOk = validateEmailFormat(user.email);
         if(emailOk){
              if( await login(user.email, user.password)){
+                /* si el cart tiene items y no se logueo, NO traer el LS y reemplazarlo con el Nuevo Cart */ 
+                cart.length===0 && loadLocalStorage(user.email);
                 if(previousPage === 'Cart'){
                     navigate('/cart');
                 } else {

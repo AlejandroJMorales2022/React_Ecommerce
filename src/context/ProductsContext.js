@@ -15,13 +15,12 @@ const ProductsProvider = ({children}) =>{
 
     const setPageIndex = (pageIndex) =>{
         setPage(pageIndex)
-     
         return (page)
     }
 
 
     return(
-        <ProductsContext.Provider value={{products, setProducts,setPageIndex, page,errorPromise, setErrorPromise}}>
+        <ProductsContext.Provider value={{products, setProducts,setPageIndex,setPage, page,errorPromise, setErrorPromise}}>
                 {children}
         </ProductsContext.Provider>
     )

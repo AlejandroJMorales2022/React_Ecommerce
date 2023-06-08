@@ -13,6 +13,7 @@ const CartProvider = ({children}) =>{
     const [countItemsCart, setCountItemsCart] =useState(0);
     const [totalPrice, setTotalPrice] = useState(0); 
     const [orderGenerated, setOrderGenerated]= useState({})
+    const [cartLS, setCartLS] =useState([])
     
 
 
@@ -37,6 +38,18 @@ const CartProvider = ({children}) =>{
         return cart.some(prod => prod.id === itemId);
     }
 
+    const loadLocalStorage=(user)=>{
+        console.log(user)
+         const cartLocal = JSON.parse(localStorage.getItem('Cart_Lepen_'+user)) || [];
+        console.log(cartLocal)
+        if (cartLocal.length>0){
+          setCart(cartLocal);
+        }else{
+            setCart([]);
+        }
+        
+    }
+
     useEffect(()=>{
             countItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +67,7 @@ const CartProvider = ({children}) =>{
     }
  
     return(
-        <CartContext.Provider value={{cart, addItem, removeItem, clearCart, countItemsCart, totalPrice,orderGenerated,setOrderGenerated}}>
+        <CartContext.Provider value={{cart, addItem, removeItem, clearCart, countItemsCart, totalPrice,orderGenerated,setOrderGenerated,cartLS, setCartLS,loadLocalStorage}}>
                 {children}
         </CartContext.Provider>
     )

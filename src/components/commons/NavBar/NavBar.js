@@ -16,6 +16,7 @@ import imgUser from '../../../assets/img/icons/user.png';
 import imgAccount from '../../../assets/img/icons/account.png';
 import imgLogout from '../../../assets/img/icons/logout.png';
 import { useAuthContext } from '../../../hooks/useAuthContext/useAuthContext';
+import { useCartContext } from '../../../hooks/useCartContext/useCartContext';
 
 
 
@@ -25,7 +26,8 @@ function NavBar() {
     const [flagSearch, setFlagSearch] = useState(false);
     const { page } = useProductsContext();
     const { logged, logOut, auth, setEmailAuth } = useAuthContext();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const {clearCart}= useCartContext();
 
 
     const handleLogin = () => {
@@ -35,10 +37,11 @@ function NavBar() {
         navigate('/userAccount');
     }
     const handleLogOut = () => {
-        const logOutOk = logOut(auth)
+        const logOutOk = logOut(auth);
         if (logOutOk) {
-            setEmailAuth('')
-            navigate('/')
+            setEmailAuth('');
+            clearCart();
+            navigate('/');
         }
     }
     useEffect(() => {
@@ -59,7 +62,8 @@ function NavBar() {
                                 </div>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav">
-                                    <Nav className="ulContenedor">
+                                    
+                                        <Nav className="ulContenedor">
                                         <NavLink to={'/'} className='nav-link' onClick={() => getProducts()} >Home</NavLink>
                                         <NavDropdown title="Productos" id="basic-nav-dropdown">
                                             {/*  Traer Categorias y Mapearlas para conformar el menu */}
@@ -70,8 +74,9 @@ function NavBar() {
                                         <NavLink to={''} className='nav-link'>Ventajas</NavLink>
                                         <NavLink to={''} className='nav-link'>Contacto</NavLink>
                                     </Nav>
+                                    
+                                    
                                 </Navbar.Collapse>
-
                             </Container>
                         </Navbar>
                     </div>

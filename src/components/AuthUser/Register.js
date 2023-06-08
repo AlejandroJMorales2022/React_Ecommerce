@@ -37,7 +37,7 @@ const Register = () => {
         number: '',
         city: '',
         state: ''
-    })
+    });
 
     const [user, setUser] = useState({
         email: '',

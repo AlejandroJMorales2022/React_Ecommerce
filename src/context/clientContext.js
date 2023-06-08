@@ -6,6 +6,7 @@ const ClientContext = createContext()
 
 const ClientProvider = ({ children }) => {
 
+    const [editImg, setEditImg]=useState(false);
     const [client, setClient] = useState({
         dni: '',
         email: '',
@@ -24,7 +25,7 @@ const ClientProvider = ({ children }) => {
 
     return (
 
-        <ClientContext.Provider value={{client,setClient}}>
+        <ClientContext.Provider value={{client,setClient,editImg, setEditImg}}>
             {children}
         </ClientContext.Provider>
 

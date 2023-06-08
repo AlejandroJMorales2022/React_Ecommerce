@@ -1,3 +1,6 @@
+.userCard{
+    max-width: 600px;
+}
 .userImg{
     width: 100px;
     height: 100px;
@@ -6,4 +9,12 @@
 .imgUserProfile:hover{
     cursor: pointer;
     width: 43px !important;
+}
+.imgProfileEditIcon:hover{
+    cursor: pointer;
+    width: 25px !important;
+}
+.profileData{
+    font-size: 0.9rem;
+    padding-left: 25px;
 }

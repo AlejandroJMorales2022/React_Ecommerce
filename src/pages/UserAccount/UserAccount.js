@@ -9,6 +9,7 @@ import { User } from '../../components/basics/User/User';
 import viewDetailImg from '../../assets/img/icons/list-search.png'
 import cartImg from '../../assets/img/icons/carrito.png'
 import { useEffect } from 'react';
+import { FormUserProfile } from '../../components/Forms/FormUserProfile/FormUserProfile';
 
 const UserAccount = () => {
 
@@ -46,7 +47,7 @@ const UserAccount = () => {
         setPageIndex('userAccountPerfil');
         getClient('email', emailAuth)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []) 
+    }, [])
 
 
     return (
@@ -58,10 +59,10 @@ const UserAccount = () => {
                         <Navbar className='navBarContainer navbarAccount' expand="md">
                             <Container className='container-fluid navbarContenedor' >
                                 <Navbar.Toggle className='navbarToggleAccount' aria-controls="basic-navbar-nav" />
-                                <Navbar.Collapse id="basic-navbar-nav">
+                                <Navbar.Collapse className='userNavbarCollapse' id="basic-navbar-nav">
                                     <Nav className="">
-                                        <Nav.Link href="#" onClick={(e)=>handlePerfil(e)}>Ver Perfil</Nav.Link>
-                                        <Nav.Link href="#" onClick={(e)=>handleMisCompras(e)}>Mis Compras</Nav.Link>
+                                        <Nav.Link className='profileView' href="#" onClick={(e) => handlePerfil(e)}>Ver Perfil</Nav.Link>
+                                        <Nav.Link href="#" onClick={(e) => handleMisCompras(e)}>Mis Compras</Nav.Link>
                                     </Nav>
                                 </Navbar.Collapse>
                             </Container>
@@ -74,7 +75,8 @@ const UserAccount = () => {
 
                         {/* Visualizacion detalle de Compras Realizadas */}
                         {
-                            (ordersUser?.length === 0 && page === 'userAccountMisCompras') ? (<><div className='p-4 pt-5' style={{color:'tomato'}} >No ha registrado compras por el momento...</div></>) : ( page === 'userAccountMisCompras' && (<>
+                            (ordersUser?.length === 0 && page === 'userAccountMisCompras') ? (<><div className='p-4 pt-5' style={{ color: 'tomato' }} >No ha registrado compras por el momento...</div></>) : (page === 'userAccountMisCompras' && (<>
+
                                 <table className="table table-striped">
                                     <thead>
                                         <tr>
@@ -139,8 +141,8 @@ const UserAccount = () => {
 
 
                         </>)
-
-
+                        }
+                        {page === 'FormUserProfile' && (<FormUserProfile client={client} />)
 
                         }
                     </div>

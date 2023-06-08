@@ -13,7 +13,7 @@ const ItemListContainer = ({ greeting1, imgPresentacion }) => {
 
         getProducts();
         setPageIndex('ItemListContainer');
-
+       
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

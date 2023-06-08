@@ -1,8 +1,9 @@
-import { useContext, useState } from "react"
+import { useEffect, useState } from "react"
 import ItemCount from "../../basics/ItemCount/ItemCount"
 import "./ItemDetail.css"
 import { Link } from "react-router-dom"
-import { CartContext } from "../../../context/CartContext"
+import { useAuthContext } from "../../../hooks/useAuthContext/useAuthContext"
+import { useCartContext } from "../../../hooks/useCartContext/useCartContext"
 
 
 
@@ -11,14 +12,28 @@ import { CartContext } from "../../../context/CartContext"
 const ItemDetail = (product)=>{
 
 
-    const [quantityAdded, setQuantityAdded] = useState(0)
-    const {addItem} = useContext(CartContext)
+    const [quantityAdded, setQuantityAdded] = useState(0);
+    const {addItem, cart,cartLS, setCartLS} = useCartContext();
+    const {emailAuth}= useAuthContext();
   
     const handleOnAdd = (quantity)=> {
-        setQuantityAdded(quantity)
-        const item = { id: product.id, name: product.name, price: product.price, img: product.img}
-        addItem(item, quantity)
+        setQuantityAdded(quantity);
+        const item = { id: product.id, name: product.name, price: product.price, img: product.img};
+        addItem(item, quantity);  
     }
+
+    useEffect(()=>{
+        setCartLS(cart);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cart])
+
+    useEffect(()=>{
+        emailAuth && localStorage.setItem('Cart_Lepen_'+emailAuth,JSON.stringify(cartLS));
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cartLS])
+
+
 
     return(
             <article className='CardItemDetail card col-11 col-md-6 m-1 text-center mt-4 pt-4'>

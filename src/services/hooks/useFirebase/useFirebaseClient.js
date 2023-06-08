@@ -1,8 +1,10 @@
 
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
-
+import { addDoc, collection, doc, getDocs, getFirestore, query, updateDoc, where } from "firebase/firestore";
+import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import { storage } from "../../firebase/firebaseConfig";
 import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
 import { useClientContext } from "../../../hooks/useClientContext/useClientContext";
+import { useState } from "react";
 
 
 
@@ -11,48 +13,98 @@ import { useClientContext } from "../../../hooks/useClientContext/useClientConte
 
 const useFirebaseClient = () => {
 
-    const {client, setClient} = useClientContext();
-    const {setErrorPromise}=useProductsContext();
+    const { client, setClient } = useClientContext();
+    const { setErrorPromise } = useProductsContext();
+    const [imgProfile, setImgProfile] = useState('');
+    const [progressUpload, setProgressUpload] = useState(0);
 
-     //Traer de la collection Clients los datos del cliente segun campo especificado.
-     const getClient = async (field,data) => {
+    //Traer de la collection Clients los datos del cliente segun campo especificado.
+    const getClient = async (field, data) => {
         const db = getFirestore();
 
-        if(field==='email'){
-          const q = query(collection(db, "clients"), where("email", "==", data)) 
-        try{
-            const snapshot = await getDocs(q);
-            const client = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-            client.length === 1 &&
-            setClient(client[0]);
-            setErrorPromise('');
-        }catch(err){
+        if (field === 'email') {
+            const q = query(collection(db, "clients"), where("email", "==", data))
+            try {
+                const snapshot = await getDocs(q);
+                const client = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                client.length === 1 &&
+                    setClient(client[0]);
+                setErrorPromise('');
+            } catch (err) {
                 setErrorPromise('El cliente no existe...');
-        }
-        
-                
-        };  
-    } 
+            }
+
+
+        };
+    }
 
     const addClient = async (client) => {
 
         if (client.email) {
             const db = getFirestore();
             const ordersColllection = collection(db, 'clients');
-            try{
-               await addDoc(ordersColllection, client);
+            try {
+                await addDoc(ordersColllection, client);
 
-                return (true); 
-            }catch(err){
-                console.error('Error al guardar la Los Datos del Cliente',err);
+                return (true);
+            } catch (err) {
+                console.error('Error al guardar la Los Datos del Cliente', err);
                 setErrorPromise('No se pudieron Guardar los datos del Clinte..');
                 return (false)
             }
         }
+    }
+
+    const updateClient = async (client) => {
+        const db = getFirestore();
+        const q = query(collection(db, "clients"), where("email", "==", client.email));
+        try {
+            const querySnapshot = await getDocs(q);
+            const cliente = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+            const  theClient = doc(db, 'clients', cliente[0].id)
+            updateDoc(theClient, {...client, img:client.img});
+            return (true);
+
+        } catch (err) {
+            console.log('Error en el GetDocument ' + err);
+            return (false);
+        }
 
     }
 
-return {getClient, client, addClient}
+
+    const uploadProfileImage = async (file, storageIn) => {
+        const storageRef = ref(storage, `img_user_profile/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                setProgressUpload((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                switch (snapshot.state) {
+                    case "paused":
+                        console.log("Upload paused");
+                        break;
+                    case "running":
+                        console.log("Upload running");
+                        break;
+                    default:
+                        break;
+                }
+            },
+            (error) => {
+                return (false);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadedURL) => {
+                    setImgProfile(downloadedURL);
+                    return (true);
+                });
+            }
+        );
+    };
+
+    return { getClient, client, setClient, addClient, updateClient, imgProfile, setImgProfile, uploadProfileImage, progressUpload}
 
 }
-export {useFirebaseClient}
+export { useFirebaseClient }
