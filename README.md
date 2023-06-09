@@ -34,14 +34,14 @@ Tecnologías Utilizadas:
   Las categorías son dinámicas y de agregar más alternativas a la colección de Firestore, aparecerán automáticamente en el menú de opciones.
 
 
-  ![](../public/assets/doc_images/home.jpg)
+  ![listado de productos](../public/assets/doc_images/home.jpg)
 
   
 
 <a id=item2><a/>
 - Ver el **Detalle un Producto** seleccionado, y agregarlo al Carrito de Compras, previa selección de la cantidad deseada.
 
-  ![](../public/assets/doc_images/detalle_producto.jpg)
+  ![detalle producto](../public/assets/doc_images/detalle_producto.jpg)
 
   
 
@@ -49,7 +49,7 @@ Tecnologías Utilizadas:
 - **Barra de Búsqueda de Productos**. Se puede acceder a la misma desde el Home. Haciendo clic una vez sobre la lupa que aparece a la derecha de la barra de navegación se mostrará y un segundo clic la ocultará. La búsqueda es inmediata  la medida que se tipea dentro de la misma. Borrando lo escrito en dicha barra se vuelven a mostrar los primeros 20 productos del home. 
 
 
-  ![](../public/assets/doc_images/barra_de_busqueda.jpg)
+  ![barra de busqueda](../public/assets/doc_images/barra_de_busqueda.jpg)
 
   
   
@@ -62,7 +62,7 @@ Tecnologías Utilizadas:
   ​	Si por e contrario el Usuario tiene iniciada la sesión, se mostrara la leyenda con el nombre del usuario, y el botón para "Confirmar Compra" que navegará a la Orden de Pedido.
 
 
-  ![](../public/assets/doc_images/cart1.jpg)
+  ![carrito de compras](../public/assets/doc_images/cart1.jpg)
 
   
 
@@ -71,7 +71,7 @@ Tecnologías Utilizadas:
   Si inicia sesión luego de haber agregado productos al carrito y confirmar su compra, no se cargarán los datos anteriores, dando prioridad a su compra actual. (Los datos del carrito de  compras quedan almacenados en Local Storage).
 
 
-  ![](../public/assets/doc_images/cart.jpg)
+  ![session carrito de compras](../public/assets/doc_images/cart.jpg)
 
   
 
@@ -81,7 +81,7 @@ Tecnologías Utilizadas:
   Finalmente el botón "Cerrar Orden" termina el proceso de compra, navegando al Home.
 
 
-  ![](../public/assets/doc_images/pedido.jpg)
+  ![nota de pedido](../public/assets/doc_images/pedido.jpg)
 
   
 
@@ -91,9 +91,9 @@ Tecnologías Utilizadas:
   Si el usuario no estuviera registrado, desde Login tendrá la posibilidad de "Registrarse", o bien de recuperar su contraseña en caso de haberla olvidado.  
 
 
-  ![](../public/assets/doc_images/login.jpg)
+  ![login](../public/assets/doc_images/login.jpg)
 
-  ![](../public/assets/doc_images/registrar.jpg)
+  ![registro de usuario](../public/assets/doc_images/registrar.jpg)
 
   
 
@@ -103,10 +103,12 @@ Tecnologías Utilizadas:
 
   
 
-  ![](../public/assets/doc_images/user_perfil.jpg)
+  ![perfil de usuario](../public/assets/doc_images/user_perfil.jpg)
   
 
-  
+  ![mis compras](../public/assets/doc_images/user_compras.jpg)
+
+  ![mis compras](../public/assets/doc_images/user_compras_detalle.jpg)
 
   
 
