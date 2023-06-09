@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+#### **Proyecto de Ecommerce desarrollado por Alejandro Javier Morales** - com43190
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tecnologías Utilizadas:
 
-## Available Scripts
+- *React JS* (create_react_app) como Framework,
 
-In the project directory, you can run:
+- *React Bootstrap*, Bootstrap y *CSS* para la incorporación de estilos y maquetado,
 
-### `npm start`
+- *Firebase* y sus servicios *Firestore Database*, *Storage* y *Authentication* para almacenamiento de datos, imágenes y administración de usuarios.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  INDICE
 
-### `npm test`
+  1. [Listar Productos]()
+  2. [Detalle de Producto]()
+  3. [Barra de Búsqueda]()
+  4. [Carro de Compras]()
+  5. [Carro de Compras Persistente]()
+  6. [Orden de Pedido]()
+  7. [Autenticación de usuario]()
+  8. [Cuenta de usuario]()
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  
+  
 
-### `npm run build`
+   
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Listar** los **productos** existentes en la base de datos. 
+  En el Home trae sólo los primeros 20 encontrados. Desde el menú productos se mostrarán de acuerdo a la categoría de producto seleccionada.
+  Las categorías son dinámicas y de agregar más alternativas a la colección de Firestore, aparecerán automáticamente en el menú de opciones.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\home.jpg)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Ver el **Detalle un Producto** seleccionado, y agregarlo al Carrito de Compras, previa selección de la cantidad deseada.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\detalle_producto.jpg)
 
-## Learn More
+  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Barra de Búsqueda de Productos**. Se puede acceder a la misma desde el Home. Haciendo clic una vez sobre la lupa que aparece a la derecha de la barra de navegación se mostrará y un segundo clic la ocultará. La búsqueda es inmediata  la medida que se tipea dentro de la misma. Borrando lo escrito en dicha barra se vuelven a mostrar los primeros 20 productos del home. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\barra_de_busqueda.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  
+  
 
-### Analyzing the Bundle Size
+- **Carro de Compras**. El mismo está disponible durante toda la experiencia en la barra de navegación de la aplicación, indicando la cantidad de ítems incorporados al mismo. También se puede acceder al mismo desde el botón "ir al carrito" en el detalle del producto.
+  El Carro lista los ítems incorporados al mismo y permite las opciones de "Seguir Comprando" que navega al Home para continuar la experiencia de compra, "Borrar Carrito" o "Eliminar Producto" desde el icono a la derecha de cada ítem de la lista.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  ​	Si al mostrar en Carro de Compras el Usuario no ha iniciado sesión, aparecerá una leyenda "Por Favor ingrese sus datos para confirmar su compra..." y un botón que navegara al Login.
+  ​	Si por e contrario el Usuario tiene iniciada la sesión, se mostrara la leyenda con el nombre del usuario, y el botón para "Confirmar Compra" que navegará a la Orden de Pedido.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\cart1.jpg)
 
-### Advanced Configuration
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Carro de Compras Persistente**.  En caso que el usuario haya agregado productos al carrito de compras y  cierre la aplicación o finalice sesión sin confirmar la compra, al volver a ingresar, si inicia sesión antes de agregar productos al carrito, se recuperarán todos los ítems cargados en su experiencia anterior. 
+  Si inicia sesión luego de haber agregado productos al carrito y confirmar su compra, no se cargarán los datos anteriores, dando prioridad a su compra actual. (Los datos del carrito de  compras quedan almacenados en Local Storage).
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\cart.jpg)
 
-### `npm run build` fails to minify
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Orden de Pedido**. A la misma se llega luego de "Confirmar su Compra" desde el Carro de Compras. Esta mostrará el Número de Orden de Pedido y la identificación generada por Firestore, debajo la identificación del Usuario, el Detalle del Pedido con todos los ítems y el Precio Total correspondiente.
+  Debajo se visualizarán los datos completos del Usuario.
+  Finalmente el botón "Cerrar Orden" termina el proceso de compra, navegando al Home.
+
+
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\pedido.jpg)
+
+  
+
+- **Autenticación de Usuario**. Desde la barra de navegación, al ingresar a la aplicación se visualiza el icono de Usuario indicando que no tiene sesión iniciada. En cualquier momento de la experiencia, el Usuario, podrá hacer clic para acceder al Login correspondiente, o bien, la aplicación lo solicitará antes de confirmar la compra.
+  Iniciada la sesión, la misma estará indicada con el icono de la barra de navegación, desde el cual podrá ingresar a su Cuenta.
+  Si el usuario no estuviera registrado, desde Login tendrá la posibilidad de "Registrarse", o bien de recuperar su contraseña en caso de haberla olvidado.  
+
+
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\login.jpg)
+
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\registrar.jpg)
+
+  
+
+- **Cuenta de usuario**. Una vez iniciada sesión por el usuario, el mismo podrá acceder a su cuenta desde el incono correspondiente en la barra de navegación.
+  Una vez  en la misma, podrá ver sus *Datos de Perfil*, donde podrá agregar o editar una imagen de perfil y modificar sus datos personales. La otra opción del menú le permitirá acceder al su Historial de Compras Realizadas. Aquí se visualizará el detalle de compras resumido en fecha, número de pedido, monto total de la orden y un icono para navegar al Detalle de cada compra.
+
+  
+
+  ![](C:\Users\JAVIER MORALES\Desktop\Sitio_web\ProyectoAlejandroMorales\Curso CodeHouse ReactJS\proyecto-ecommerce\src\imagenesReadme\user_perfil.jpg)
+
+  ![image-20230609141006877](C:\Users\JAVIER MORALES\AppData\Roaming\Typora\typora-user-images\image-20230609141006877.png)
+
+  
+
+  ![image-20230609141358342](C:\Users\JAVIER MORALES\AppData\Roaming\Typora\typora-user-images\image-20230609141358342.png)
+
+  
+
+  
+
+  
+
+  [Volver]()
+
+  
+
+  
+
+  
+
+  

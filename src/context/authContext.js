@@ -5,8 +5,8 @@ import {
     onAuthStateChanged,
     sendPasswordResetEmail,
     signOut
-} from 'firebase/auth'
-import { auth } from '../services/firebase/firebaseConfig'
+} from 'firebase/auth';
+import { auth } from '../services/firebase/firebaseConfig';
 
 const AuthContext = createContext();
 
@@ -14,8 +14,8 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
-    const [logged, setLogged] = useState(false)
-    const [emailAuth, setEmailAuth] = useState('')
+    const [logged, setLogged] = useState(false);
+    const [emailAuth, setEmailAuth] = useState('');
 
 
     const [error, setError] = useState('');
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
         setError('');
         try {
             const resp = await signInWithEmailAndPassword(auth, email, password);
-            setEmailAuth(resp.user.email)
+            setEmailAuth(resp.user.email);
             setLogged(true);
             return (true)
         } catch (error) {
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
             } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
                 setError('Error de Acceso: Password Incorrecto')
             }else {
-                setError(error.message)
+                setError(error.message);
             }
 
         }
