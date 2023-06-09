@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, where, orderBy, limit } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { addDoc, collection, doc, getDoc, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
+import { db, storage } from "../../firebase/firebaseConfig";
 
 
 
@@ -22,7 +23,6 @@ const useFirebase = () => {
 
     const getProducts = () => {
 
-        const db = getFirestore();
         const collectionRef = collection(db, "products");
         const q = query(collectionRef, orderBy("name", "desc"), limit(20));
         getDocs(q)
@@ -39,8 +39,7 @@ const useFirebase = () => {
 
     //Traer Productos por Categoria
     const getProductsByCategory = async (category) => {
-        const db = getFirestore();
-        /* const q = query(collection(db, "products"), where("category", "==", category)) */
+
         const qref = query(collection(db, "products"));
         const q = query(qref, where("category", "==", category), orderBy("name", "desc"));
         const snapshot = await getDocs(q);
@@ -59,7 +58,6 @@ const useFirebase = () => {
     //Traer de la collection Products el que coincida con el Id del Item seleccionado
     const getProductPorId = async (id) => {
 
-        const db = getFirestore();
         const qref = doc(db, 'products', id);
         const result = await getDoc(qref);
         if (result.size === 0) {
@@ -73,7 +71,7 @@ const useFirebase = () => {
 
     //Traer Categorias
     const getCategories = () => {
-        const db = getFirestore();
+
         const collectioRef = collection(db, "categories");
         getDocs(collectioRef).then((querySnapshot) => {
             if (querySnapshot.size > 0) {
@@ -90,7 +88,7 @@ const useFirebase = () => {
 
     //Traer url de la imagen del producto
     const getUrl = async (img) => {
-        const storage = getStorage();
+
         await getDownloadURL(ref(storage, img))
             .then((url) => {
                 if (url) {
@@ -106,14 +104,10 @@ const useFirebase = () => {
     const setOrderDocument = async (order) => {
 
         if (order.items.length > 0 && order.total > 0) {
-            const db = getFirestore();
+
             const ordersColllection = collection(db, 'orders');
             try {
                 const { id } = await addDoc(ordersColllection, order);
-                /* if (id) {
-                        setOrderId(id);
-                        setErrorPromise('');
-                    } */
                 return { success: true, id };
             } catch (err) {
                 console.error('Error al guardar la Orden en la base de datos', err)
@@ -127,7 +121,7 @@ const useFirebase = () => {
     const getLastOrder = () => {
         let a = 0;
         //Traer orders collection, ordenar y buscar la ultima para devolver el order number
-        const db = getFirestore();
+
         const collectioRef = collection(db, "orders");
         getDocs(collectioRef).then((querySnapshot) => {
             if (querySnapshot.size > 0) {
@@ -146,7 +140,7 @@ const useFirebase = () => {
     }
 
     const getOrderDocument = async (order_number) => {
-        const db = getFirestore();
+
         const q = query(collection(db, "orders"), where("order_number", "==", order_number));
 
         const snapshot = await getDocs(q);
@@ -163,8 +157,8 @@ const useFirebase = () => {
     }
 
     const getOrdersUser = async (user) => {
-        const db = getFirestore();
-        const q = query(collection(db, "orders"), where("buyer.email", "==", user), orderBy("date", "desc"), orderBy("order_number","desc"));
+
+        const q = query(collection(db, "orders"), where("buyer.email", "==", user), orderBy("date", "desc"), orderBy("order_number", "desc"));
 
         const snapshot = await getDocs(q);
         if (snapshot.size === 0) {
@@ -179,10 +173,10 @@ const useFirebase = () => {
 
     return {
         urlImage, getUrl, products, setProducts, getProducts, productPorId,
-        getProductPorId, urlImg, getProductsByCategory,
-        setOrderDocument,
+        getProductPorId, urlImg, getProductsByCategory, setOrderDocument,
         categories, getCategories, lastOrder, getLastOrder, orderId,
-        setOrderId, orderDoc, getOrderDocument, errorPromise, setErrorPromise, ordersUser, getOrdersUser
+        setOrderId, orderDoc, getOrderDocument, errorPromise, setErrorPromise,
+        ordersUser, getOrdersUser
     }
 }
 export { useFirebase }

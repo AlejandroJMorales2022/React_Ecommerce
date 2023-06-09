@@ -155,6 +155,10 @@ const Register = () => {
                                 className="shadow border rounded py-2 px-3 text-dark w-50"
                                 autoComplete="off"
                             />
+                            <div>
+                                <span style={{fontSize:11}}>La clave debe tener 6 caracteres mínimo</span>
+                            </div>
+                            
                         </div>
                         <div className="row d-flex justify-content-center align-items-center">
                             <div className="col-12">

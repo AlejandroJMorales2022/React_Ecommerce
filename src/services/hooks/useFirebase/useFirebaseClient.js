@@ -1,7 +1,7 @@
 
-import { addDoc, collection, doc, getDocs, getFirestore, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
-import { storage } from "../../firebase/firebaseConfig";
+import { db, storage } from "../../firebase/firebaseConfig";
 import { useProductsContext } from "../../../hooks/useProductsContext/useProductsContext";
 import { useClientContext } from "../../../hooks/useClientContext/useClientContext";
 import { useState } from "react";
@@ -20,7 +20,7 @@ const useFirebaseClient = () => {
 
     //Traer de la collection Clients los datos del cliente segun campo especificado.
     const getClient = async (field, data) => {
-        const db = getFirestore();
+        
 
         if (field === 'email') {
             const q = query(collection(db, "clients"), where("email", "==", data))
@@ -41,7 +41,6 @@ const useFirebaseClient = () => {
     const addClient = async (client) => {
 
         if (client.email) {
-            const db = getFirestore();
             const ordersColllection = collection(db, 'clients');
             try {
                 await addDoc(ordersColllection, client);
@@ -56,7 +55,7 @@ const useFirebaseClient = () => {
     }
 
     const updateClient = async (client) => {
-        const db = getFirestore();
+        /* const db = getFirestore(); */
         const q = query(collection(db, "clients"), where("email", "==", client.email));
         try {
             const querySnapshot = await getDocs(q);

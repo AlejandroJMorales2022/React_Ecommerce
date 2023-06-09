@@ -49,7 +49,7 @@ useEffect(()=>{
         <div>
             
             <input type="file" onChange={(e) => handleUpload(e)} />
-            <p style={{color:'tomato'}}>{errorPromise!=='' && errorPromise}</p>
+            <p style={{color:'tomato'}}>{(errorPromise!=='' && imgProfile !== '') && errorPromise}</p>
             
         </div>)
 
