@@ -3,9 +3,9 @@
 
 Tecnologías Utilizadas:
 
-- *React JS* (create_react_app) como Framework,
+- *React JS* (create_react_app) como Framework de JavaScript,
 
-- *React Bootstrap*, Bootstrap y *CSS* para la incorporación de estilos y maquetado,
+- *React Bootstrap*, *Bootstrap* y *CSS* para la incorporación de estilos y maquetado,
 
 - *Firebase* y sus servicios *Firestore Database*, *Storage* y *Authentication* para almacenamiento de datos, imágenes y administración de usuarios.
 
@@ -99,7 +99,8 @@ Tecnologías Utilizadas:
 
 <a id=item8><a/>
 - **Cuenta de usuario**. Una vez iniciada sesión por el usuario, el mismo podrá acceder a su cuenta desde el incono correspondiente en la barra de navegación.
-  Una vez  en la misma, podrá ver sus *Datos de Perfil*, donde podrá agregar o editar una imagen de perfil y modificar sus datos personales. La otra opción del menú le permitirá acceder al su Historial de Compras Realizadas. Aquí se visualizará el detalle de compras resumido en fecha, número de pedido, monto total de la orden y un icono para navegar al Detalle de cada compra.
+Una vez  en la misma, podrá ver sus *Datos de Perfil*, donde podrá agregar o editar una imagen de perfil y modificar sus datos personales. La otra opción del menú le permitirá acceder al su Historial de Compras Realizadas. Aquí se visualizará el detalle de compras resumido en fecha, número de pedido, monto total de la orden y un icono para navegar al Detalle de cada compra.
+Haciendo click en el icono "Ver Detalle" de una compra, visualizara el detalle de la misma. En esta ventana se  mostrará el botón "Volver a Comprar", a traves del cual se cargarán los items de la compra en el carrito y navegará al mismo para poder concretarla.
 
   
 
@@ -111,6 +112,10 @@ Tecnologías Utilizadas:
   ![detalle de compra](./public/assets/doc_images/user_compras_detalle.jpg)
 
 
+
+
+
+- **Importante!**. El proyecto tiene fines exclusivamente educativos.
 
   [Volver](#volver)
 

@@ -7,15 +7,12 @@ import './ItemList.css';
 const ItemList = ({products})=>{
 
   
-    
     return(
         <>
-            <div className="listGroup row d-flex justify-content-center align-items-center">
+            <div className="listGroup row d-flex justify-content-center">
                 {products.map (prod => <Item key={prod.id} {...prod} />)}
             </div>
-        </>
-        
-        
+        </> 
     );
 
 }

@@ -61,12 +61,13 @@ const useFirebaseClient = () => {
             const querySnapshot = await getDocs(q);
             const cliente = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const theClient = doc(db, 'clients', cliente[0].id)
-            updateDoc(theClient, { ...client, img: client.img });
+            client?.img ? updateDoc(theClient, { ...client, img: client?.img }) : updateDoc(theClient,{...client});
             setErrorPromise('');
             return (true);
 
         } catch (err) {
             setErrorPromise('Error: No se pudo actualizar la información del usuario...');
+            console.log(err);
             return (false);
         }
 

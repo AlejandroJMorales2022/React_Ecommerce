@@ -13,9 +13,9 @@ import { useProductsContext } from "../../hooks/useProductsContext/useProductsCo
 const Register = () => {
 
     const { signUp, error, setError, login } = useAuthContext();
-    const {setPageIndex, page} = useProductsContext();
+    const { setPageIndex, page } = useProductsContext();
     const navigate = useNavigate();
-    const { validateEmailFormat } = useAuxFunctions();
+    const { validateEmailFormat, validateDni, validateInputTxt, validatePhone } = useAuxFunctions();
     const { addClient } = useFirebaseClient();
     const [previousPage, setPreviousPage] = useState();
     const [newClient, setNewClient] = useState({
@@ -67,15 +67,15 @@ const Register = () => {
                     if (cliOk) {
                         //Hacer Login con los datos del nuevousuario registrado
                         setError('')
-                        if( await login(user.email, user.password)){
-                            if(previousPage === 'Cart'){
+                        if (await login(user.email, user.password)) {
+                            if (previousPage === 'Cart') {
                                 navigate('/cart');
                             } else {
                                 navigate('/');
                             }
-                            
-                         } 
-                        
+
+                        }
+
                     } else {
                         //si registro el usuario y no pudo generar el cliente
                         setError('No se pudo registrar el Cliente, reintentando...')
@@ -83,23 +83,23 @@ const Register = () => {
                     }
                 }
             }
-        }else{
+        } else {
             setError('Email Incorrecto...');
         }
     }
 
     const validateForm = () => {
-
-        if (newClient.name === '') {
-            setError('el Nombre ingresado es Incorrecto');
+        if (!validateInputTxt(newClient.name, true, 6)) {
+            setError('el Nombre ingresado debe tener al menos 6 caracteres');
             return (false);
-        } else if (newClient.dni.length !== 8) {
+        } else if (!validateDni(newClient.dni, true)) {
             setError('el número de DNI es Incorrecto');
             return (false);
-        } else if (newClient.phone === '') {
-            setError('por favor Ingrese un Teléfono de contacto');
+        } else if (!validatePhone(newClient.phone, false)) {
+            setError('Ingrese un Teléfono válido, sin guiones ni espacios');
             return (false);
-        } else if (residence.street === '' || residence.number === '' || residence.city === '' || residence.state === '') {
+        } else if (!validateInputTxt(residence.street, true, 2) || (!validateInputTxt(residence.number, true, 1))
+            || (!validateInputTxt(residence.city, true, 2)) || (!validateInputTxt(residence.state, true, 2))) {
             setError('El domicilio ingresado es Incorrecto');
             return (false);
         } else {
@@ -107,6 +107,7 @@ const Register = () => {
             return (true);
         }
     }
+
     const resetError = () => {
         setError('');
     }
@@ -156,9 +157,9 @@ const Register = () => {
                                 autoComplete="off"
                             />
                             <div>
-                                <span style={{fontSize:11}}>La clave debe tener 6 caracteres mínimo</span>
+                                <span style={{ fontSize: 11 }}>La clave debe tener 6 caracteres mínimo</span>
                             </div>
-                            
+
                         </div>
                         <div className="row d-flex justify-content-center align-items-center">
                             <div className="col-12">

@@ -59,8 +59,8 @@ const Login = () => {
     }, [])
 
     return (
-        <>
-            <div className="container mainAuthContainer text-center mt-5 mb-5 card">
+        <> <div className="container-fluid mainAuthContainer">
+            <div className="container text-center mt-5 mb-5 card">
                 <div className="pt-2">
                     {error && <Alert message={error} />}
                 </div>
@@ -107,6 +107,8 @@ const Login = () => {
                 </form>
 
             </div>
+        </div>
+
         </>
 
 

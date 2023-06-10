@@ -7,6 +7,8 @@ import { useAuthContext } from "../../hooks/useAuthContext/useAuthContext";
 import { useFirebaseClient } from "../../services/hooks/useFirebase/useFirebaseClient";
 import { useClientContext } from "../../hooks/useClientContext/useClientContext";
 import { ItemOrder } from "../../components/basics/ItemOrder/ItemOrder";
+import { Loading } from "../../components/commons/Loader/Loader";
+
 
 
 
@@ -45,11 +47,14 @@ const Order = () => {
         <>
             <div className="mainContainer">
                 <div className=" container card cardOrder mt-3 text-center p-0 ">
-                    {orderDoc?.order_number &&
+                    {orderDoc?.order_number ? (
                         <>
                             <h4 className="container-fluid text-center mb-3 orderTitle">{`Orden de Pedido nro. ${orderDoc?.order_number} `} <span className="IdOrder d-block">{`(Track: ${orderDoc?.id})`}</span></h4>
                             <div className="dateContainer pe-3 text-end">{`Fecha ${(orderDoc?.date.toDate().toLocaleDateString('ES'))}`}</div>
-                        </>
+                        </>) : (<>
+                                < Loading />
+                                <p>cargando...</p>
+                                </> )
                     }
 
                     <div className="container p-0  d-flex flex-column align-items-center pt-3 pb-5">
@@ -66,30 +71,8 @@ const Order = () => {
 
                     </div>
                     <div className="OrderDetailContainer">
-                        <ItemOrder orderDoc={orderDoc} totalPrice={totalPrice}/>
-                       {/*  <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>PRODUCTO</th>
-                                    <th>CANT</th>
-                                    <th>PRECIO</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {(orderDoc?.items) && (orderDoc.items.map(item => (
-                                    <tr key={item.id}>
-                                        <td className="tdProducto"><img src={item.img} alt={item.name} style={{ width: 50 }} />{item.name}</td>
-                                        <td >{item.quantity}</td>
-                                        <td >{`${parseFloat(item.price)}`}</td>
-                                        <td >{` $ ${parseFloat(item.price) * parseInt(item.quantity)}`}</td>
-                                    </tr>
-                                )))}
-                                <tr>
-                                    <td></td><td></td><td></td><td className="totalPrice text-center">{`TOTAL  $${totalPrice}`}</td>
-                                </tr>
-                            </tbody>
-                        </table> */}
+                        <ItemOrder orderDoc={orderDoc} totalPrice={totalPrice} />
+
                         <div className="container text-start p-0">
                             <div className="dataClientContainer row d-flex justify-content-center card m-3">
                                 <div className="col-12 text-center pt-2 pb-3">

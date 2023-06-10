@@ -9,9 +9,10 @@ const User = ({ client }) => {
 
     const { editImg, setEditImg } = useClientContext();
     const { setPageIndex, page } = useProductsContext();
-    
-    
-    
+
+
+
+
     const handleEditProfile = () => {
         setPageIndex('FormUserProfile');
     }
@@ -30,8 +31,7 @@ const User = ({ client }) => {
     return (
         <div>
             {
-                (<>
-
+                <>
                     <div className="userCard card mb-5">
                         <div className="userImgContainer mt-4 mb-4">
 
@@ -61,7 +61,7 @@ const User = ({ client }) => {
                         </div>
                     </div>
 
-                </>)
+                </>
             }
         </div >
 

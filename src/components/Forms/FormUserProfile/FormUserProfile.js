@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import './FormUserProfile.css'
 import { useFirebaseClient } from '../../../services/hooks/useFirebase/useFirebaseClient';
 import { useProductsContext } from '../../../hooks/useProductsContext/useProductsContext';
+import { useAuxFunctions } from '../../../hooks/useAuxFunctions/useAuxFunctions';
 
 const FormUserProfile = () => {
 
     const { updateClient, client } = useFirebaseClient();
-    const { errorPromise, setErrorPromise,setPageIndex } = useProductsContext();
-    const {getClient}= useFirebaseClient();
+    const { errorPromise, setErrorPromise, setPageIndex } = useProductsContext();
+    const { validateDni, validateInputTxt, validatePhone } = useAuxFunctions();
+    const { getClient } = useFirebaseClient();
     const [updatedClient, setUpdatedClient] = useState(client);
     const [residence, setResidence] = useState({
         street: client.residence.street,
@@ -28,18 +30,22 @@ const FormUserProfile = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const resp = await updateClient(updatedClient);
-            if (resp) {
-                setErrorPromise('');
-                setPageIndex('userAccountPerfil')
-                getClient('email', updatedClient.email)
-            }
+        if (validateForm()) {
+            try {
+                const resp = await updateClient(updatedClient);
+                if (resp) {
+                    setErrorPromise('');
+                    setPageIndex('userAccountPerfil')
+                    getClient('email', updatedClient.email)
+                }
 
-        } catch (err) {
-            console.log(err);
-            setErrorPromise('No se pudieron actualizar los Datos...')
+            } catch (err) {
+                console.log(err);
+                setErrorPromise('No se pudieron actualizar los Datos...')
+            }
         }
+
+
     }
 
     const setDataForm = () => {
@@ -53,6 +59,27 @@ const FormUserProfile = () => {
         document.getElementById('obs').value = client.obs;
     }
 
+
+    const validateForm = () => {
+        if (!validateInputTxt(updatedClient.name, true, 6)) {
+            setErrorPromise('el Nombre ingresado debe tener al menos 6 caracteres');
+            return (false);
+        } else if (!validateDni(updatedClient.dni, true)) {
+            setErrorPromise('el número de DNI es Incorrecto');
+            return (false);
+        } else if (!validatePhone(updatedClient.phone, false)) {
+            setErrorPromise('Ingrese un Teléfono válido, sin guiones ni espacios');
+            return (false);
+        } else if (!validateInputTxt(residence.street, true, 2) || (!validateInputTxt(residence.number, true, 1))
+            || (!validateInputTxt(residence.city, true, 2)) || (!validateInputTxt(residence.state, true, 2))) {
+            setErrorPromise('El domicilio ingresado es Incorrecto');
+            return (false);
+        } else {
+            setErrorPromise('');
+            return (true);
+        }
+    }
+
     useEffect(() => {
         setUpdatedClient({ ...updatedClient, residence: residence })
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,13 +87,13 @@ const FormUserProfile = () => {
 
     useEffect(() => {
         setDataForm();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
         <div className='UserEditProfileContainer'>
             <h5 className='pt-2 pb-3'>Edición de Perfil de Usuario</h5>
-            {errorPromise!=='' && <p className='pt-2 pb-2' style={{color:'tomato'}}>{errorPromise}</p> }
+            {errorPromise !== '' && <p className='pt-2 pb-2' style={{ color: 'tomato' }}>{errorPromise}</p>}
             <form className="bg-white rounded mb-4" onSubmit={handleOnSubmit}>
                 <div className="row d-flex justify-content-center align-items-center">
                     <div className="col-12">

@@ -1,5 +1,5 @@
 .mainAuthContainer{
-    min-height: 60%;
+    min-height: 70vh !important;
     max-width: 50%;
 }
 .link{
@@ -12,7 +12,7 @@
 
 @media(max-width: 768px){
     .mainAuthContainer{
-        min-height: 60%;
+        min-height: 60vh;
        max-width: 95%;
     }
 }

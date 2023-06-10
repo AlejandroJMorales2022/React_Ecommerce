@@ -1,22 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../../components/containers/ItemList/ItemList';
 import { useFirebase } from '../../services/hooks/useFirebase/useFirebase';
 import { useProductsContext } from '../../hooks/useProductsContext/useProductsContext';
+import { Loading } from '../../components/commons/Loader/Loader';
 
 const ItemListContainer = ({ greeting1, imgPresentacion }) => {
 
     const { products, getProducts, errorPromise } = useFirebase();
     const { setPageIndex } = useProductsContext();
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-
         getProducts();
         setPageIndex('ItemListContainer');
-       
+        setLoading(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        products && setLoading(false);
+    }, [products])
 
     return (
         <>
@@ -28,6 +32,12 @@ const ItemListContainer = ({ greeting1, imgPresentacion }) => {
                     <div className='col-sm-8 col-md-4 d-flex  justify-content-center align-items-center'>
                         <img src={imgPresentacion} className='imgPreserntacion img-fluid' alt='Imagen de Presentacion' />
                     </div>
+                    {loading && (<>
+                        <div className='container d-flex flex-column justify-content-center align-items-center'>
+                            < Loading />
+                            <p>cargando...</p>
+                        </div>
+                    </>)}
                 </section>
 
             </div>

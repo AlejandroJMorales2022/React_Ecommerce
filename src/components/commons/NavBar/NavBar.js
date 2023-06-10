@@ -71,8 +71,6 @@ function NavBar() {
                                                 <NavLink key={cat.key} to={`/category/${cat.name}`} className='nav-link dropdown-item'>{cat.name}</NavLink>
                                             ))}
                                         </NavDropdown>
-                                        <NavLink to={''} className='nav-link'>Ventajas</NavLink>
-                                        <NavLink to={''} className='nav-link'>Contacto</NavLink>
                                     </Nav>
                                     
                                     
