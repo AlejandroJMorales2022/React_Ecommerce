@@ -20,7 +20,7 @@
 /* .cartDeleteIcon{
     background-color: rgb(151, 147, 147);
 } */
-.cartDeleteIcon:hover{
+.cartDeleteIcon:hover, .arrowDownIcon:hover{
     cursor: pointer;
 }
 .mainItemsContainer{

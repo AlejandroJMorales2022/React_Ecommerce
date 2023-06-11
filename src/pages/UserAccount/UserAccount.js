@@ -23,7 +23,7 @@ const UserAccount = () => {
     const { getOrdersUser, ordersUser, getOrderDocument, orderDoc } = useFirebase();
     const { setPageIndex, page, errorPromise } = useProductsContext();
     const [loading, setLoading] = useState(false);
-    const { cart, setCart } = useCartContext();
+    const { cart, setCart, isInCart } = useCartContext();
 
     const navigate = useNavigate();
 
@@ -58,16 +58,15 @@ const UserAccount = () => {
             orderDoc.items.forEach(item => {
                 setCart(prev => [...prev, { id: item.id, name: item.name, img: item.img, price: item.price, quantity: item.quantity }]);
             });
-        }else{
-            let idItem = cart.length
+        } else {
+            //con CADA ITEM de la Orden volver a recorrer el cart: producto ya existe: No Cargarlo, 
+            //si no existe: Cargarlo
             orderDoc.items.forEach(item => {
-                setCart(prev => [...prev, { id: idItem.id, name: item.name, img: item.img, price: item.price, quantity: item.quantity }]);
-                idItem++
+                if (!isInCart(item.id)) {
+                    setCart(prev => [...prev, { id: item.id, name: item.name, img: item.img, price: item.price, quantity: item.quantity }]);
+                }
             });
         }
-
-
-
         navigate('/cart');
     }
 
@@ -102,70 +101,71 @@ const UserAccount = () => {
                             </Container>
                         </Navbar>
                     </div>
-                    {loading && (<>
+                    {loading ? (<>
                         <div className='col-11'>
                             < Loading />
                             <p>cargando...</p>
                         </div>
-                    </>)}
-                    <div className='col-12 text-center pb-3 font-bold'> <span className='pe-1'><b>Usuario:</b></span>{emailAuth}</div>
-                    <div className='col-11 bodyAccountContainer text-center d-flex justify-content-center'>
+                    </>) : (<>
+                        <div className='col-12 text-center pb-3 font-bold'> <span className='pe-1'><b>Usuario:</b></span>{emailAuth}</div>
+                        <div className='col-11 bodyAccountContainer text-center d-flex justify-content-center'>
 
-                        {/* Visualizacion del Perfil de Usuario */}
-                        {(client?.email && page === 'userAccountPerfil') && <User client={client} />}
+                            {/* Visualizacion del Perfil de Usuario */}
+                            {(client?.email && page === 'userAccountPerfil') && <User client={client} />}
 
-                        {/* Visualizacion detalle de Compras Realizadas */}
-                        {
+                            {/* Visualizacion detalle de Compras Realizadas */}
+                            {
 
-                            (ordersUser?.length === 0 && page === 'userAccountMisCompras' && errorPromise !== '')
-                                ? (<><div className='p-4 pt-5' style={{ color: 'tomato' }} >{errorPromise}</div></>)
-                                : (page === 'userAccountMisCompras' && (<>
+                                (ordersUser?.length === 0 && page === 'userAccountMisCompras' && errorPromise !== '')
+                                    ? (<><div className='p-4 pt-5' style={{ color: 'tomato' }} >{errorPromise}</div></>)
+                                    : (page === 'userAccountMisCompras' && (<>
 
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>FECHA</th>
-                                                <th>NRO. DE ORDEN</th>
-                                                <th> MONTO TOTAL</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {ordersUser?.map(order => (
-                                                <tr key={order.id}>
-                                                    <td>{`${(order?.date.toDate().toLocaleDateString('ES'))}`} </td>
-                                                    <td>{order?.order_number}</td>
-                                                    <td>{`$${order?.total}`}</td>
-                                                    <td><img onClick={(e) => handleViewOrderDetail(order?.order_number, e)} src={viewDetailImg} className="img-fluid imgViewDetailOrder" alt="icono ver detalle" style={{ width: 26 }} data-toggle="tooltip" title="Ver Detalle" /></td>
+                                        <table className="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>FECHA</th>
+                                                    <th>NRO. DE ORDEN</th>
+                                                    <th> MONTO TOTAL</th>
+                                                    <th></th>
                                                 </tr>
-                                            ))}
+                                            </thead>
+                                            <tbody>
+                                                {ordersUser?.map(order => (
+                                                    <tr key={order.id}>
+                                                        <td>{`${(order?.date.toDate().toLocaleDateString('ES'))}`} </td>
+                                                        <td>{order?.order_number}</td>
+                                                        <td>{`$${order?.total}`}</td>
+                                                        <td><img onClick={(e) => handleViewOrderDetail(order?.order_number, e)} src={viewDetailImg} className="img-fluid imgViewDetailOrder" alt="icono ver detalle" style={{ width: 26 }} data-toggle="tooltip" title="Ver Detalle" /></td>
+                                                    </tr>
+                                                ))}
 
 
-                                        </tbody>
-                                    </table>
-                                </>))
-                        }
-                        {/* Visualizacion del detalle de Orden de Compra Seleccioneda */}
-                        {page === 'UserOrderDetail' && (<>
-                            <div className='row tableOrderDetailContainer d-flex justify-content-center '>
-                                <div className='headerOrderDetail row d-flex justify-content-center align-items-center col-10 pb-3' >
-                                    <div className='col-5 divOrderNumber rounded'>Orden de pedido No.{orderDoc?.order_number}</div>
-                                    <div className='col-5'>
-                                        <button onClick={handleRepurchase} className='btn btn-secondary'>Volver a Comprar <img src={cartImg} className="img-fluid m-1" alt="icono Carrito de compras" style={{ width: 26 }} data-toggle="tooltip" title="Cargar en el Carrito" /> </button>
+                                            </tbody>
+                                        </table>
+                                    </>))
+                            }
+                            {/* Visualizacion del detalle de Orden de Compra Seleccioneda */}
+                            {page === 'UserOrderDetail' && (<>
+                                <div className='row tableOrderDetailContainer d-flex justify-content-center '>
+                                    <div className='headerOrderDetail row d-flex justify-content-center align-items-center col-10 pb-3' >
+                                        <div className='col-5 divOrderNumber rounded'>Orden de pedido No.{orderDoc?.order_number}</div>
+                                        <div className='col-5'>
+                                            <button onClick={handleRepurchase} className='btn btn-secondary'>Volver a Comprar <img src={cartImg} className="img-fluid m-1" alt="icono Carrito de compras" style={{ width: 26 }} data-toggle="tooltip" title="Cargar en el Carrito" /> </button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        < ItemOrder orderDoc={orderDoc} totalPrice='' />
                                     </div>
                                 </div>
-                                <div>
-                                    < ItemOrder orderDoc={orderDoc} totalPrice='' />
-                                </div>
-                            </div>
 
 
-                        </>)
-                        }
-                        {page === 'FormUserProfile' && (<FormUserProfile client={client} />)
+                            </>)
+                            }
+                            {page === 'FormUserProfile' && (<FormUserProfile client={client} />)
 
-                        }
-                    </div>
+                            }
+                        </div>
+                    </>)}
                 </div>
             </div>
         </>

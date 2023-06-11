@@ -98,7 +98,6 @@ const useFirebase = () => {
     }
 
     const setOrderDocument = async (order) => {
-
         if (order.items.length > 0 && order.total > 0) {
             const ordersColllection = collection(db, 'orders');
             try {

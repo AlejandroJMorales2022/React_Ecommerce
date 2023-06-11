@@ -15,7 +15,6 @@ import { Loading } from "../../components/commons/Loader/Loader"
 
 
 
-
 const Cart = () => {
 
     const { cart, totalPrice, removeItem, clearCart } = useCartContext(CartContext);
@@ -31,7 +30,12 @@ const Cart = () => {
 
     const handleOrderConfirm = async () => {
 
-        logged && emailAuth !== '' ? (addNewOrder()) : (navigate('/login'));
+        if (logged && emailAuth !== '') {
+            localStorage.setItem('Cart_Lepen_'+emailAuth,JSON.stringify([]));
+            addNewOrder()
+        } else {
+            navigate('/login')
+        }
 
     }
 
@@ -79,11 +83,18 @@ const Cart = () => {
                     {cart.map(item => (
                         <div key={item.id} className="row cartRowItem d-flex justify-content-evenly align-items-center pt-2">
 
-                            <div className="col-12 col-md-8"><img src={item.img} alt={item.name} style={{ width: 50 }} />{item.name} </div>
+                            <div className="col-12 col-md-8">
+                                <img src={item.img} alt={item.name} style={{ width: 50 }} />{item.name}
+                            </div>
                             <div className="col-3 col-md-1 p-0 m-0 text-end">{` $ ${item.price}`}</div>
-                            <div className="col-3 col-md-1 text-center">{item.quantity}</div>
+                            <div className="col-3 col-md-1 text-center">
+                                <span className="border rounded px-2 py-1" id={`qty${item.id}`} name={`qty${item.id}`}  >
+                                    {item.quantity}
+                                </span> </div>
                             <div className="col-3 col-md-1 p-0 m-0 text-end">{` $ ${parseFloat(item.price) * parseInt(item.quantity)}`}</div>
-                            <div className="col-2 col-md-1 text-end"><img onClick={() => removeItem(item.id)} src={delete_icon} className="img-fluid cartDeleteIcon" alt="icono_borrar" style={{ width: 16 }} data-toggle="tooltip" title="Eliminar Producto" /></div>
+                            <div className="col-2 col-md-1 text-end">
+                                <img onClick={() => removeItem(item.id)} src={delete_icon} className="img-fluid cartDeleteIcon" alt="icono_borrar" style={{ width: 16 }} data-toggle="tooltip" title="Eliminar Producto" />
+                            </div>
                         </div>
                     ))}
                 </div>
