@@ -21,6 +21,7 @@ Tecnologías Utilizadas:
   6. [Orden de Pedido](#item6)
   7. [Autenticación de usuario](#item7)
   8. [Cuenta de usuario](#item8)
+  9. [Variable de Entorno] (#item9)
 
   
   
@@ -114,8 +115,29 @@ Haciendo click en el icono "Ver Detalle" de una compra, visualizara el detalle d
 
 
 
+<a id=item9><a/>
+### Variables de Entorno
+
+apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+storageBucket: process.env.REACT_APP_FIREBASE_PROJECTID_STORAGE_BUCKET,
+messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+appId: process.env.REACT_APP_FIREBASE_APP_ID
+
+REACT_APP_FIREBASE_APIKEY=AIzaSyBQhrP7cb2w_qbYb5RxGm_prVeFQqyurpU
+REACT_APP_FIREBASE_AUTHDOMAIN=ecommerce-coder-ea8b3.firebaseapp.com
+REACT_APP_FIREBASE_PROJECTID=ecommerce-coder-ea8b3
+REACT_APP_FIREBASE_PROJECTID_STORAGE_BUCKET=ecommerce-coder-ea8b3.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=641905754485
+REACT_APP_FIREBASE_APP_ID=1:641905754485:web:2690dfe538410b91e0533c
+
+
+
 
 - **Importante!**. El proyecto tiene fines exclusivamente educativos.
+
+
 
   [Volver](#volver)
 
