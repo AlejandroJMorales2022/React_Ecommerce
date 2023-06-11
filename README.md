@@ -21,7 +21,7 @@ Tecnologías Utilizadas:
   6. [Orden de Pedido](#item6)
   7. [Autenticación de usuario](#item7)
   8. [Cuenta de usuario](#item8)
-  9. [Variable de Entorno] (#item9)
+  9. [Variables de Entorno](#item9)
 
   
   
